@@ -65,37 +65,37 @@
         /**
          * Calculo para saber que tan diferente es un objeto de otro
          * 
-         * @param  Alumno $alumnoObj [Objeto con el que se comparara]
-         * @return [float]           [Disimilitud entre los dos objetos]
+         * @param  Alumno $obj [Objeto con el que se comparara]
+         * @return [float]     [Disimilitud entre los dos objetos]
          */
-        public function disimilitud($alumnoObj = new Alumno())
+        public function disimilitud($obj = new Alumno())
         {
             $disimilitud = 0;
             $numerador   = 0;
             $denominador = 0;
 
-            if ($alumnoObj->getNombres() != $this->getNombres())
+            if ($obj->getNombres() != $this->getNombres())
             {
                 $numerador += 1;
             }
             
             $denominador += 1;
             
-            if ($alumnoObj->getApellidoMaterno() != $this->getApellidoMaterno())
+            if ($obj->getApellidoMaterno() != $this->getApellidoMaterno())
             {
                 $numerador += 1;
             }
 
             $denominador += 1;
 
-            if ($alumnoObj->getApellidoPaterno() != $this->getApellidoPaterno())
+            if ($obj->getApellidoPaterno() != $this->getApellidoPaterno())
             {
                 $numerador += 1;
             }
 
             $denominador += 1;
 
-            $disimilitud = $numerador/$denominador;
+            $disimilitud = (float)($numerador/$denominador);
             return $disimilitud;
         }
 

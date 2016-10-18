@@ -17,6 +17,70 @@
 		}
     
         /**
+         * Retorna un Array del Objeto
+         * 
+         * @return [array] [Array Asociativo Resultante]
+         */
+        public function toArray()
+        {
+            $array = array();
+
+            if ($this !== null)
+            {
+                $array["id"]     = $this->getId();
+                $array["nombre"] = $this->getNombre();
+                $array["ciclo"]  = $this->getCiclo();
+            }
+
+            return $array;
+        }
+
+        /**
+         * Toma los datos de un Array para el Objeto
+         * 
+         * @param  array  $array [Array Entrante]
+         */
+        public function fromArray($array = array())
+        {
+            if (empty($array))
+            {
+                $this->setId($array["id"]);
+                $this->setNombre($array["nombre"]);
+                $this->setCiclo($array["ciclo"]);
+            }
+        }
+
+        /**
+         * Calculo para saber que tan diferente es un objeto de otro
+         * 
+         * @param  Curso    $obj [Objeto con el que se comparara]
+         * @return [float]       [Disimilitud entre los dos objetos]
+         */
+        public function disimilitud($obj = new Curso())
+        {
+            $disimilitud = 0;
+            $numerador   = 0;
+            $denominador = 0;
+
+            if ($obj->getNombre() != $this->getNombre())
+            {
+                $numerador += 1;
+            }
+            
+            $denominador += 1;
+            
+            if ($obj->getCiclo() != $this->getCiclo())
+            {
+                $numerador += 1;
+            }
+
+            $denominador += 1;
+
+            $disimilitud = (float)($numerador/$denominador);
+            return $disimilitud;
+        }
+
+        /**
          * Gets the value of id.
          *
          * @return mixed
