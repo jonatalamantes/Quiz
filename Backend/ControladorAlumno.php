@@ -7,10 +7,7 @@
     */
     class ControladorAlumno
     {
-        function __construct(argument)
-        {
-            # code...
-        }
+
     }
 
 

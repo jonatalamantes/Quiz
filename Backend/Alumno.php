@@ -9,17 +9,96 @@
 		private $nombres;
 		private $apellidoMaterno;
 		private $apellidoPaterno;
-		private $idCurso;
 
-		function __construct($i = 0, $n = "", $ap = "", $am = "", $c = 0)
-		{
-			$this->id              = $i;
-			$this->nombres         = $n;
-			$this->apellidoPaterno = $ap;
-			$this->apellidoMaterno = $am;
-			$this->idCurso         = $c;
-		}
-    
+        /**
+         * Constructor de la Clase
+         * 
+         * @param integer $i  [id]
+         * @param string  $n  [nombres]
+         * @param string  $ap [apellidoPaterno]
+         * @param string  $am [apellidoMaterno]
+         */
+        function __construct($i = 0, $n = "", $ap = "", $am = "")
+        {
+            $this->id              = $i;
+            $this->nombres         = $n;
+            $this->apellidoPaterno = $ap;
+            $this->apellidoMaterno = $am;
+        }
+        
+        /**
+         * Retorna un Array del Objeto
+         * 
+         * @return [array] [Array Asociativo Resultante]
+         */
+        public function toArray()
+        {
+            $array = array();
+
+            if ($this !== null)
+            {
+                $array["id"]              = $this->getId();
+                $array["nombres"]         = $this->getNombres();
+                $array["apellidoPaterno"] = $this->getApellidoPaterno();
+                $array["apellidoMaterno"] = $this->getApellidoMaterno();
+            }
+
+            return $array;
+        }
+
+        /**
+         * Toma los datos de un Array para el Objeto
+         * 
+         * @param  array  $array [Array Entrante]
+         */
+        public function fromArray($array = array())
+        {
+            if (empty($array))
+            {
+                $this->setId($array["id"]);
+                $this->setNombres($array["nombres"]);
+                $this->setApellidoPaterno($array["apellidoPaterno"]);
+                $this->setApellidoMaterno($array["apellidoMaterno"]);
+            }
+        }
+
+        /**
+         * Calculo para saber que tan diferente es un objeto de otro
+         * 
+         * @param  Alumno $alumnoObj [Objeto con el que se comparara]
+         * @return [float]           [Disimilitud entre los dos objetos]
+         */
+        public function disimilitud($alumnoObj = new Alumno())
+        {
+            $disimilitud = 0;
+            $numerador   = 0;
+            $denominador = 0;
+
+            if ($alumnoObj->getNombres() != $this->getNombres())
+            {
+                $numerador += 1;
+            }
+            
+            $denominador += 1;
+            
+            if ($alumnoObj->getApellidoMaterno() != $this->getApellidoMaterno())
+            {
+                $numerador += 1;
+            }
+
+            $denominador += 1;
+
+            if ($alumnoObj->getApellidoPaterno() != $this->getApellidoPaterno())
+            {
+                $numerador += 1;
+            }
+
+            $denominador += 1;
+
+            $disimilitud = $numerador/$denominador;
+            return $disimilitud;
+        }
+
         /**
          * Gets the value of id.
          *
