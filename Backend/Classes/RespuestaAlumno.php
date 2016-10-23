@@ -5,41 +5,15 @@
 	*/
 	class RespuetaAlumno
 	{
-		private $id;
         private $idAlumno;
         private $idRelacionOpcionPregunta;
 
 		function __construct($i = 0, $a = "", $r = "")
 		{
-			$this->id                       = $i;
             $this->idAlumno                 = $a;
             $this->idRelacionOpcionPregunta = $r;
 		}
                 
-        /**
-         * Gets the value of id.
-         *
-         * @return mixed
-         */
-        public function getId()
-        {
-            return $this->id;
-        }
-
-        /**
-         * Sets the value of id.
-         *
-         * @param mixed $id the id
-         *
-         * @return self
-         */
-        public function setId($id)
-        {
-            $this->id = $id;
-
-            return $this;
-        }
-
         /**
          * Gets the value of idAlumno.
          *

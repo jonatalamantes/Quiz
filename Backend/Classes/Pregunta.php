@@ -60,8 +60,13 @@
          * @param  Pregunta    $obj [Objeto con el que se comparara]
          * @return [float]        [Disimilitud entre los dos objetos]
          */
-        public function disimilitud($obj = new Pregunta())
+        public function disimilitud($obj = null)
         {
+            if ($obj === null)
+            {
+                return -1;
+            }
+
             $disimilitud = 0;
             $numerador   = 0;
             $denominador = 0;

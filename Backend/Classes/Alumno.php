@@ -66,7 +66,7 @@
                 $this->setApellidoPaterno($array["apellidoPaterno"]);
                 $this->setApellidoMaterno($array["apellidoMaterno"]);
                 $this->setActivo($array["activo"]);
-                $this->setFechaRegistro($array["fechaRegistro"]);                                                
+                $this->setFechaRegistro($array["fechaRegistro"]);                                               
             }
         }
 
@@ -76,8 +76,13 @@
          * @param  Alumno $obj [Objeto con el que se comparara]
          * @return [float]     [Disimilitud entre los dos objetos]
          */
-        public function disimilitud($obj = new Alumno())
+        public function disimilitud($obj = null)
         {
+            if ($obj === null)
+            {
+                return -1;
+            }
+
             $disimilitud = 0;
             $numerador   = 0;
             $denominador = 0;

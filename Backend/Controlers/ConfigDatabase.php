@@ -10,6 +10,7 @@
     define('TABLE_CUSTIONARIO',            'Custionario');    
     define('TABLE_PREGUNTA',               'Pregunta');
     define('TABLE_REL_OPCION_PREGUNTA',    'relacionOpcionPregunta');
+    define('TABLE_REL_ALUMNO_CURSO',       'relacionAlumnoCurso');
     define('TABLE_REL_CUESTIONARIO_CURSO', 'relacionCustionarioCurso');
     define('TABLE_RESPUESTA_ALUMNO',       'RespuetaAlumno');
     define('TABLE_OPCION',                 'Opcion');

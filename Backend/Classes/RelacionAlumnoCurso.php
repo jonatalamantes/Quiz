@@ -5,41 +5,15 @@
     */
     class RelacionAlumnoCurso
     {
-        private $id;
         private $idAlumno;
         private $idCurso;
 
         function __construct($i = 0, $o = "", $r = "")
         {
-            $this->id       = $i;
             $this->idAlumno = $o;
             $this->idCurso  = $r;
         }
-                
-        /**
-         * Gets the value of id.
-         *
-         * @return mixed
-         */
-        public function getId()
-        {
-            return $this->id;
-        }
-
-        /**
-         * Sets the value of id.
-         *
-         * @param mixed $id the id
-         *
-         * @return self
-         */
-        public function setId($id)
-        {
-            $this->id = $id;
-
-            return $this;
-        }
-
+        
         /**
          * Gets the value of idAlumno.
          *

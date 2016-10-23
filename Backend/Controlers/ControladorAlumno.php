@@ -1,6 +1,6 @@
 <?php 
     
-    require_once("Alumno.php");
+    require_once(__DIR__."/../Classes/Alumno.php");
     require_once("DatabaseManager.php");
 
     /**
@@ -18,12 +18,9 @@
          * @param  string   $value        Value of the key
          * @return Alumno  $alumno_simple  Alumno result or null
          */
-        static function getSingle($key  = 'id', $value = '',
-                                  $key2 = 'id', $value2 = '',
-                                  $key3 = 'id', $value3 = '',
-                                  $key4 = 'id', $value4 = '')
+        static function getSingle($keysValues = array())
         {
-            if ($value === '')
+            if (!is_array($keysValues) || !empty($keysValues))
             {
                 return null;
             }
@@ -32,27 +29,20 @@
 
             $query     = "SELECT $tableAlumno.* 
                           FROM $tableAlumno
-                          WHERE $tableAlumno.$key = '$value'";
+                          WHERE ";
 
-            if ($value2 !== "")
+            foreach ($keysValues as $key => $value) 
             {
-                $query = $query . " AND $tableAlumno.$key2 = '$value2'";
+                $query .= "$tableAlumno.$key = $value AND";
             }
 
-            if ($value3 !== "")
-            {
-                $query = $query . " AND $tableAlumno.$key3 = '$value3'";
-            }
+            $query = substr($query, 0, strlen($query)-4);
 
-            if ($value4 !== "")
-            {
-                $query = $query . " AND $tableAlumno.$key4 = '$value4'";
-            }
+            $alumno_simple = DatabaseManager::singleFetchAssoc($query);
+            $alumnoA       = new Alumno();
+            $alumnoA->fromArray($alumno_simple);
 
-            $alumno_simple      = DatabaseManager::singleFetchAssoc($query);
-            $alumno_simple      = self::ArrayToAlumno($alumno_simple);
-
-            return $alumno_simple;
+            return $alumnoA;
         }
 
         /**
@@ -69,6 +59,7 @@
 
             $query     = "SELECT $tableAlumno.*
                           FROM $tableAlumno
+                          WHERE $tableAlumno.activo = 'S'
                           ORDER BY ";
 
             if ($order == 'nombres')
@@ -130,9 +121,11 @@
                 return false;
             }
 
-            $singleAlumno = self::getSingle('nombres',         $alumno->getNombres(),
-                                            'apellidoPaterno', $alumno->getApellidoPaterno(),
-                                            'apellidoMaterno', $alumno->getApellidoMaterno());
+            $opciones = array('nombres'          => $alumno->getNombres(), 
+                              'apellidoPaterno'  => $alumno->getApellidoPaterno(),
+                              'apellidoMaterno'  => $alumno->getApellidoMaterno());
+
+            $singleAlumno = self::getSingle($opciones);
 
             if ($singleAlumno->disimilitud($alumno) == 1)
             {
@@ -176,9 +169,9 @@
                 return false;
             }
 
-            $singleAlumno = self::getSingle('nombres',         $alumno->getNombres(),
-                                            'apellidoPaterno', $alumno->getApellidoPaterno(),
-                                            'apellidoMaterno', $alumno->getApellidoMaterno());
+            $opciones = array('id' => $alumno->getId());
+
+            $singleAlumno = self::getSingle($opciones);
 
             if ($singleAlumno->disimilitud($alumno) > 0)
             {
@@ -192,7 +185,7 @@
                 $query     = "UPDATE $tableAlumno 
                               SET nombres         = '$nombres', 
                                   apellidoPaterno = '$apellidoPaterno', 
-                                  apellidoMaterno = '$apellidoMaterno', 
+                                  apellidoMaterno = '$apellidoMaterno' 
                              WHERE $tableAlumno.id = '$id'";
 
                 if (DatabaseManager::singleAffectedRow($query) === true)
@@ -234,6 +227,145 @@
                 return DatabaseManager::singleAffectedRow($query);
             }
         }
-    }
-    
+
+        /**
+         * Search one bitacoraSI by one similar name
+         * 
+         * @author Jonathan Sandoval <jonathan.sandoval@jalisco.gob.mx>
+         * @param  string         $string       Necesary string to search
+         * @param  string         $order        The type of sort of the BitacoraSI
+         * @param  integer        $begin        The number of page to display the registry
+         * @return Array[BitacoraSI] $bitacoraSIs     BitacoraSI objects with the similar name or null
+         */
+        static function simpleSearch($string = '', $order = "id", $begin = 0, $cantidad = 10)
+        {
+            $tableAlumno  = DatabaseManager::getNameTable('TABLE_ALUMNO');
+
+            $query     = "SELECT $tableAlumno.*
+                          FROM $tableAlumno
+                          WHERE ($tableAlumno.nombres LIKE '%$string%'          OR 
+                                 $tableAlumno.apellidoPaterno LIKE '%$string%'  OR 
+                                 $tableAlumno.apellidoMaterno LIKE '%$string%') AND
+                                 $tableAlumno.activo = 'S'
+                          ORDER BY ";
+
+            if ($order == 'nombres')
+            {
+                $query = $query . " $tableAlumno.nombres";
+            }
+            else if ($order == 'apellidoPaterno')
+            {
+                $query = $query . " $tableAlumno.apellidoPaterno";
+            }
+            else
+            {
+                $query = $query . " $tableAlumno.id DESC";
+            }
+
+            if ($begin >= 0)
+            {
+                $query = $query. " LIMIT " . strval($begin * $cantidad) . ", " . strval($cantidad+1);    
+            }
+
+            $arrayAlumnos   = DatabaseManager::multiFetchAssoc($query);
+            $alumno_simples = array();
+
+            if ($arrayAlumnos !== NULL)
+            {
+                $i = 0;
+                foreach ($arrayAlumnos as $alumno_simple) 
+                {
+                    if ($i == $cantidad && $begin >= 0)
+                    {
+                        continue;
+                    }
+
+                    $alumnoA = new Alumno();
+                    $alumnoA->fromArray($alumno_simple);
+                    $alumno_simples[] = $alumnoA;
+                    $i++;
+                }
+
+                return $alumno_simples;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+      /**
+       * Recover from database one Alumno object by id
+       * 
+       * @author Jonathan Sandoval <jonathan.sandoval@jalisco.gob.mx>
+       * @param  string   $key          Key to search
+       * @param  string   $value        Value of the key
+       * @return Alumno  $alumno_simple  Alumno result or null
+       */
+      static function filter($keysValues = array(), $order = 'id', $begin = 0, $cantidad = 10)
+      {
+          if (!is_array($keysValues) || !empty($keysValues))
+          {
+              return null;
+          }
+
+          $tableAlumno  = DatabaseManager::getNameTable('TABLE_ALUMNO');
+
+          $query     = "SELECT $tableAlumno.* 
+                        FROM $tableAlumno
+                        WHERE ";
+
+          foreach ($keysValues as $key => $value) 
+          {
+              $query .= "$tableAlumno.$key = $value AND";
+          }
+
+          $query = substr($query, 0, strlen($query)-4);
+
+          if ($order == 'nombres')
+          {
+              $query = $query . " $tableAlumno.nombres";
+          }
+          else if ($order == 'apellidoPaterno')
+          {
+              $query = $query . " $tableAlumno.apellidoPaterno";
+          }
+          else
+          {
+              $query = $query . " $tableAlumno.id DESC";
+          }
+
+          if ($begin >= 0)
+          {
+              $query = $query. " LIMIT " . strval($begin * $cantidad) . ", " . strval($cantidad+1);    
+          }
+
+          $arrayAlumnos   = DatabaseManager::multiFetchAssoc($query);
+          $alumno_simples = array();
+
+          if ($arrayAlumnos !== NULL)
+          {
+              $i = 0;
+              foreach ($arrayAlumnos as $alumno_simple) 
+              {
+                  if ($i == $cantidad && $begin >= 0)
+                  {
+                      continue;
+                  }
+
+                  $alumnoA = new Alumno();
+                  $alumnoA->fromArray($alumno_simple);
+                  $alumno_simples[] = $alumnoA;
+                  $i++;
+              }
+
+              return $alumno_simples;
+          }
+          else
+          {
+              return null;
+          }
+      }
+  }
+
  ?>

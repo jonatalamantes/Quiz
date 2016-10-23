@@ -1,26 +1,25 @@
 <?php 
 
 	/**
-	* 	Clase para un Curso
+	* 	Clase para un Opcion
 	*/
-	class Curso
+	class Opcion
 	{
 		private $id;
-		private $nombre;
-		private $ciclo;
+		private $descripcion;
+		private $correcta;
         private $activo;
         private $fechaRegistro;
 
-		function __construct($i = 0, $n = "", $c = "", $a = "S", $f = "")
+		function __construct($i = 0, $d = "", $c = "", $a = "S", $f = "")
 		{
 			$this->id            = $i;
-			$this->nombre        = $n;
-			$this->ciclo         = $c;
+			$this->descripcion   = $d;
+			$this->correcta      = $c;
             $this->activo        = $a;
             $this->fechaRegistro = $f;
-
 		}
-    
+        
         /**
          * Retorna un Array del Objeto
          * 
@@ -33,10 +32,10 @@
             if ($this !== null)
             {
                 $array["id"]            = $this->getId();
-                $array["nombre"]        = $this->getNombre();
-                $array["ciclo"]         = $this->getCiclo();
+                $array["descripcion"]   = $this->getDescripcion();
+                $array["correcta"]      = $this->getCorrecta();
                 $array["activo"]        = $this->getActivo();
-                $array["fechaRegistro"] = $this->getFechaRegistro();                
+                $array["fechaRegistro"] = $this->getFechaRegistro();
             }
 
             return $array;
@@ -52,33 +51,38 @@
             if (empty($array))
             {
                 $this->setId($array["id"]);
-                $this->setNombre($array["nombre"]);
-                $this->setCiclo($array["ciclo"]);
+                $this->setDescripcion($array["descripcion"]);
+                $this->setCorrecta($array["correcta"]);
                 $this->setActivo($array["activo"]);
-                $this->setFechaRegistro($array["fechaRegistro"]);                                
+                $this->setFechaRegistro($array["fechaRegistro"]);                
             }
         }
 
         /**
          * Calculo para saber que tan diferente es un objeto de otro
          * 
-         * @param  Curso    $obj [Objeto con el que se comparara]
-         * @return [float]       [Disimilitud entre los dos objetos]
+         * @param  Opcion    $obj [Objeto con el que se comparara]
+         * @return [float]        [Disimilitud entre los dos objetos]
          */
-        public function disimilitud($obj = new Curso())
+        public function disimilitud($obj = null)
         {
+            if ($obj === null)
+            {
+                return -1;
+            }
+
             $disimilitud = 0;
             $numerador   = 0;
             $denominador = 0;
 
-            if ($obj->getNombre() != $this->getNombre())
+            if ($obj->getDescripcion() != $this->getDescripcion())
             {
                 $numerador += 1;
             }
             
             $denominador += 1;
             
-            if ($obj->getCiclo() != $this->getCiclo())
+            if ($obj->getCorrecta() != $this->getCorrecta())
             {
                 $numerador += 1;
             }
@@ -114,51 +118,51 @@
         }
      
         /**
-        * Gets the value of nombre.
+        * Gets the value of descripcion.
         *
         * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
         * @return mixed
         */
-        public function getNombre()
+        public function getDescripcion()
         {
-            return $this->nombre;
+            return $this->descripcion;
         }
          
         /**
-        * Sets the value of nombre.
+        * Sets the value of descripcion.
         *
         * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @param mixed $nombre the nombre
+        * @param mixed $descripcion the descripcion
         *
         * @return self
         */
-        public function setNombre($nombre)
+        public function setDescripcion($descripcion)
         {
-            $this->nombre = $nombre;
+            $this->descripcion = $descripcion;
         }
      
         /**
-        * Gets the value of ciclo.
+        * Gets the value of correcta.
         *
         * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
         * @return mixed
         */
-        public function getCiclo()
+        public function getCorrecta()
         {
-            return $this->ciclo;
+            return $this->correcta;
         }
          
         /**
-        * Sets the value of ciclo.
+        * Sets the value of correcta.
         *
         * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @param mixed $ciclo the ciclo
+        * @param mixed $correcta the correcta
         *
         * @return self
         */
-        public function setCiclo($ciclo)
+        public function setCorrecta($correcta)
         {
-            $this->ciclo = $ciclo;
+            $this->correcta = $correcta;
         }
      
         /**
