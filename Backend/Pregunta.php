@@ -7,11 +7,15 @@
 	{
 		private $id;
 		private $descripcion;
+        private $activo;
+        private $fechaRegistro;
 
-		function __construct($i = 0, $d = "", $c = "")
+		function __construct($i = 0, $d = "", $a = "S", $f = "")
 		{
-			$this->id          = $i;
-			$this->descripcion = $d;
+			$this->id            = $i;
+			$this->descripcion   = $d;
+            $this->activo        = $a;
+            $this->fechaRegistro = $f;
 		}
         
         /**
@@ -25,8 +29,10 @@
 
             if ($this !== null)
             {
-                $array["id"]          = $this->getId();
-                $array["descripcion"] = $this->getDescripcion();
+                $array["id"]            = $this->getId();
+                $array["descripcion"]   = $this->getDescripcion();
+                $array["activo"]        = $this->getActivo();
+                $array["fechaRegistro"] = $this->getFechaRegistro();
             }
 
             return $array;
@@ -43,6 +49,8 @@
             {
                 $this->setId($array["id"]);
                 $this->setDescripcion($array["descripcion"]);
+                $this->setActivo($array["activo"]);
+                $this->setFechaRegistro($array["fechaRegistro"]);
             }
         }
 
@@ -68,53 +76,101 @@
             $disimilitud = (float)($numerador/$denominador);
             return $disimilitud;
         }
-
+     
         /**
-         * Gets the value of id.
-         *
-         * @return mixed
-         */
+        * Gets the value of id.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @return mixed
+        */
         public function getId()
         {
             return $this->id;
         }
-
+         
         /**
-         * Sets the value of id.
-         *
-         * @param mixed $id the id
-         *
-         * @return self
-         */
+        * Sets the value of id.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @param mixed $id the id
+        *
+        * @return self
+        */
         public function setId($id)
         {
             $this->id = $id;
-
-            return $this;
         }
-
+     
         /**
-         * Gets the value of descripcion.
-         *
-         * @return mixed
-         */
+        * Gets the value of descripcion.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @return mixed
+        */
         public function getDescripcion()
         {
             return $this->descripcion;
         }
-
+         
         /**
-         * Sets the value of descripcion.
-         *
-         * @param mixed $descripcion the descripcion
-         *
-         * @return self
-         */
+        * Sets the value of descripcion.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @param mixed $descripcion the descripcion
+        *
+        * @return self
+        */
         public function setDescripcion($descripcion)
         {
             $this->descripcion = $descripcion;
-
-            return $this;
+        }
+     
+        /**
+        * Gets the value of activo.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @return mixed
+        */
+        public function getActivo()
+        {
+            return $this->activo;
+        }
+         
+        /**
+        * Sets the value of activo.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @param mixed $activo the activo
+        *
+        * @return self
+        */
+        public function setActivo($activo)
+        {
+            $this->activo = $activo;
+        }
+     
+        /**
+        * Gets the value of fechaRegistro.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @return mixed
+        */
+        public function getFechaRegistro()
+        {
+            return $this->fechaRegistro;
+        }
+         
+        /**
+        * Sets the value of fechaRegistro.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @param mixed $fechaRegistro the fecha registro
+        *
+        * @return self
+        */
+        public function setFechaRegistro($fechaRegistro)
+        {
+            $this->fechaRegistro = $fechaRegistro;
         }
     }
 

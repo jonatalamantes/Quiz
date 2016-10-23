@@ -8,12 +8,16 @@
 		private $id;
         private $numero;
 		private $idRelacionOpcionPregunta;
+        private $activo;
+        private $fechaRegistro;        
 
-		function __construct($i = 0, $n = "", $r = 0)
+		function __construct($i = 0, $n = "", $r = 0, $a = "S", $f = "")
 		{
 			$this->id                       = $i;
             $this->numero                   = $n;
             $this->idRelacionOpcionPregunta = $r;
+            $this->activo                   = $a;
+            $this->fechaRegistro            = $f;
 		}
 
         /**
@@ -30,6 +34,8 @@
                 $array["id"]                        = $this->getId();
                 $array["numero"]                    = $this->getNumero();
                 $array["idRelacionOpcionPregunta"]  = $this->getIdRelacionOpcionPregunta();
+                $array["activo"]                    = $this->getActivo();
+                $array["fechaRegistro"]             = $this->getFechaRegistro();                
             }
 
             return $array;
@@ -46,6 +52,8 @@
             {
                 $this->setId($array["id"]);
                 $this->setNumero($array["numero"]);
+                $this->setActivo($array["activo"]);
+                $this->setFechaRegistro($array["fechaRegistro"]);                                                
                 $this->setIdRelacionOpcionPregunta($array["idRelacionOpcionPregunta"]);
             }
         }
@@ -79,77 +87,125 @@
             $disimilitud = (float)($numerador/$denominador);
             return $disimilitud;
         }
-                
+                     
         /**
-         * Gets the value of id.
-         *
-         * @return mixed
-         */
+        * Gets the value of id.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @return mixed
+        */
         public function getId()
         {
             return $this->id;
         }
-
+         
         /**
-         * Sets the value of id.
-         *
-         * @param mixed $id the id
-         *
-         * @return self
-         */
+        * Sets the value of id.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @param mixed $id the id
+        *
+        * @return self
+        */
         public function setId($id)
         {
             $this->id = $id;
-
-            return $this;
         }
-
+     
         /**
-         * Gets the value of numero.
-         *
-         * @return mixed
-         */
+        * Gets the value of numero.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @return mixed
+        */
         public function getNumero()
         {
             return $this->numero;
         }
-
+         
         /**
-         * Sets the value of numero.
-         *
-         * @param mixed $numero the numero
-         *
-         * @return self
-         */
+        * Sets the value of numero.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @param mixed $numero the numero
+        *
+        * @return self
+        */
         public function setNumero($numero)
         {
             $this->numero = $numero;
-
-            return $this;
         }
-
+     
         /**
-         * Gets the value of idRelacionOpcionPregunta.
-         *
-         * @return mixed
-         */
+        * Gets the value of idRelacionOpcionPregunta.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @return mixed
+        */
         public function getIdRelacionOpcionPregunta()
         {
             return $this->idRelacionOpcionPregunta;
         }
-
+         
         /**
-         * Sets the value of idRelacionOpcionPregunta.
-         *
-         * @param mixed $idRelacionOpcionPregunta the id relacion pregunta respuesta
-         *
-         * @return self
-         */
+        * Sets the value of idRelacionOpcionPregunta.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @param mixed $idRelacionOpcionPregunta the id relacion opcion pregunta
+        *
+        * @return self
+        */
         public function setIdRelacionOpcionPregunta($idRelacionOpcionPregunta)
         {
             $this->idRelacionOpcionPregunta = $idRelacionOpcionPregunta;
-
-            return $this;
+        }
+     
+        /**
+        * Gets the value of activo.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @return mixed
+        */
+        public function getActivo()
+        {
+            return $this->activo;
+        }
+         
+        /**
+        * Sets the value of activo.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @param mixed $activo the activo
+        *
+        * @return self
+        */
+        public function setActivo($activo)
+        {
+            $this->activo = $activo;
+        }
+     
+        /**
+        * Gets the value of fechaRegistro.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @return mixed
+        */
+        public function getFechaRegistro()
+        {
+            return $this->fechaRegistro;
+        }
+         
+        /**
+        * Sets the value of fechaRegistro.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @param mixed $fechaRegistro the fecha registro
+        *
+        * @return self
+        */
+        public function setFechaRegistro($fechaRegistro)
+        {
+            $this->fechaRegistro = $fechaRegistro;
         }
     }
 

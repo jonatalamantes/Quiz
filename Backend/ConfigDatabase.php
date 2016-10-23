@@ -2,7 +2,7 @@
 
     define('HOST',                         'localhost');
     define('USER',                         'root');
-    define('PASSWORD',                     '');
+    define('PASSWORD',                     '3daysgrace');
     define('DATABASE',                     'Quiz');
 
     define('TABLE_ALUMNO',                 'Alumno');
