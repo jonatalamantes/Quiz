@@ -1,0 +1,137 @@
+h2
+{
+    font-weight: bold;
+    font-family: "arabic";
+    text-align: center;
+    font-size: 50px;
+    text-shadow: 0px 2px 3px rgb(0,0,0);
+
+    -webkit-animation-name: header; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 4s; /* Chrome, Safari, Opera */
+    
+    animation-name: header;
+    animation-duration: 4s;
+    animation-iteration-count: 1;
+    color: #1B2D5E;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes header 
+{    
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* Standard syntax */
+@keyframes header 
+{
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+ul
+{
+    background-color: darkblue;
+}
+
+li 
+{
+    list-style:none;
+}
+
+.jumbotron
+{
+    background-color: transparent;
+    vertical-align: center;
+}
+
+.center
+{
+    text-align: center;
+    background-color: transparent;
+    width: 300px;
+    position: absolute;
+
+    animation-name: bodylogin;
+    animation-duration: 4s;
+    animation-iteration-count: 1;
+    -webkit-animation-name: bodylogin; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 4s; /* Chrome, Safari, Opera */
+}
+
+.notxtlogin
+{
+    font: 20px Tahoma, Helvetica, Arial, Sans-Serif;
+    text-align: center;
+    color: white;
+    text-shadow: 0px 2px 3px #555;
+}
+
+.txtlogin
+{
+    font: 20px Tahoma, Helvetica, Arial, Sans-Serif;
+    text-align: center;
+    color: black;
+    text-shadow: 0px 2px 3px #555;
+}
+
+.hvr-skew-forward 
+{
+    display: inline-block;
+    vertical-align: middle;
+    font: 20px Tahoma, Helvetica, Arial, Sans-Serif;
+    text-align: center;
+    border-radius: 11px; 
+    border: 2px solid;
+    margin-bottom: 20px;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes bodylogin 
+{    
+    0% {opacity: 0;}
+    40% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+/* Standard syntax */
+@keyframes bodylogin 
+{
+    0% {opacity: 0;}
+    40% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+input 
+{
+    border: none;
+    -webkit-box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+        0 0 16px rgba(0,0,0,0.1); 
+    -moz-box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+        0 0 16px rgba(0,0,0,0.1); 
+    box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+        0 0 16px rgba(0,0,0,0.1); 
+    padding: 15px;
+    background: rgba(255,255,255,0.5);
+    margin: 0 0 0 -10px;
+}
+
+.inputs
+{
+    border: 1px solid transparent;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    font-size: 15px;
+    padding: 4px 7px;
+    outline: 0;
+    -webkit-appearance: none;
+}
+
+li
+{
+    padding: 7px;
+}
