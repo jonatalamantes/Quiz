@@ -8,7 +8,8 @@
 		private $id;
 		private $nombres;
 		private $apellidoMaterno;
-		private $apellidoPaterno;
+        private $apellidoPaterno;
+		private $password;
         private $activo;
         private $fechaRegistro;
 
@@ -20,12 +21,13 @@
          * @param string  $ap [apellidoPaterno]
          * @param string  $am [apellidoMaterno]
          */
-        function __construct($i = 0, $n = "", $ap = "", $am = "", $a = "S", $f = "")
+        function __construct($i = 0, $n = "", $ap = "", $am = "", $p = "", $a = "S", $f = "")
         {
             $this->id              = $i;
             $this->nombres         = $n;
             $this->apellidoPaterno = $ap;
             $this->apellidoMaterno = $am;
+            $this->password        = $p;
             $this->activo          = $a;
             $this->fechaRegistro   = $f;            
         }
@@ -45,8 +47,9 @@
                 $array["nombres"]         = $this->getNombres();
                 $array["apellidoPaterno"] = $this->getApellidoPaterno();
                 $array["apellidoMaterno"] = $this->getApellidoMaterno();
-                $array["activo"]        = $this->getActivo();
-                $array["fechaRegistro"] = $this->getFechaRegistro();                                
+                $array["password"]        = $this->getPassword();
+                $array["activo"]          = $this->getActivo();
+                $array["fechaRegistro"]   = $this->getFechaRegistro();                                
             }
 
             return $array;
@@ -65,6 +68,7 @@
                 $this->setNombres($array["nombres"]);
                 $this->setApellidoPaterno($array["apellidoPaterno"]);
                 $this->setApellidoMaterno($array["apellidoMaterno"]);
+                $this->setPassword($array["password"]);
                 $this->setActivo($array["activo"]);
                 $this->setFechaRegistro($array["fechaRegistro"]);                                               
             }
@@ -102,6 +106,13 @@
             $denominador += 1;
 
             if ($obj->getApellidoPaterno() != $this->getApellidoPaterno())
+            {
+                $numerador += 1;
+            }
+
+            $denominador += 1;
+
+            if ($obj->getPassword() != $this->getPassword())
             {
                 $numerador += 1;
             }
@@ -207,7 +218,31 @@
         {
             $this->apellidoPaterno = $apellidoPaterno;
         }
-     
+
+        /**
+        * Gets the value of password.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @return mixed
+        */
+        public function getPassword()
+        {
+            return $this->password;
+        }
+         
+        /**
+        * Sets the value of password.
+        *
+        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+        * @param mixed $password the apellido paterno
+        *
+        * @return self
+        */
+        public function setPassword($password)
+        {
+            $this->password = $password;
+        }
+
         /**
         * Gets the value of activo.
         *

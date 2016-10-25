@@ -123,7 +123,8 @@
 
             $opciones = array('nombres'          => $alumno->getNombres(), 
                               'apellidoPaterno'  => $alumno->getApellidoPaterno(),
-                              'apellidoMaterno'  => $alumno->getApellidoMaterno());
+                              'apellidoMaterno'  => $alumno->getApellidoMaterno(),
+                              'password'         => $alumno->getPassword());
 
             $singleAlumno = self::getSingle($opciones);
 
@@ -132,13 +133,14 @@
                 $nombres         = $alumno->getNombres();
                 $apellidoPaterno = $alumno->getApellidoPaterno();
                 $apellidoMaterno = $alumno->getApellidoPaterno();
+                $password        = $alumno->getPassword();
 
                 $tableAlumno = DatabaseManager::getNameTable('TABLE_ALUMNO');
 
                 $query     = "INSERT INTO $tableAlumno 
-                             (nombres, apellidoPaterno, apellidoMaterno) 
+                             (nombres, apellidoPaterno, apellidoMaterno, password) 
                              VALUES 
-                             ('$nombres', '$apellidoPaterno', '$apellidoMaterno')";
+                             ('$nombres', '$apellidoPaterno', '$apellidoMaterno', '$password')";
 
                 if (DatabaseManager::singleAffectedRow($query) === true)
                 {                    
@@ -179,13 +181,15 @@
                 $nombres         = $alumno->getNombres();
                 $apellidoPaterno = $alumno->getApellidoPaterno();
                 $apellidoMaterno = $alumno->getApellidoPaterno();
+                $password        = $alumno->getPassword();
 
                 $tableAlumno = DatabaseManager::getNameTable('TABLE_ALUMNO');
 
                 $query     = "UPDATE $tableAlumno 
                               SET nombres         = '$nombres', 
                                   apellidoPaterno = '$apellidoPaterno', 
-                                  apellidoMaterno = '$apellidoMaterno' 
+                                  apellidoMaterno = '$apellidoMaterno', 
+                                  password        = '$password' 
                              WHERE $tableAlumno.id = '$id'";
 
                 if (DatabaseManager::singleAffectedRow($query) === true)
