@@ -33,14 +33,18 @@
 
             foreach ($keysValues as $key => $value) 
             {
-                $query .= "$tableCuestionario.$key = $value AND";
+                $query .= "$tableCuestionario.$key = '$value' AND";
             }
 
             $query = substr($query, 0, strlen($query)-4);
 
             $cuestionario_simple = DatabaseManager::singleFetchAssoc($query);
-            $cuestionarioA       = new Cuestionario();
-            $cuestionarioA->fromArray($cuestionario_simple);
+
+            if ($custionario_simple !== NULL)
+            {
+                $cuestionarioA = new Cuestionario();
+                $cuestionarioA->fromArray($cuestionario_simple);
+            }
 
             return $cuestionarioA;
         }

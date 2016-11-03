@@ -39,8 +39,12 @@
             $query = substr($query, 0, strlen($query)-4);
 
             $curso_simple = DatabaseManager::singleFetchAssoc($query);
-            $cursoA       = new Curso();
-            $cursoA->fromArray($curso_simple);
+            
+            if ($curso_simple !== NULL)
+            {
+                $cursoA = new Curso();
+                $cursoA->fromArray($curso_simple);
+            }
 
             return $cursoA;
         }

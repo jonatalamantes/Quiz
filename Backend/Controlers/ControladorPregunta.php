@@ -39,8 +39,12 @@
             $query = substr($query, 0, strlen($query)-4);
 
             $pregunta_simple = DatabaseManager::singleFetchAssoc($query);
-            $preguntaA       = new Pregunta();
-            $preguntaA->fromArray($pregunta_simple);
+            
+            if ($pregunta_simple !== NULL)
+            {
+                $preguntaA = new Pregunta();
+                $preguntaA->fromArray($pregunta_simple);
+            }
 
             return $preguntaA;
         }

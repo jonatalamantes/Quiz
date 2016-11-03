@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS `Quiz`.`Alumno` (
   `nombres` VARCHAR(45) NULL,
   `apellidoMaterno` VARCHAR(45) NULL,
   `apellidoPaterno` VARCHAR(45) NULL,
+  `password` VARCHAR(45) NULL,
   `activo` ENUM('S', 'N') NOT NULL DEFAULT 'S',
   `fechaRegistro` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))

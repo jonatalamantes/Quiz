@@ -20,7 +20,7 @@
          */
         static function getSingle($keysValues = array())
         {
-            if (!is_array($keysValues) || !empty($keysValues))
+            if (!is_array($keysValues) || empty($keysValues))
             {
                 return null;
             }
@@ -33,14 +33,18 @@
 
             foreach ($keysValues as $key => $value) 
             {
-                $query .= "$tableAlumno.$key = $value AND";
+                $query .= "$tableAlumno.$key = '$value' AND";
             }
 
             $query = substr($query, 0, strlen($query)-4);
 
             $alumno_simple = DatabaseManager::singleFetchAssoc($query);
-            $alumnoA       = new Alumno();
-            $alumnoA->fromArray($alumno_simple);
+
+            if ($alumno_simple !== NULL)
+            {
+                $alumnoA = new Alumno();
+                $alumnoA->fromArray($alumno_simple);
+            }
 
             return $alumnoA;
         }

@@ -12,6 +12,7 @@
         <script type="text/javascript" src="../Libs/Bootstrap/dist/js/bootstrap.js"></script>
         <script type="text/javascript" src="../Libs/Bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="JS/functions.js"></script>
+        <script type="text/javascript" src="JS/ajaxfunctions.js"></script>
 
         <link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/dist/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/dist/css/bootstrap.min.css">
@@ -24,23 +25,23 @@
         <title>Login</title>
     </head>
     <body role="document" onload="loginMitad();" onresize="loginMitad()">  
-        <div class="center">
+        <div class="center" id="contenedor">
             <h2>Quiz</h2><br>
             <ul class="list-group">
                 <br>
                 <li>
-                    <p class="notxtlogin" id='txtloginu'>
+                    <p class="notxtlogin" id='txtloginu' onclick="normalInputs('login.php')">
                         Código
                     </p>
                 </li>
                 <li>
                     <p class="txtlogin">
-                        <input name="txtUser" type="text" id="txtUser" placeholder="Username" class="inputs" focus>
+                        <input name="txtUser" type="text" id="txtUser" placeholder="Username" class="inputs" onclick="normalInputs('login.php')" focus>
                     </p>
                 </li>
                 <li>
                     <p class="txtlogin">
-                        <button class="hvr-skew-forward btn btn-info">
+                        <button class="hvr-skew-forward btn btn-info" onclick="login()">
                             Acceder
                         </button>
                     </p>

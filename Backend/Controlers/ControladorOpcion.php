@@ -33,14 +33,16 @@
 
             foreach ($keysValues as $key => $value) 
             {
-                $query .= "$tableOpcion.$key = $value AND";
+                $query .= "$tableOpcion.$key = '$value' AND";
             }
 
-            $query = substr($query, 0, strlen($query)-4);
-
             $opcion_simple = DatabaseManager::singleFetchAssoc($query);
-            $opcionA       = new Opcion();
-            $opcionA->fromArray($opcion_simple);
+            
+            if ($opcion_simple !== NULL)
+            {
+                $opcionA = new Opcion();
+                $opcionA->fromArray($opcion_simple);
+            }
 
             return $opcionA;
         }
