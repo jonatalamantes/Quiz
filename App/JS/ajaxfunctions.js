@@ -23,7 +23,16 @@ function login()
         {
             if (msg.indexOf("OK") >= 0)
             {
-                window.location.href = "principal.php"; 
+                if (msg.indexOf("OKAdmin") >= 0)
+                {
+                    window.location.href = "menu_admin.php";     
+                }
+                else if (msg.indexOf("OKNormal") >= 0)
+                {
+                    window.location.href = "menu_alumno.php";     
+                }
+
+                
             }
             else 
             {

@@ -11,6 +11,7 @@
         private $apellidoPaterno;
 		private $password;
         private $activo;
+        private $tipo;
         private $fechaRegistro;
 
         /**
@@ -21,13 +22,14 @@
          * @param string  $ap [apellidoPaterno]
          * @param string  $am [apellidoMaterno]
          */
-        function __construct($i = 0, $n = "", $ap = "", $am = "", $p = "", $a = "S", $f = "")
+        function __construct($i = 0, $n = "", $ap = "", $am = "", $p = "", $tipo = "", $a = "S", $f = "")
         {
             $this->id              = $i;
             $this->nombres         = $n;
             $this->apellidoPaterno = $ap;
             $this->apellidoMaterno = $am;
             $this->password        = $p;
+            $this->tipo            = $t;
             $this->activo          = $a;
             $this->fechaRegistro   = $f;            
         }
@@ -48,6 +50,7 @@
                 $array["apellidoPaterno"] = $this->getApellidoPaterno();
                 $array["apellidoMaterno"] = $this->getApellidoMaterno();
                 $array["password"]        = $this->getPassword();
+                $array["tipo"]            = $this->getTipo();
                 $array["activo"]          = $this->getActivo();
                 $array["fechaRegistro"]   = $this->getFechaRegistro();                                
             }
@@ -62,13 +65,14 @@
          */
         public function fromArray($array = array())
         {
-            if (empty($array))
+            if (!empty($array))
             {
                 $this->setId($array["id"]);
                 $this->setNombres($array["nombres"]);
                 $this->setApellidoPaterno($array["apellidoPaterno"]);
                 $this->setApellidoMaterno($array["apellidoMaterno"]);
                 $this->setPassword($array["password"]);
+                $this->setTipo($array["tipo"]);
                 $this->setActivo($array["activo"]);
                 $this->setFechaRegistro($array["fechaRegistro"]);                                               
             }
@@ -119,176 +123,207 @@
 
             $denominador += 1;
 
+            if ($obj->getTipo() != $this->getTipo())
+            {
+                $numerador += 1;
+            }
+
+            $denominador += 1;
+
             $disimilitud = (float)($numerador/$denominador);
             return $disimilitud;
         }
-          
+    
         /**
-        * Gets the value of id.
-        *
-        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @return mixed
-        */
+         * Gets the value of id.
+         *
+         * @return mixed
+         */
         public function getId()
         {
             return $this->id;
         }
-         
+
         /**
-        * Sets the value of id.
-        *
-        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @param mixed $id the id
-        *
-        * @return self
-        */
+         * Sets the value of id.
+         *
+         * @param mixed $id the id
+         *
+         * @return self
+         */
         public function setId($id)
         {
             $this->id = $id;
+
+            return $this;
         }
-     
+
         /**
-        * Gets the value of nombres.
-        *
-        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @return mixed
-        */
+         * Gets the value of nombres.
+         *
+         * @return mixed
+         */
         public function getNombres()
         {
             return $this->nombres;
         }
-         
+
         /**
-        * Sets the value of nombres.
-        *
-        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @param mixed $nombres the nombres
-        *
-        * @return self
-        */
+         * Sets the value of nombres.
+         *
+         * @param mixed $nombres the nombres
+         *
+         * @return self
+         */
         public function setNombres($nombres)
         {
             $this->nombres = $nombres;
+
+            return $this;
         }
-     
+
         /**
-        * Gets the value of apellidoMaterno.
-        *
-        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @return mixed
-        */
+         * Gets the value of apellidoMaterno.
+         *
+         * @return mixed
+         */
         public function getApellidoMaterno()
         {
             return $this->apellidoMaterno;
         }
-         
+
         /**
-        * Sets the value of apellidoMaterno.
-        *
-        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @param mixed $apellidoMaterno the apellido materno
-        *
-        * @return self
-        */
+         * Sets the value of apellidoMaterno.
+         *
+         * @param mixed $apellidoMaterno the apellido materno
+         *
+         * @return self
+         */
         public function setApellidoMaterno($apellidoMaterno)
         {
             $this->apellidoMaterno = $apellidoMaterno;
+
+            return $this;
         }
-     
+
         /**
-        * Gets the value of apellidoPaterno.
-        *
-        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @return mixed
-        */
+         * Gets the value of apellidoPaterno.
+         *
+         * @return mixed
+         */
         public function getApellidoPaterno()
         {
             return $this->apellidoPaterno;
         }
-         
+
         /**
-        * Sets the value of apellidoPaterno.
-        *
-        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @param mixed $apellidoPaterno the apellido paterno
-        *
-        * @return self
-        */
+         * Sets the value of apellidoPaterno.
+         *
+         * @param mixed $apellidoPaterno the apellido paterno
+         *
+         * @return self
+         */
         public function setApellidoPaterno($apellidoPaterno)
         {
             $this->apellidoPaterno = $apellidoPaterno;
+
+            return $this;
         }
 
         /**
-        * Gets the value of password.
-        *
-        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @return mixed
-        */
+         * Gets the value of password.
+         *
+         * @return mixed
+         */
         public function getPassword()
         {
             return $this->password;
         }
-         
+
         /**
-        * Sets the value of password.
-        *
-        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @param mixed $password the apellido paterno
-        *
-        * @return self
-        */
+         * Sets the value of password.
+         *
+         * @param mixed $password the password
+         *
+         * @return self
+         */
         public function setPassword($password)
         {
             $this->password = $password;
+
+            return $this;
         }
 
         /**
-        * Gets the value of activo.
-        *
-        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @return mixed
-        */
+         * Gets the value of activo.
+         *
+         * @return mixed
+         */
         public function getActivo()
         {
             return $this->activo;
         }
-         
+
         /**
-        * Sets the value of activo.
-        *
-        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @param mixed $activo the activo
-        *
-        * @return self
-        */
+         * Sets the value of activo.
+         *
+         * @param mixed $activo the activo
+         *
+         * @return self
+         */
         public function setActivo($activo)
         {
             $this->activo = $activo;
+
+            return $this;
         }
-     
+
         /**
-        * Gets the value of fechaRegistro.
-        *
-        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @return mixed
-        */
+         * Gets the value of tipo.
+         *
+         * @return mixed
+         */
+        public function getTipo()
+        {
+            return $this->tipo;
+        }
+
+        /**
+         * Sets the value of tipo.
+         *
+         * @param mixed $tipo the tipo
+         *
+         * @return self
+         */
+        public function setTipo($tipo)
+        {
+            $this->tipo = $tipo;
+
+            return $this;
+        }
+
+        /**
+         * Gets the value of fechaRegistro.
+         *
+         * @return mixed
+         */
         public function getFechaRegistro()
         {
             return $this->fechaRegistro;
         }
-         
+
         /**
-        * Sets the value of fechaRegistro.
-        *
-        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @param mixed $fechaRegistro the fecha registro
-        *
-        * @return self
-        */
+         * Sets the value of fechaRegistro.
+         *
+         * @param mixed $fechaRegistro the fecha registro
+         *
+         * @return self
+         */
         public function setFechaRegistro($fechaRegistro)
         {
             $this->fechaRegistro = $fechaRegistro;
+
+            return $this;
         }
     }
     

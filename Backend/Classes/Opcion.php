@@ -48,7 +48,7 @@
          */
         public function fromArray($array = array())
         {
-            if (empty($array))
+            if (!empty($array))
             {
                 $this->setId($array["id"]);
                 $this->setDescripcion($array["descripcion"]);

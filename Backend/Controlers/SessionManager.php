@@ -64,36 +64,46 @@
          * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
          * @param  string    $page   The actual page
          */
-        static function validateUserInPage($page = "", $idChurch = 0, $idChurch2 = -1)
+        static function validateUserInPage($page = "")
         {
-            if ($page === "bitacoraInsertion.php")
+            if (array_key_exists("idAlumno", $_SESSION) === FALSE)
             {
-                if ($_SERVER["REMOTE_ADDR"] == "10.15.50.174" || $_SERVER["REMOTE_ADDR"] == "10.15.50.80" || $_SERVER["REMOTE_ADDR"] == "10.15.50.107" )
+                echo "<script src='JS/functions.js'></script><script>window.location.href = 'index.php'</script>";
+            }
+
+            if ($page == "menu_admin.php")
+            {
+                if (array_key_exists("tipoAlumno", $_SESSION) === FALSE)
                 {
-                    #Puede continuar navegando en la pagina
-                }
-                else if (array_key_exists("CATEGORIA_USR", $_SESSION))
-                {
-                    if (strpos($_SESSION["CATEGORIA_USR"], "ADMIN") !== FALSE)
-                    {
-                        #Puede continuar navegando en la pagina
-                    }
-                    else
-                    {
-                        echo "<script src='JS/functions.js'></script><script>alert('No tiene permisos para abrir la bitacora');href('../index.php')</script>";  
-                    }
+                    echo "<script src='JS/functions.js'></script><script>window.location.href = 'index.php'</script>";
                 }
                 else
                 {
-                    echo "<script src='JS/functions.js'></script><script>alert('No tiene permisos para abrir la bitacora');href('../index.php')</script>";
+                    $tipo = $_SESSION["tipoAlumno"];
+
+                    if ($tipo !== "Admin")
+                    {
+                        echo "<script src='JS/functions.js'></script><script>window.location.href = 'index.php'</script>";
+                    }
                 }
-                
-                //echo "<script src='JS/functions.js'></script><script>href('../index.php')</script>";
             }
 
-            if (array_key_exists("ID_USUARIO", $_SESSION) === FALSE)
+
+            if ($page == "menu_alumno.php")
             {
-                echo "<script src='JS/functions.js'></script><script>href('../index.php')</script>";
+                if (array_key_exists("tipoAlumno", $_SESSION) === FALSE)
+                {
+                    echo "<script src='JS/functions.js'></script><script>window.location.href = 'index.php'</script>";
+                }
+                else
+                {
+                    $tipo = $_SESSION["tipoAlumno"];
+
+                    if ($tipo !== "Normal")
+                    {
+                        echo "<script src='JS/functions.js'></script><script>window.location.href = 'index.php'</script>";
+                    }
+                }
             }
 
             if ($_SESSION["curr_page"] != $_SERVER['REQUEST_URI'])
@@ -101,8 +111,6 @@
                 $_SESSION["last_page"] = SessionManager::getCurrentPage();
                 $_SESSION["curr_page"] = $_SERVER['REQUEST_URI'];
             }
-
-            //var_dump($_SESSION["last_page"]); var_dump($_SESSION["curr_page"]);
         }
     }
 

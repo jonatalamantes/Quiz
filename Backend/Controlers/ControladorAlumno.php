@@ -128,6 +128,7 @@
             $opciones = array('nombres'          => $alumno->getNombres(), 
                               'apellidoPaterno'  => $alumno->getApellidoPaterno(),
                               'apellidoMaterno'  => $alumno->getApellidoMaterno(),
+                              'tipo'             => $alumno->getTipo(),
                               'password'         => $alumno->getPassword());
 
             $singleAlumno = self::getSingle($opciones);
@@ -138,13 +139,14 @@
                 $apellidoPaterno = $alumno->getApellidoPaterno();
                 $apellidoMaterno = $alumno->getApellidoPaterno();
                 $password        = $alumno->getPassword();
+                $tipo            = $alumno->getTipo();
 
                 $tableAlumno = DatabaseManager::getNameTable('TABLE_ALUMNO');
 
                 $query     = "INSERT INTO $tableAlumno 
-                             (nombres, apellidoPaterno, apellidoMaterno, password) 
+                             (nombres, apellidoPaterno, apellidoMaterno, password, tipo) 
                              VALUES 
-                             ('$nombres', '$apellidoPaterno', '$apellidoMaterno', '$password')";
+                             ('$nombres', '$apellidoPaterno', '$apellidoMaterno', '$password', '$tipo')";
 
                 if (DatabaseManager::singleAffectedRow($query) === true)
                 {                    
@@ -186,6 +188,7 @@
                 $apellidoPaterno = $alumno->getApellidoPaterno();
                 $apellidoMaterno = $alumno->getApellidoPaterno();
                 $password        = $alumno->getPassword();
+                $tipo            = $alumno->getTipo();
 
                 $tableAlumno = DatabaseManager::getNameTable('TABLE_ALUMNO');
 
@@ -193,6 +196,7 @@
                               SET nombres         = '$nombres', 
                                   apellidoPaterno = '$apellidoPaterno', 
                                   apellidoMaterno = '$apellidoMaterno', 
+                                  tipo            = '$tipo', 
                                   password        = '$password' 
                              WHERE $tableAlumno.id = '$id'";
 
@@ -373,6 +377,21 @@
           {
               return null;
           }
+      }
+
+      static function comenzarSesion($alumno = NULL)
+      {
+          if ($alumno !== NULL)
+          {
+              $_SESSION["idAlumno"]   = $alumno->getId();
+              $_SESSION["tipoAlumno"] = $alumno->getTipo();
+          }
+      }
+
+      static function terminarSesion()
+      {
+          $_SESSION["idAlumno"]   = NULL;
+          $_SESSION["tipoAlumno"] = NULL;
       }
   }
 

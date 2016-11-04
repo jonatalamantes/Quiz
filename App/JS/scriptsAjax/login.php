@@ -11,7 +11,16 @@
     }
     else
     {
-        echo "OK";
+        ControladorAlumno::comenzarSesion($alumno);
+
+        if ($alumno->getTipo() == "Admin")
+        {
+            echo "OKAdmin";
+        }
+        else
+        {
+            echo "OKNormal";
+        }
     }
 
  ?>
