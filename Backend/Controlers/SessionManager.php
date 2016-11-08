@@ -112,6 +112,95 @@
                 $_SESSION["curr_page"] = $_SERVER['REQUEST_URI'];
             }
         }
+
+        function getNavBar()
+        {
+        /**
+         * Get the navbar using in the pages in relation with the type of user
+         * 
+         * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+         * @return string    The HTML navbar to use
+         */
+        static function getNavBar()
+        {
+            if (array_key_exists("tipoAlumno", $_SESSION) === FALSE)
+            {
+                echo "<script src='JS/functions.js'></script><script>window.location.href = 'index.php'</script>";
+            }
+            else
+            {
+                if ($_SESSION["tipoAlumno"] !== 'Normal')
+                {
+                    $nav = '<nav class="navbar navbar-inverse navbar-fixed-top">
+                        <div class="container">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href="main.php" id="headerLanguage">Quiz</a>
+                            </div>
+                            <div id="navbar" class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li><a href="main.php">^Home^</a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">^Go To Menu^<span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="userMenu.php">^User^</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">^Insert New Registry^<span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="userInsertion.php">^User^</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#" onclick="window.location.href=\'index.php\';">^Logout^</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>';
+                }
+                else //is Normal
+                {
+                    $nav = '<nav class="navbar navbar-inverse navbar-fixed-top">
+                        <div class="container">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href="main.php" id="headerLanguage">Quiz</a>
+                            </div>
+                            <div id="navbar" class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li><a href="main.php">^Home^</a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">^Go To Menu^<span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="userMenu.php">^User^</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">^Insert New Registry^<span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="userMenu.php">^User^</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#" onclick="window.location.href=\'index.php\';">^Logout^</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>';
+                }
+
+                return $nav;
+            }
+        }
     }
 
  ?>
