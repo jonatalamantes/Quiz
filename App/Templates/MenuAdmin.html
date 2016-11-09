@@ -9,45 +9,58 @@
 
         <script type="text/javascript" src="../Libs/JQueryUI/JQuery.js"></script>
         <script type="text/javascript" src="../Libs/JQueryUI/jquery-ui.js"></script>
-        <script type="text/javascript" src="../Libs/Bootstrap/dist/js/bootstrap.js"></script>
         <script type="text/javascript" src="../Libs/Bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="JS/functions.js"></script>
         <script type="text/javascript" src="JS/ajaxfunctions.js"></script>
 
-        <link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/dist/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/dist/css/bootstrap-theme.css">
         <link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="../Libs/JQueryUI/jquery-ui.css">
         <link rel="stylesheet" type="text/css" href="CSS/general.css">
-        <link rel="stylesheet" type="text/css" href="CSS/login.css">
 
-        <title>Login</title>
+        <title>|title|</title>
     </head>
     <body role="document">
         |NavBar|  
-        <div class="center" id="contenedor">
-            <h2>Quiz</h2><br>
-            <ul class="list-group">
-                <br>
-                <li>
-                    <p class="notxtlogin" id='txtloginu' onclick="normalInputs('login.php')">
-                        Código
-                    </p>
-                </li>
-                <li>
-                    <p class="txtlogin">
-                        <input name="txtUser" type="text" id="txtUser" placeholder="Username" class="inputs" onclick="normalInputs('login.php')" focus>
-                    </p>
-                </li>
-                <li>
-                    <p class="txtlogin">
-                        <button class="hvr-skew-forward btn btn-info" onclick="login()">
-                            Acceder
-                        </button>
-                    </p>
-                </li>
-            </ul>
+         <div class="container theme-showcase" role="main">
+            <div class="site-wrapper">
+                <div class="site-wrapper-inner">
+                    <div class="cover-container">
+                        <div class="inner cover">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Quiz</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p class="lead">Bienvenido Quiz</p>
+                                    <p class="lead">« Username »</p>
+                                    <p class="lead">
+                                        <a href="alumno_menu.php" class="btn btn-lg btn-info">
+                                            <img src="icons/alumno.png" height="30px">
+                                            Alumnos
+                                        </a>
+                                        <a href="curso_menu.php" class="btn btn-lg btn-success">
+                                            <img src="icons/curso.png" height="30px">
+                                            Cursos
+                                        </a>
+                                        <a href="cuestionario_menu.php" class="btn btn-lg btn-warning">
+                                            <img src="icons/cuestionario.png" height="30px">
+                                            Cuestionarios
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </body>
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted">
+                    Quiz, Plataforma para crear Cuestionarios de manera simple
+                </p>
+            </div>
+        </footer>    
+  </body>
 </html>

@@ -113,8 +113,6 @@
             }
         }
 
-        function getNavBar()
-        {
         /**
          * Get the navbar using in the pages in relation with the type of user
          * 
@@ -144,20 +142,24 @@
                             </div>
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li><a href="main.php">^Home^</a></li>
+                                    <li><a href="menu_admin.php">Home</a></li>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">^Go To Menu^<span class="caret"></span></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Ir al Menú<span class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a href="userMenu.php">^User^</a></li>
+                                            <li><a href="alumno_menu.php">Alumno</a></li>
+                                            <li><a href="curso_menu.php">Curso</a></li>
+                                            <li><a href="cuestionario_menu.php">Cuestionario</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">^Insert New Registry^<span class="caret"></span></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Insertar Nuevo<span class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a href="userInsertion.php">^User^</a></li>
+                                            <li><a href="alumno_insertar.php">Alumno</a></li>
+                                            <li><a href="curso_insertar.php">Curso</a></li>
+                                            <li><a href="cuestionario_insertar.php">Cuestionario</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#" onclick="window.location.href=\'index.php\';">^Logout^</a></li>
+                                    <li><a href="#" onclick="window.location.href=\'index.php\';">Salir</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -178,20 +180,24 @@
                             </div>
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li><a href="main.php">^Home^</a></li>
+                                    <li><a href="menu_normal.php">Home</a></li>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">^Go To Menu^<span class="caret"></span></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Ir al Menú<span class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a href="userMenu.php">^User^</a></li>
+                                            <li><a href="alumno_menu.php">Alumno</a></li>
+                                            <li><a href="curso_menu.php">Curso</a></li>
+                                            <li><a href="cuestionario_menu.php">Cuestionario</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">^Insert New Registry^<span class="caret"></span></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Insertar Nuevo<span class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a href="userMenu.php">^User^</a></li>
+                                            <li><a href="alumno_insertar.php">Alumno</a></li>
+                                            <li><a href="curso_insertar.php">Curso</a></li>
+                                            <li><a href="cuestionario_insertar.php">Cuestionario</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#" onclick="window.location.href=\'index.php\';">^Logout^</a></li>
+                                    <li><a href="#" onclick="window.location.href=\'index.php\';">Salir</a></li>
                                 </ul>
                             </div>
                         </div>

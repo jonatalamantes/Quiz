@@ -29,7 +29,7 @@ function login()
                 }
                 else if (msg.indexOf("OKNormal") >= 0)
                 {
-                    window.location.href = "menu_alumno.php";     
+                    window.location.href = "menu_normal.php";     
                 }
 
                 
