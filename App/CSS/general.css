@@ -102,15 +102,15 @@ input
 .btn-warning, form .submit input[type="submit"]
 {
     color: #fff;
-    background-color: #0F9477;
+    background-color: #135F9E;
     border-color: #E313B9;
-    background-color: #68EDD0;
-    background-image: -webkit-linear-gradient(top,#0F9477 0,#0F9477 100%);
-    background-image: -webkit-linear-gradient(top,#68EDD0 0,#0F9477 100%);
-    background-image: -o-linear-gradient(top,#68EDD0 0,#0F9477 100%);
-    background-image: -webkit-gradient(linear,left top,left bottom,from(#68EDD0),to(#0F9477));
-    background-image: linear-gradient(to bottom,#68EDD0 0,#0F9477 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff68EDD0', endColorstr='#ff0F9477', GradientType=0);
+    background-color: #3793DE;
+    background-image: -webkit-linear-gradient(top,#135F9E 0,#135F9E 100%);
+    background-image: -webkit-linear-gradient(top,#3793DE 0,#135F9E 100%);
+    background-image: -o-linear-gradient(top,#3793DE 0,#135F9E 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#3793DE),to(#135F9E));
+    background-image: linear-gradient(to bottom,#3793DE 0,#135F9E 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff68EDD0', endColorstr='#ff135F9E', GradientType=0);
     filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
     background-repeat: repeat-x;
 }
@@ -118,7 +118,7 @@ input
 .btn-warning:hover, form .submit input[type="submit"]:hover,
 .btn-warning:focus, form .submit input[type="submit"]:focus
 {
-  background-color: #0F9477;
+  background-color: #135F9E;
   border-color: #4A4A4A;
   background-position: 0 -15px;
 }
@@ -126,7 +126,7 @@ input
 .btn-warning:active, form .submit input[type="submit"]:active,
 .btn-warning.active, form .submit input[type="submit"].active 
 {
-  background-color: #0F9477 !important;
+  background-color: #135F9E !important;
   border-color: #4A4A4A !important;
 }
 

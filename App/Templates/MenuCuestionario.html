@@ -32,20 +32,20 @@
                     <form class="navbar-form" id='simpleSearch' onsubmit="return false;">
                         <div class="well" style="text-align: center;">
                             <div class="input-group">
-                                <input type="text" id="inputSimple" class="form-control" placeholder="ID ^or^ ^Names^" onkeyup="inputCharacter('inputSimple')">
+                                <input type="text" id="inputSimple" class="form-control" placeholder="ID/Numero" onkeyup="inputCharacter('inputSimple')">
                                 <div class="input-group-btn">
                                     <button class="btn btn-default btn-warning" style="margin-top: 0px; margin-left: 3px" onclick="simpleSearch('cuestionario_menu.php')">
-                                        <img src="icons/search.png" height="10px">
+                                        <img src="icons/searchLight.png" height="10px">
                                     </button>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-warning btn-no-inside dark" onclick="href('cuestionario_menu.php');">
-                                <img src="icons/cuestionario.png" height="30px">Mostrar Todos
+                            <button type="button" class="btn btn-warning btn-no-inside" onclick="href('cuestionario_menu.php');">
+                                <img src="icons/cuestionarioLight.png" height="30px">Mostrar Todos
                             </button>
-                            <button type="button" class="btn btn-warning btn-no-inside dark" onclick="href('cuestionario_insertar.php');">
-                                <img src="icons/plus.png" height="30px"> Agregar
+                            <button type="button" class="btn btn-warning btn-no-inside" onclick="href('cuestionario_insertar.php');">
+                                <img src="icons/plusLight.png" height="30px"> Agregar
                             </button>
-                            <button type="button" class="btn btn-warning btn-no-inside dark" onclick="hiddenElement('simpleSearch', 'true'); hiddenElement('advancedSearch', 'false');">
+                            <button type="button" class="btn btn-warning btn-no-inside" onclick="hiddenElement('simpleSearch', 'true'); hiddenElement('advancedSearch', 'false');">
                                 Búsqueda Avanzada
                             </button>
                         </div>
@@ -53,33 +53,22 @@
                     <form class="navbar-form" id="advancedSearch" hidden onsubmit="return false;">
                         <div class="well">
                             <p>
-                                <button type="button" class="btn btn-warning btn-no-inside dark"  onclick="href('cuestionario_menu.php');">
-                                    <img src="icons/cuestionario.png" height="30px">Mostrar Todos
+                                <button type="button" class="btn btn-warning btn-no-inside"  onclick="href('cuestionario_menu.php');">
+                                    <img src="icons/cuestionarioLight.png" height="30px">Mostrar Todos
                                 </button>
-                                <button type="button" class="btn btn-warning btn-no-inside dark" onclick="href('cuestionario_insertar.php');">
-                                    <img src="icons/plus.png" height="30px"> Agregar
+                                <button type="button" class="btn btn-warning btn-no-inside" onclick="href('cuestionario_insertar.php');">
+                                    <img src="icons/plusLight.png" height="30px"> Agregar
                                 </button>
-                                <button type="button" class="btn btn-warning btn-no-inside dark" onclick="hiddenElement('simpleSearch', 'false'); hiddenElement('advancedSearch', 'true');">Búsqueda Simple</button>
+                                <button type="button" class="btn btn-warning btn-no-inside" onclick="hiddenElement('simpleSearch', 'false'); hiddenElement('advancedSearch', 'true');">Búsqueda Simple</button>
                             </p>
                             <p>
                                 <input type="text" class="form-control" placeholder="ID" id="inputId" onkeyup="inputNumeric('inputId');" style="display:none">
                             </p><p>
-                                <input type="text" class="form-control" placeholder="Nombre(s)" id="inputNames" onkeyup="inputName('inputNames')">
-                                <input type="text" class="form-control" placeholder="Primer Apellido" id="inputLastname1" onkeyup="inputName('inputLastname1')">
-                                <input type="text" class="form-control" placeholder="Segundo Apellido" id="inputLastname2" onkeyup="inputName('inputLastname2')">
+                                <input type="text" class="form-control" placeholder="Número" id="inputNumberC" onkeyup="inputNumeric('inputNumberC')">
                             </p><p>
-                                <select class="form-control" id="selectTipo" style="margin-left: 5px">
-                                    <optgroup>
-                                        <option value="Todos">Selecionar Tipo</option>
-                                        <option value="Admin">Administrador</option>
-                                        <option value="Normal">Normal</option>
-                                    </optgroup>
-                                </select>
-                                <input type="text" class="form-control" placeholder="^Código^" id="inputCodigo" onkeyup="inputNumeric('inputCodigo')">
-                            </p><p>
-                                <button type="button" class="btn btn-warning btn-no-inside dark" onclick="advancedSearch('cuestionario_menu.php')">
+                                <button type="button" class="btn btn-warning btn-no-inside" onclick="advancedSearch('cuestionario_menu.php')">
                                     <strong>Buscar</strong>
-                                    <img src="icons/search.png" height="30px">
+                                    <img src="icons/searchLight.png" height="30px">
                                 </button>
                             </p>
                         </div>

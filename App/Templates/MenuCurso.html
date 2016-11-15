@@ -32,7 +32,7 @@
                     <form class="navbar-form" id='simpleSearch' onsubmit="return false;">
                         <div class="well" style="text-align: center;">
                             <div class="input-group">
-                                <input type="text" id="inputSimple" class="form-control" placeholder="ID ^or^ ^Names^" onkeyup="inputCharacter('inputSimple')">
+                                <input type="text" id="inputSimple" class="form-control" placeholder="ID/Nombre" onkeyup="inputCharacter('inputSimple')">
                                 <div class="input-group-btn">
                                     <button class="btn btn-default btn-success" style="margin-top: 0px; margin-left: 3px" onclick="simpleSearch('curso_menu.php')">
                                         <img src="icons/searchLight.png" height="10px">
@@ -64,18 +64,8 @@
                             <p>
                                 <input type="text" class="form-control" placeholder="ID" id="inputId" onkeyup="inputNumeric('inputId');" style="display:none">
                             </p><p>
-                                <input type="text" class="form-control" placeholder="Nombre(s)" id="inputNames" onkeyup="inputName('inputNames')">
-                                <input type="text" class="form-control" placeholder="Primer Apellido" id="inputLastname1" onkeyup="inputName('inputLastname1')">
-                                <input type="text" class="form-control" placeholder="Segundo Apellido" id="inputLastname2" onkeyup="inputName('inputLastname2')">
-                            </p><p>
-                                <select class="form-control" id="selectTipo" style="margin-left: 5px">
-                                    <optgroup>
-                                        <option value="Todos">Selecionar Tipo</option>
-                                        <option value="Admin">Administrador</option>
-                                        <option value="Normal">Normal</option>
-                                    </optgroup>
-                                </select>
-                                <input type="text" class="form-control" placeholder="^Código^" id="inputCodigo" onkeyup="inputNumeric('inputCodigo')">
+                                <input type="text" class="form-control" placeholder="Nombre" id="inputNameC" onkeyup="inputName('inputNameC')">
+                                <input type="text" class="form-control" placeholder="Ciclo" id="inputCiclo" onkeyup="inputUpper('inputCiclo')">
                             </p><p>
                                 <button type="button" class="btn btn-success btn-no-inside" onclick="advancedSearch('curso_menu.php')">
                                     <strong>Buscar</strong>

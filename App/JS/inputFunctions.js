@@ -181,12 +181,16 @@ function inputCharacter(id)
 
 function inputUpper(id)
 {
-    cad = inputCharacter(obj).toUpperCase();
-    obj.value = cad;
+    inputCharacter(id);
+
+    obj =  document.getElementById(id);    
+    obj.value = obj.value.toUpperCase();
 }
 
 function inputLower(id)
 {
-    cad = inputCharacter(obj).toLowerCase();
-    obj.value = cad;
+    inputCharacter(id);
+
+    obj =  document.getElementById(id);    
+    obj.value = obj.value.toLowerCase();
 }
