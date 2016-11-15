@@ -26,7 +26,7 @@
         <div class="container theme-showcase" role="main">
             <div class="panel panel-info" id='main'>
                 <div class="panel-heading">
-                    <h3 class="panel-title">Menu de Alumnos</h3>
+                    <h3 class="panel-title">Menu de Cuestionarios</h3>
                 </div>
                 <div class="panel-body" id='panel-body'>
                     <form class="navbar-form" id='simpleSearch' onsubmit="return false;">
@@ -34,18 +34,18 @@
                             <div class="input-group">
                                 <input type="text" id="inputSimple" class="form-control" placeholder="ID ^or^ ^Names^" onkeyup="inputCharacter('inputSimple')">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-default btn-info" style="margin-top: 0px; margin-left: 3px" onclick="simpleSearch('alumno_menu.php')">
-                                        <img src="icons/searchLight.png" height="10px">
+                                    <button class="btn btn-default btn-warning" style="margin-top: 0px; margin-left: 3px" onclick="simpleSearch('cuestionario_menu.php')">
+                                        <img src="icons/search.png" height="10px">
                                     </button>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-info btn-no-inside" onclick="href('alumno_menu.php');">
-                                <img src="icons/alumnoLight.png" height="30px">Mostrar Todos
+                            <button type="button" class="btn btn-warning btn-no-inside dark" onclick="href('cuestionario_menu.php');">
+                                <img src="icons/cuestionario.png" height="30px">Mostrar Todos
                             </button>
-                            <button type="button" class="btn btn-info btn-no-inside" onclick="href('alumno_insertar.php');">
-                                <img src="icons/plusLight.png" height="30px"> Agregar
+                            <button type="button" class="btn btn-warning btn-no-inside dark" onclick="href('cuestionario_insertar.php');">
+                                <img src="icons/plus.png" height="30px"> Agregar
                             </button>
-                            <button type="button" class="btn btn-info btn-no-inside" onclick="hiddenElement('simpleSearch', 'true'); hiddenElement('advancedSearch', 'false');">
+                            <button type="button" class="btn btn-warning btn-no-inside dark" onclick="hiddenElement('simpleSearch', 'true'); hiddenElement('advancedSearch', 'false');">
                                 Búsqueda Avanzada
                             </button>
                         </div>
@@ -53,13 +53,13 @@
                     <form class="navbar-form" id="advancedSearch" hidden onsubmit="return false;">
                         <div class="well">
                             <p>
-                                <button type="button" class="btn btn-info btn-no-inside"  onclick="href('alumno_menu.php');">
-                                    <img src="icons/alumnoLight.png" height="30px">Mostrar Todos
+                                <button type="button" class="btn btn-warning btn-no-inside dark"  onclick="href('cuestionario_menu.php');">
+                                    <img src="icons/cuestionario.png" height="30px">Mostrar Todos
                                 </button>
-                                <button type="button" class="btn btn-info btn-no-inside" onclick="href('alumno_insertar.php');">
-                                    <img src="icons/plusLight.png" height="30px"> Agregar
+                                <button type="button" class="btn btn-warning btn-no-inside dark" onclick="href('cuestionario_insertar.php');">
+                                    <img src="icons/plus.png" height="30px"> Agregar
                                 </button>
-                                <button type="button" class="btn btn-info btn-no-inside" onclick="hiddenElement('simpleSearch', 'false'); hiddenElement('advancedSearch', 'true');">Búsqueda Simple</button>
+                                <button type="button" class="btn btn-warning btn-no-inside dark" onclick="hiddenElement('simpleSearch', 'false'); hiddenElement('advancedSearch', 'true');">Búsqueda Simple</button>
                             </p>
                             <p>
                                 <input type="text" class="form-control" placeholder="ID" id="inputId" onkeyup="inputNumeric('inputId');" style="display:none">
@@ -77,9 +77,9 @@
                                 </select>
                                 <input type="text" class="form-control" placeholder="^Código^" id="inputCodigo" onkeyup="inputNumeric('inputCodigo')">
                             </p><p>
-                                <button type="button" class="btn btn-info btn-no-inside" onclick="advancedSearch('alumno_menu.php')">
+                                <button type="button" class="btn btn-warning btn-no-inside dark" onclick="advancedSearch('cuestionario_menu.php')">
                                     <strong>Buscar</strong>
-                                    <img src="icons/searchLight.png" height="30px">
+                                    <img src="icons/search.png" height="30px">
                                 </button>
                             </p>
                         </div>
