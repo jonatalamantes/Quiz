@@ -11,6 +11,7 @@
         <script type="text/javascript" src="../Libs/JQueryUI/jquery-ui.js"></script>
         <script type="text/javascript" src="../Libs/Bootstrap/dist/js/bootstrap.js"></script>
         <script type="text/javascript" src="../Libs/Bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="JS/inputFunctions.js"></script>
         <script type="text/javascript" src="JS/functions.js"></script>
         <script type="text/javascript" src="JS/ajaxfunctions.js"></script>
 
@@ -35,7 +36,7 @@
                 </li>
                 <li>
                     <p class="txtlogin">
-                        <input name="txtUser" type="text" id="txtUser" placeholder="Username" class="inputs" onclick="normalInputs('login.php')" focus>
+                        <input name="txtUser" type="text" id="txtUser" placeholder="Username" class="inputs" onclick="normalInputs('login.php')" onkeyup="inputNumeric('txtUser')" focus>
                     </p>
                 </li>
                 <li>
