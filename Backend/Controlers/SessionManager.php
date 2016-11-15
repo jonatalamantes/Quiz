@@ -44,7 +44,7 @@
          */
         static function getLastQuery()
         {
-          return $_SESSION["last_query"];
+            return $_SESSION["last_query"];
         }
 
         /**
@@ -55,7 +55,39 @@
          */
         static function setLastQuery($newQuery = "")
         {
-          $_SESSION["last_query"] = $newQuery;
+            $_SESSION["last_query"] = $newQuery;
+        }
+
+        /**
+         * Change the last query on the database
+         * 
+         * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+         * @return string   $newQuery   The new query
+         */
+        static function getTipoAlumno()
+        {
+            if (array_key_exists("tipoAlumno", $_SESSION) !== FALSE)
+            {
+                return $_SESSION["tipoAlumno"];    
+            }
+
+            return NULL;
+        }
+
+        /**
+         * Change the last query on the database
+         * 
+         * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
+         * @return string   $newQuery   The new query
+         */
+        static function getIdAlumno()
+        {
+            if (array_key_exists("idAlumno", $_SESSION) !== FALSE)
+            {
+                return $_SESSION["idAlumno"];    
+            }
+
+            return NULL;
         }
 
         /**

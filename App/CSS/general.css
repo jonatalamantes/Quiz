@@ -99,7 +99,7 @@ input
     margin-left: 5px;
 }
 
-.btn-warning
+.btn-warning, form .submit input[type="submit"]
 {
     color: #fff;
     background-color: #0F9477;
@@ -115,18 +115,19 @@ input
     background-repeat: repeat-x;
 }
 
-.btn-warning:hover,
-.btn-warning:focus 
+.btn-warning:hover, form .submit input[type="submit"]:hover,
+.btn-warning:focus, form .submit input[type="submit"]:focus
 {
   background-color: #0F9477;
+  border-color: #4A4A4A;
   background-position: 0 -15px;
 }
 
-.btn-warning:active,
-.btn-warning.active 
+.btn-warning:active, form .submit input[type="submit"]:active,
+.btn-warning.active, form .submit input[type="submit"].active 
 {
-  background-color: #0F9477;
-  border-color: #0F9477;
+  background-color: #0F9477 !important;
+  border-color: #4A4A4A !important;
 }
 
 .btn-success, form .submit input[type="submit"]
@@ -149,20 +150,30 @@ input
 .btn-success:focus, form .submit input[type="submit"]:focus
 {
   background-color: #172782;
+  border-color: #4A4A4A;   
   background-position: 0 -15px;
 }
 
 .btn-success:active, form .submit input[type="submit"]:active,
 .btn-success.active, form .submit input[type="submit"].active 
 {
-  background-color: #172782;
-  border-color: #000000;
+  background-color: #172782 !important;
+  border-color: #4A4A4A !important;
 }
 
 .table-head
 {
     background-color: black;
     color: white;
+}
+
+.dark,
+.dark:hover,  form .submit input[type="submit"]:hover,
+.dark:active, form .submit input[type="submit"]:active, 
+.dark:focus,  form .submit input[type="submit"]:focus,
+.dark.active, form .submit input[type="submit"].active 
+{
+    color: black;
 }
 
 .btn-inside

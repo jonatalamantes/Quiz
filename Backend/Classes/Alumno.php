@@ -231,6 +231,27 @@
         }
 
         /**
+         * Gets the value of nombreCompleto.
+         *
+         * @return mixed
+         */
+        public function getNombreCompleto($inicia = "nombre")
+        {
+            if ($inicia == "nombre")
+            {
+                return $this->nombres         . " ". 
+                       $this->apellidoPaterno . " ".
+                       $this->apellidoMaterno;
+            }
+            else
+            {
+                return $this->apellidoPaterno . " " .
+                       $this->apellidoMaterno . ", ".
+                       $this->nombres;
+            }
+        }
+
+        /**
          * Gets the value of password.
          *
          * @return mixed

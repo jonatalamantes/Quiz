@@ -1,3 +1,14 @@
+html
+{
+    position: relative;
+    background-color: #7AEDFF;   
+}
+
+body 
+{
+    background-color: #7AEDFF;   
+}
+
 h2
 {
     font-weight: bold;

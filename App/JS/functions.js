@@ -23,3 +23,28 @@ function loginMitad()
         $("#contenedor").css("margin-top", nueva_posicion_y);
     }
 }
+
+function hiddenElement(id, status, type)
+{
+    if (status === "true")
+    {
+        $("#" + id).css("display", "none");
+    }
+    else
+    {
+        if (type === undefined)
+        {
+            $("#" + id).css("display", "block");
+        }
+        else
+        {
+            $("#" + id).css("display", type);
+        }        
+    }
+}
+
+function href(url)
+{
+    window.location.href = url;
+}
+
