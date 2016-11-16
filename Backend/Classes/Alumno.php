@@ -22,7 +22,7 @@
          * @param string  $ap [apellidoPaterno]
          * @param string  $am [apellidoMaterno]
          */
-        function __construct($i = 0, $n = "", $ap = "", $am = "", $p = "", $tipo = "", $a = "S", $f = "")
+        function __construct($i = 0, $n = "", $ap = "", $am = "", $p = "", $t = "", $a = "S", $f = "")
         {
             $this->id              = $i;
             $this->nombres         = $n;

@@ -33,7 +33,7 @@
 
             foreach ($keysValues as $key => $value) 
             {
-                $query .= "$tableAlumno.$key = '$value' AND";
+                $query .= "$tableAlumno.$key = '$value' AND ";
             }
 
             $query = substr($query, 0, strlen($query)-4);
@@ -128,12 +128,13 @@
             $opciones = array('nombres'          => $alumno->getNombres(), 
                               'apellidoPaterno'  => $alumno->getApellidoPaterno(),
                               'apellidoMaterno'  => $alumno->getApellidoMaterno(),
-                              'tipo'             => $alumno->getTipo(),
                               'password'         => $alumno->getPassword());
 
             $singleAlumno = self::getSingle($opciones);
 
-            if ($singleAlumno->disimilitud($alumno) == 1)
+            var_dump($singleAlumno);
+
+            if ($singleAlumno == NULL || $singleAlumno->disimilitud($alumno) == 1)
             {
                 $nombres         = $alumno->getNombres();
                 $apellidoPaterno = $alumno->getApellidoPaterno();
@@ -316,7 +317,7 @@
        */
       static function filter($keysValues = array(), $order = 'id', $begin = 0, $cantidad = 10)
       {
-          if (!is_array($keysValues) || !empty($keysValues))
+          if (!is_array($keysValues) || empty($keysValues))
           {
               return null;
           }
@@ -329,10 +330,12 @@
 
           foreach ($keysValues as $key => $value) 
           {
-              $query .= "$tableAlumno.$key = $value AND";
+              $query .= "$tableAlumno.$key LIKE '%$value%' AND ";
           }
 
           $query = substr($query, 0, strlen($query)-4);
+
+          $query = $query . " ORDER BY ";
 
           if ($order == 'nombres')
           {

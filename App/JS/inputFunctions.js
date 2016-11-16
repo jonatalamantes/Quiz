@@ -1,3 +1,27 @@
+function hiddenElement(id, status, type)
+{
+    if (status === "true")
+    {
+        $("#" + id).css("display", "none");
+    }
+    else
+    {
+        if (type === undefined)
+        {
+            $("#" + id).css("display", "block");
+        }
+        else
+        {
+            $("#" + id).css("display", type);
+        }        
+    }
+}
+
+function href(url)
+{
+    window.location.href = url;
+}
+
 function nextPage(state, number)
 {
     url = String(window.location);

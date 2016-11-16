@@ -33,7 +33,7 @@
 
             foreach ($keysValues as $key => $value) 
             {
-                $query .= "$tableOpcion.$key = '$value' AND";
+                $query .= "$tableOpcion.$key = '$value' AND ";
             }
 
             $opcion_simple = DatabaseManager::singleFetchAssoc($query);
@@ -300,7 +300,7 @@
        */
       static function filter($keysValues = array(), $order = 'id', $begin = 0, $cantidad = 10)
       {
-          if (!is_array($keysValues) || !empty($keysValues))
+          if (!is_array($keysValues) || empty($keysValues))
           {
               return null;
           }
@@ -313,7 +313,7 @@
 
           foreach ($keysValues as $key => $value) 
           {
-              $query .= "$tableOpcion.$key = $value AND";
+              $query .= "$tableOpcion.$key LIKE '%$value%' AND ";
           }
 
           $query = substr($query, 0, strlen($query)-4);
