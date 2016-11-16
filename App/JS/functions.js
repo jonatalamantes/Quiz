@@ -81,6 +81,61 @@ function loadSort(page, id)
 
         window.location.href = target;
     }
+    else if (page == 'curso_menu.php')
+    {
+        var sortType = 0;
+        var target   = window.location.href;
+        var key      = "";
+
+        if (document.getElementById('sortType') !== null)
+        {
+            sortType = document.getElementById('sortType').selectedIndex;
+        }
+
+        if (sortType == 0)
+        {
+            key = "sort=id";
+        }
+        else if (sortType == 1)
+        {
+            key = "sort=nombre";
+        }
+        else if (sortType == 2)
+        {
+            key = "sort=ciclo";
+        }
+
+        if (target.indexOf('sort=') >= 0)
+        {
+            cad1 = target.substring(0, target.indexOf('sort='));
+            cad3 = target.substring(target.indexOf('sort='));
+            
+            if (cad1.indexOf('&') < 0)
+            {
+                target = cad1 + key;
+            }
+            else
+            {
+                cad2 = cad3.substring(cad3.indexOf('&'));
+                cad1 = cad1.substring(5);
+                target = cad1 + key + cad2;
+            }
+
+        }
+        else
+        {
+            if (target.indexOf('?') < 0)
+            {
+                target = target + "?" + key;
+            }
+            else
+            {
+                target = target + "&" + key;
+            }
+        }
+
+        window.location.href = target;
+    }
 }
 
 function simpleSearch(page)
@@ -93,7 +148,7 @@ function simpleSearch(page)
 
         if (document.getElementById('sortType') !== null)
         {
-            sortType = document.getElementById('sortType').selectedIndex;;
+            sortType = document.getElementById('sortType').selectedIndex;
         }
 
         if (sortType == 0)
@@ -107,6 +162,32 @@ function simpleSearch(page)
         else if (sortType == 2)
         {
             target = page + "?page=0&sort=apellidoPaterno&keyword=" + keyword;
+        }
+
+        window.location.href = target;
+    }
+    else if (page == 'curso_menu.php')
+    {
+        var sortType = 0;
+        var keyword  = document.getElementById('inputSimple').value;
+        var target   = "";
+
+        if (document.getElementById('sortType') !== null)
+        {
+            sortType = document.getElementById('sortType').selectedIndex;
+        }
+
+        if (sortType == 0)
+        {
+            target = page + "?page=0&sort=id&keyword=" + keyword;
+        }
+        else if (sortType == 1)
+        {
+            target = page + "?page=0&sort=nombre&keyword=" + keyword;
+        }
+        else if (sortType == 2)
+        {
+            target = page + "?page=0&sort=ciclo&keyword=" + keyword;
         }
 
         window.location.href = target;
@@ -127,7 +208,7 @@ function advancedSearch(page)
 
         if (document.getElementById('sortType') !== null)
         {
-            sortType = document.getElementById('sortType').selectedIndex;;
+            sortType = document.getElementById('sortType').selectedIndex;
         }
 
         if (sortType == 0)
@@ -149,6 +230,37 @@ function advancedSearch(page)
                             "&kinputLastname1=" + inputLastname1 +
                             "&kinputLastname2=" + inputLastname2 +
                             "&kinputCodigo="    + inputCodigo;
+
+        window.location.href = target;
+    }
+    else if (page == 'curso_menu.php')
+    {
+        var inputNameC        = $("#inputNameC").val();
+        var inputCiclo        = $("#inputCiclo").val();
+        var sortType          = "0";
+        var target            = "";
+
+        if (document.getElementById('sortType') !== null)
+        {
+            sortType = document.getElementById('sortType').selectedIndex;
+        }
+
+        if (sortType == 0)
+        {
+            target = page + "?page=0&sort=id";
+        }
+        else if (sortType == 1)
+        {
+            target = page + "?page=0&sort=nombre";
+        }
+        else if (sortType == 2)
+        {
+            target = page + "?page=0&sort=ciclo";
+        }
+
+        target = target +   "&kid="     + 
+                            "&knombre=" + inputNameC +
+                            "&kciclo="  + inputCiclo;
 
         window.location.href = target;
     }

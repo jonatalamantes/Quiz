@@ -57,6 +57,11 @@ function normalData(page)
         $('#labelApellidoMaterno').css('color', 'black');
         $('#labelTipo').css('color', 'black');
     }
+    else if (page === 'curso_insertar.php')
+    {
+        $('#labelNombre').css('color', 'black');
+        $('#labelCiclo').css('color', 'black');
+    }
 }
 
 function validateData(page, status)
@@ -66,7 +71,6 @@ function validateData(page, status)
         correct = true;
 
         idAlumno           = $("#idAlumno").html();
-        txtCodigo          = $("#txtCodigo").val();
         txtCodigo          = $("#txtCodigo").val();
         txtNombres         = $("#txtNombres").val();
         txtApellidoPaterno = $("#txtApellidoPaterno").val();
@@ -132,6 +136,58 @@ function validateData(page, status)
             });
         }
     }
+    if (page === 'curso_insertar.php')
+    {
+        correct = true;
+
+        idCurso   = $("#idCurso").html();
+        txtNombre = $("#txtNombre").val();
+        txtCiclo  = $("#txtCiclo").val();
+
+        if (txtNombre === undefined || txtNombre === "")
+        {
+            $('#labelNombre').css('color', 'blue');
+            correct = false;
+        }
+
+        if (txtCiclo === undefined || txtCiclo === "")
+        {
+            $('#labelCiclo').css('color', 'blue');
+            correct = false;
+        }
+
+        if (correct)
+        {
+            $.ajax
+            ({
+                data: {
+                        'idCurso'   : idCurso   ,
+                        'txtNombre' : txtNombre ,
+                        'txtCiclo'  : txtCiclo  ,
+                        'status'    : status           
+                      },
+
+                type: "POST",
+                url: 'JS/scriptsAjax/updateCurso.php',
+            })
+            .done(function( data, textStatus, jqXHR ) 
+            {
+                if (data.indexOf("OK") !== -1)
+                {
+                    alert("Guardado Exitoso");
+                    window.location.href = "curso_menu.php";
+                }
+                else //OK
+                {
+                    alert("Error en los datos proporcionados");   
+                }
+            })
+            .fail(function( jqXHR, textStatus, errorThrown ) 
+            {
+                alert("Error al procesar los datos");
+            });
+        }
+    }
 }
 
 function deleteObject(objectName, id)
@@ -144,6 +200,37 @@ function deleteObject(objectName, id)
         {
             //Get the data for insert in the database
             var datosEnv  = 'JS/scriptsAjax/deleteAlumno.php?id=' + id;
+
+            var ajax = new XMLHttpRequest();
+
+            //Revision del objeto funcionando
+            ajax.onreadystatechange = function() 
+            {
+                if (ajax.readyState == 4 && ajax.status == 200) 
+                {
+                    if (ajax.responseText.indexOf("OK") !== -1)
+                    {
+                        alert("Guardado Exitoso");
+                        window.location.reload();
+                    }
+                    else //OK
+                    {
+                        alert("Error Eliminando los datos");
+                    }
+                }
+            }
+
+            //Envio de datos al servidor
+            ajax.open("GET",datosEnv,true);
+            ajax.send();
+        }
+    }
+    else if (objectName === 'curso')
+    {
+        if (correct)
+        {
+            //Get the data for insert in the database
+            var datosEnv  = 'JS/scriptsAjax/deleteCurso.php?id=' + id;
 
             var ajax = new XMLHttpRequest();
 

@@ -33,7 +33,7 @@
 
             foreach ($keysValues as $key => $value) 
             {
-                $query .= "$tablePregunta.$key = $value AND ";
+                $query .= "$tablePregunta.$key = '$value' AND ";
             }
 
             $query = substr($query, 0, strlen($query)-4);
@@ -172,18 +172,29 @@
 
             if ($singlePregunta->disimilitud($pregunta) > 0)
             {
-                $id          = $singlePregunta->getId();
-                $descripcion = $pregunta->getDescripcion();
+                $opciones = array('descripcion' => $pregunta->getDescripcion());
 
-                $tablePregunta = DatabaseManager::getNameTable('TABLE_PREGUNTA');
+                $singlePregunta = self::getSingle($opciones);
+    
+                if ($singlePregunta->disimilitud($pregunta) == 1)
+                {
+                    $id          = $singlePregunta->getId();
+                    $descripcion = $pregunta->getDescripcion();
 
-                $query     = "UPDATE $tablePregunta 
-                              SET descripcion = '$descripcion'
-                              WHERE $tablePregunta.id = '$id'";
+                    $tablePregunta = DatabaseManager::getNameTable('TABLE_PREGUNTA');
 
-                if (DatabaseManager::singleAffectedRow($query) === true)
-                {                    
-                    return true;
+                    $query     = "UPDATE $tablePregunta 
+                                  SET descripcion = '$descripcion'
+                                  WHERE $tablePregunta.id = '$id'";
+
+                    if (DatabaseManager::singleAffectedRow($query) === true)
+                    {                    
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
@@ -308,6 +319,7 @@
           }
 
           $query = substr($query, 0, strlen($query)-4);
+          $query .= " ORDER BY ";
 
           if ($order == 'descripcion')
           {

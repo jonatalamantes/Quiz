@@ -36,6 +36,8 @@
                 $query .= "$tableOpcion.$key = '$value' AND ";
             }
 
+            $query = substr($query, 0, strlen($query)-4);
+
             $opcion_simple = DatabaseManager::singleFetchAssoc($query);
             
             if ($opcion_simple !== NULL)
@@ -175,20 +177,32 @@
 
             if ($singleOpcion->disimilitud($opcion) > 0)
             {
-                $id          = $singleOpcion->getId();
-                $descripcion = $opcion->getDescripcion();
-                $correcta    = $opcion->getCorrecta();
+                $opciones = array('descripcion' => $opcion->getDescripcion(), 
+                                  'correcta'    => $opcion->getCorrecta());
 
-                $tableOpcion = DatabaseManager::getNameTable('TABLE_OPCION');
+                $singleOpcion = self::getSingle($opciones);
 
-                $query     = "UPDATE $tableOpcion 
-                              SET descripcion = '$descripcion', 
-                                  correcta    = '$correcta'
-                             WHERE $tableOpcion.id = '$id'";
+                if ($singleOpcion->disimilitud($opcion) == 1)
+                {
+                    $id          = $singleOpcion->getId();
+                    $descripcion = $opcion->getDescripcion();
+                    $correcta    = $opcion->getCorrecta();
 
-                if (DatabaseManager::singleAffectedRow($query) === true)
-                {                    
-                    return true;
+                    $tableOpcion = DatabaseManager::getNameTable('TABLE_OPCION');
+
+                    $query     = "UPDATE $tableOpcion 
+                                  SET descripcion = '$descripcion', 
+                                      correcta    = '$correcta'
+                                 WHERE $tableOpcion.id = '$id'";
+
+                    if (DatabaseManager::singleAffectedRow($query) === true)
+                    {                    
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
@@ -317,6 +331,7 @@
           }
 
           $query = substr($query, 0, strlen($query)-4);
+          $query .= " ORDER BY ";
 
           if ($order == 'descripcion')
           {

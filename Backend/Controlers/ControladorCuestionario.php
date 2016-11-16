@@ -20,7 +20,7 @@
          */
         static function getSingle($keysValues = array())
         {
-            if (!is_array($keysValues) || !empty($keysValues))
+            if (!is_array($keysValues) || empty($keysValues))
             {
                 return null;
             }
@@ -177,20 +177,32 @@
 
             if ($singleCuestionario->disimilitud($cuestionario) > 0)
             {
-                $id                        = $singleCuestionario->getId();
-                $numero                    = $cuestionario->getNumero();
-                $idRelacionOpcionPregunta  = $cuestionario->getIdRelacionOpcionPregunta();
+                $opciones = array('numero'                   => $cuestionario->getNumero(), 
+                                  'idRelacionOpcionPregunta' => $cuestionario->getIdRelacionOpcionPregunta());
 
-                $tableCuestionario = DatabaseManager::getNameTable('TABLE_CUESTIONARIO');
+                $singleCuestionario = self::getSingle($opciones);
 
-                $query     = "UPDATE $tableCuestionario 
-                              SET numero                    = '$numero', 
-                                  idRelacionOpcionPregunta  = '$idRelacionOpcionPregunta' 
-                             WHERE $tableCuestionario.id = '$id'";
+                if ($singleCuestionario->disimilitud($cuestionario) == 1)
+                {
+                    $id                        = $singleCuestionario->getId();
+                    $numero                    = $cuestionario->getNumero();
+                    $idRelacionOpcionPregunta  = $cuestionario->getIdRelacionOpcionPregunta();
 
-                if (DatabaseManager::singleAffectedRow($query) === true)
-                {                    
-                    return true;
+                    $tableCuestionario = DatabaseManager::getNameTable('TABLE_CUESTIONARIO');
+
+                    $query     = "UPDATE $tableCuestionario 
+                                  SET numero                    = '$numero', 
+                                      idRelacionOpcionPregunta  = '$idRelacionOpcionPregunta' 
+                                 WHERE $tableCuestionario.id = '$id'";
+
+                    if (DatabaseManager::singleAffectedRow($query) === true)
+                    {                    
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
@@ -320,6 +332,7 @@
           }
 
           $query = substr($query, 0, strlen($query)-4);
+          $query .= " ORDER BY ";
 
           if ($order == 'numero')
           {

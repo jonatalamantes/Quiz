@@ -20,7 +20,7 @@
          */
         static function getSingle($keysValues = array())
         {
-            if (!is_array($keysValues) || !empty($keysValues))
+            if (!is_array($keysValues) || empty($keysValues))
             {
                 return null;
             }
@@ -33,7 +33,7 @@
 
             foreach ($keysValues as $key => $value) 
             {
-                $query .= "$tableCurso.$key = $value AND ";
+                $query .= "$tableCurso.$key = '$value' AND ";
             }
 
             $query = substr($query, 0, strlen($query)-4);
@@ -130,7 +130,7 @@
 
             $singleCurso = self::getSingle($opciones);
 
-            if ($singleCurso->disimilitud($curso) == 1)
+            if ($singleCurso == NULL || $singleCurso->disimilitud($curso) == 1)
             {
                 $nombre = $curso->getNombre();
                 $ciclo  = $curso->getCiclo();
@@ -181,16 +181,28 @@
                 $nombre = $curso->getNombre();
                 $ciclo  = $curso->getCiclo();
 
-                $tableCurso = DatabaseManager::getNameTable('TABLE_CURSO');
+                $opciones = array('nombre' => $curso->getNombre(), 
+                                  'ciclo'  => $curso->getCiclo());
 
-                $query     = "UPDATE $tableCurso 
-                              SET nombre = '$nombre', 
-                                  ciclo  = '$ciclo'
-                             WHERE $tableCurso.id = '$id'";
+                $singleCurso = self::getSingle($opciones);
 
-                if (DatabaseManager::singleAffectedRow($query) === true)
-                {                    
-                    return true;
+                if ($singleCurso == NULL || $singleCurso->disimilitud($curso) == 1)
+                {
+                    $tableCurso = DatabaseManager::getNameTable('TABLE_CURSO');
+
+                    $query     = "UPDATE $tableCurso 
+                                  SET nombre = '$nombre', 
+                                      ciclo  = '$ciclo'
+                                 WHERE $tableCurso.id = '$id'";
+
+                    if (DatabaseManager::singleAffectedRow($query) === true)
+                    {                    
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
@@ -320,6 +332,7 @@
           }
 
           $query = substr($query, 0, strlen($query)-4);
+          $query .= " ORDER BY ";
 
           if ($order == 'nombre')
           {

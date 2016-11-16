@@ -132,8 +132,6 @@
 
             $singleAlumno = self::getSingle($opciones);
 
-            var_dump($singleAlumno);
-
             if ($singleAlumno == NULL || $singleAlumno->disimilitud($alumno) == 1)
             {
                 $nombres         = $alumno->getNombres();
@@ -191,19 +189,33 @@
                 $password        = $alumno->getPassword();
                 $tipo            = $alumno->getTipo();
 
-                $tableAlumno = DatabaseManager::getNameTable('TABLE_ALUMNO');
+                $opciones = array('nombres'          => $alumno->getNombres(), 
+                                  'apellidoPaterno'  => $alumno->getApellidoPaterno(),
+                                  'apellidoMaterno'  => $alumno->getApellidoMaterno(),
+                                  'password'         => $alumno->getPassword());
 
-                $query     = "UPDATE $tableAlumno 
-                              SET nombres         = '$nombres', 
-                                  apellidoPaterno = '$apellidoPaterno', 
-                                  apellidoMaterno = '$apellidoMaterno', 
-                                  tipo            = '$tipo', 
-                                  password        = '$password' 
-                             WHERE $tableAlumno.id = '$id'";
+                $singleAlumno = self::getSingle($opciones);
 
-                if (DatabaseManager::singleAffectedRow($query) === true)
-                {                    
-                    return true;
+                if ($singleAlumno == NULL || $singleAlumno->disimilitud($alumno) == 1)
+                {
+                    $tableAlumno = DatabaseManager::getNameTable('TABLE_ALUMNO');
+
+                    $query     = "UPDATE $tableAlumno 
+                                  SET nombres         = '$nombres', 
+                                      apellidoPaterno = '$apellidoPaterno', 
+                                      apellidoMaterno = '$apellidoMaterno', 
+                                      tipo            = '$tipo', 
+                                      password        = '$password' 
+                                 WHERE $tableAlumno.id = '$id'";
+
+                    if (DatabaseManager::singleAffectedRow($query) === true)
+                    {                    
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
