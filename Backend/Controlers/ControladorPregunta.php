@@ -29,7 +29,7 @@
 
             $query     = "SELECT $tablePregunta.* 
                           FROM $tablePregunta
-                          WHERE ";
+                          WHERE $tablePregunta.activo = 'S' AND ";
 
             foreach ($keysValues as $key => $value) 
             {

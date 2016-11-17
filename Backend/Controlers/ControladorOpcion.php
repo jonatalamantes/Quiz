@@ -323,7 +323,7 @@
 
           $query     = "SELECT $tableOpcion.* 
                         FROM $tableOpcion
-                        WHERE ";
+                        WHERE $tableOpcion.activo = 'S' AND ";
 
           foreach ($keysValues as $key => $value) 
           {

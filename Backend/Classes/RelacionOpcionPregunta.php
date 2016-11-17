@@ -17,6 +17,17 @@
             $this->idPregunta = $p;
 			$this->liberada   = $l;
 		}
+
+        function fromArray($array = null)
+        {
+            if ($array !== NULL && !empty($array))
+            {
+                $this->id         = $array["id"];
+                $this->idOpcion   = $array["idOpcion"];
+                $this->idPregunta = $array["idPregunta"];
+                $this->liberada   = $array["liberada"];  
+            }
+        }
                  
         /**
         * Gets the value of id.

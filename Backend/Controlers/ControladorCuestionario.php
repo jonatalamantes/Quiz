@@ -249,6 +249,50 @@
          * @param  integer        $begin        The number of page to display the registry
          * @return Array[BitacoraSI] $bitacoraSIs     BitacoraSI objects with the similar name or null
          */
+        static function getAutocompletado($string = '')
+        {
+            $tableCuestionario  = DatabaseManager::getNameTable('TABLE_CUESTIONARIO');
+
+            $query     = "SELECT $tableCuestionario.*
+                          FROM $tableCuestionario
+                          WHERE ($tableCuestionario.numero LIKE '%$string%'   OR 
+                                 $tableCuestionario.idRelacionOpcionPregunta  LIKE '%$string%' ) AND
+                                 $tableCuestionario.activo = 'S'
+                          ORDER BY ";
+
+            $arrayCuestionarios   = DatabaseManager::multiFetchAssoc($query);
+            $cuestionario_simples = array();
+            $return               = array();
+
+            if ($arrayCuestionarios !== NULL)
+            {
+                foreach ($arrayCuestionarios as $cuestionario_simple) 
+                {
+                    $cuestionarioA = new Cuestionario();
+                    $cuestionarioA->fromArray($cuestionario_simple);
+
+                    array_push($return, array('label' => $cuestionarioA->getNumero(),
+                          'id' => $cuestionarioA->getId())
+                         );
+                }
+
+                return json_encode($return);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /**
+         * Search one bitacoraSI by one similar name
+         * 
+         * @author Jonathan Sandoval <jonathan.sandoval@jalisco.gob.mx>
+         * @param  string         $string       Necesary string to search
+         * @param  string         $order        The type of sort of the BitacoraSI
+         * @param  integer        $begin        The number of page to display the registry
+         * @return Array[BitacoraSI] $bitacoraSIs     BitacoraSI objects with the similar name or null
+         */
         static function simpleSearch($string = '', $order = "id", $begin = 0, $cantidad = 10)
         {
             $tableCuestionario  = DatabaseManager::getNameTable('TABLE_CUESTIONARIO');
@@ -324,7 +368,7 @@
 
           $query     = "SELECT $tableCuestionario.* 
                         FROM $tableCuestionario
-                        WHERE ";
+                        WHERE $tableCuestionario.activo = 'S' AND ";
 
           foreach ($keysValues as $key => $value) 
           {

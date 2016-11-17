@@ -1,6 +1,8 @@
 <?php 
 
     require_once(__DIR__."/../Backend/Controlers/ControladorAlumno.php");
+    require_once(__DIR__."/../Backend/Controlers/ControladorRelacionAlumnoCurso.php");
+    require_once(__DIR__."/../Backend/Controlers/ControladorCurso.php");
 
     SessionManager::validateUserInPage("menu_admin.php");
 
@@ -40,6 +42,38 @@
                     $('#txtApellidoMaterno').val(".json_encode(trim($obj->getApellidoMaterno())).");
                     $('#selectTipo').val(".json_encode(trim($obj->getTipo())).");
                 </script>";
+
+    //Obtenemos los datos de la relacion
+    $cursosR = ControladorRelacionAlumnoCurso::filter(array('idAlumno' => $_GET["id"]));
+    $cursos_string = "";
+
+    if ($cursosR !== NULL)
+    {
+        $cursos_string .= "<table class='table table-condensed cf'>
+                           <tbody style='margin-left: 20px; background-color: transparent; text-align: center;'>
+                           <tr><td><label>Cursos en los que esta Inscritos</label></td></tr>";
+
+        foreach ($cursosR as $key => $curso) 
+        {
+            $miCurso = ControladorCurso::getSingle(array('id' => $curso->getIdCurso()));
+
+            $cursos_string .= "<tr><td>";
+            $cursos_string .= "<div class='input-group'>";
+            $cursos_string .= "    <input class='form-control agrupacion' type='text' value='". $miCurso->getNombre() ."' disabled>";
+            $cursos_string .= "    <div class='input-group-btn'>
+                                        <button class='btn btn-default btn-info' style='margin-top: 0px; margin-left: 3px' 
+                                        onclick='href(\"curso_ver.php?id=".$miCurso->getId()."\")'>
+                                            <img src='icons/searchLight.png' height='10px'>
+                                        </button>
+                                    </div>
+                                </div></td></tr>";
+
+        }
+
+        $cursos_string .= "</tbody></table>";
+    }
+
+    $pagina = str_replace("|Cursos|", $cursos_string, $pagina);
 
     $pagina = LanguageSupport::HTMLEvalLanguage($pagina);
 

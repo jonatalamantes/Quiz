@@ -28,7 +28,7 @@
             <div class="jumbotron">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Agregar Curso</h3>
+                        <h3 class="panel-title">Agregar Relacion entre |Obj1| Y |Obj2|</h3>
                     </div>
                     <div class="panel-body" id='panel-body'>
                         <div class="container">
@@ -36,31 +36,31 @@
                                 <table class="table table-condensed cf" id="table1">
                                     <tbody style="margin-left: 20px; background-color: transparent; text-align: center;">
                                         <tr style="display:none;">
-                                            <td id="idCurso" disabled>0</td>
+                                            <td id="id|Obj1|" disabled>0</td>
+                                            <td id="id|Obj2|" disabled>0</td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: center;">
                                                 <div class="ui-widget">
-                                                    <label class="inside-form" id="labelNombre">Nombre</label>
+                                                    <label class="inside-form" id="label|Obj1|">|Obj1|</label>
                                                 </div>
                                             </td>
                                             <td style="text-align: center;">
-                                                <input type="text" class="form-control" placeholder="^characters^" id="txtNombre" disabled style="margin:auto;" onkeyup="inputUpper('txtNombre')" onclick="normalData('curso_insertar.php')">
+                                                <input type="text" class="form-control" placeholder="^characters^" id="txt|Obj1|" style="margin:auto;" onkeyup="inputUpper('txt|Obj1|')">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: center;">
                                                 <div class="ui-widget">
-                                                    <label class="inside-form" id="labelCiclo">Ciclo</label>
+                                                    <label class="inside-form" id="label|Obj2|">|Obj2|</label>
                                                 </div>
                                             </td>
                                             <td style="text-align: center;">
-                                                <input type="text" class="form-control" placeholder="^characters^" id="txtCiclo" disabled style="margin:auto;" onkeyup="inputUpper('txtCiclo')"  onclick="normalData('curso_insertar.php')">
-                                            </td> 
+                                                <input type="text" class="form-control" placeholder="^characters^" id="txt|Obj2|" style="margin:auto;" onkeyup="inputUpper('txt|Obj2|')">
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                |Alumnos|
                             </div>
                         </div>
                         <p style="text-align:center">

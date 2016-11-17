@@ -128,7 +128,8 @@
             $opciones = array('nombres'          => $alumno->getNombres(), 
                               'apellidoPaterno'  => $alumno->getApellidoPaterno(),
                               'apellidoMaterno'  => $alumno->getApellidoMaterno(),
-                              'password'         => $alumno->getPassword());
+                              'password'         => $alumno->getPassword(),
+                              'activo'           => 'S');
 
             $singleAlumno = self::getSingle($opciones);
 
@@ -136,7 +137,7 @@
             {
                 $nombres         = $alumno->getNombres();
                 $apellidoPaterno = $alumno->getApellidoPaterno();
-                $apellidoMaterno = $alumno->getApellidoPaterno();
+                $apellidoMaterno = $alumno->getApellidoMaterno();
                 $password        = $alumno->getPassword();
                 $tipo            = $alumno->getTipo();
 
@@ -185,14 +186,15 @@
                 $id              = $singleAlumno->getId();
                 $nombres         = $alumno->getNombres();
                 $apellidoPaterno = $alumno->getApellidoPaterno();
-                $apellidoMaterno = $alumno->getApellidoPaterno();
+                $apellidoMaterno = $alumno->getApellidoMaterno();
                 $password        = $alumno->getPassword();
                 $tipo            = $alumno->getTipo();
 
                 $opciones = array('nombres'          => $alumno->getNombres(), 
                                   'apellidoPaterno'  => $alumno->getApellidoPaterno(),
                                   'apellidoMaterno'  => $alumno->getApellidoMaterno(),
-                                  'password'         => $alumno->getPassword());
+                                  'password'         => $alumno->getPassword(),
+                                  'activo'           => 'S');
 
                 $singleAlumno = self::getSingle($opciones);
 
@@ -250,6 +252,50 @@
                               SET activo = 'N' WHERE id = $id";
                                 
                 return DatabaseManager::singleAffectedRow($query);
+            }
+        }
+
+        /**
+         * Recover all Beneficiario from the database begin in one part of the beneficiario table
+         * 
+         * @author Jonathan Sandoval <jonathan.sandoval@jalisco.gob.mx>
+         * @param  string            $order       The type of sort of the Beneficiario
+         * @param  integer           $begin       The number of page to display the registry
+         * @return Array[Beneficiario]    $beneficiarios    Array of Beneficiario Object
+         */
+        static function getAutocompletado($string = '')
+        {
+            $tableAlumno  = DatabaseManager::getNameTable('TABLE_ALUMNO');
+
+            $query     = "SELECT $tableAlumno.*
+                          FROM $tableAlumno
+                          WHERE ($tableAlumno.nombres LIKE '%$string%'          OR 
+                                 $tableAlumno.apellidoPaterno LIKE '%$string%'  OR 
+                                 $tableAlumno.apellidoMaterno LIKE '%$string%') AND
+                                 $tableAlumno.activo = 'S'
+                          LIMIT 50";
+
+            $arrayAlumnos   = DatabaseManager::multiFetchAssoc($query);
+            $alumno_simples = array();
+            $return         = array();
+
+            if ($arrayAlumnos !== NULL)
+            {
+                foreach ($arrayAlumnos as $alumno_simple) 
+                {
+                    $alumno = new Alumno();
+                    $alumno->fromArray($alumno_simple);
+                    array_push($return, array('label' => strtoupper($alumno->getNombreCompleto()),
+                                              'codigo' => $alumno->getPassword(),
+                                              'id' => $alumno->getId())
+                               );
+                }
+                
+                return json_encode($return);
+            }
+            else
+            {
+                return null;
             }
         }
 
@@ -338,7 +384,7 @@
 
           $query     = "SELECT $tableAlumno.* 
                         FROM $tableAlumno
-                        WHERE ";
+                        WHERE $tableAlumno.activo = 'S' AND ";
 
           foreach ($keysValues as $key => $value) 
           {

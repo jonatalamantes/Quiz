@@ -241,6 +241,47 @@
         }
 
         /**
+         * Recover all Beneficiario from the database begin in one part of the beneficiario table
+         * 
+         * @author Jonathan Sandoval <jonathan.sandoval@jalisco.gob.mx>
+         * @param  string            $order       The type of sort of the Beneficiario
+         * @param  integer           $begin       The number of page to display the registry
+         * @return Array[Beneficiario]    $beneficiarios    Array of Beneficiario Object
+         */
+        static function getAutocompletado($string = '')
+        {
+            $tableCurso  = DatabaseManager::getNameTable('TABLE_CURSO');
+
+            $query     = "SELECT $tableCurso.*
+                          FROM $tableCurso
+                          WHERE (CONCAT($tableCurso.nombre , ' ', $tableCurso.ciclo)  LIKE '%$string%') AND
+                                 $tableCurso.activo = 'S'
+                          LIMIT 50";
+
+            $arrayCursos   = DatabaseManager::multiFetchAssoc($query);
+            $curso_simples = array();
+            $return        = array();
+
+            if ($arrayCursos !== NULL)
+            {
+                foreach ($arrayCursos as $curso_simple)
+                {
+                    $curso = new Curso();
+                    $curso->fromArray($curso_simple);
+                    array_push($return, array('label' => strtoupper($curso->getNombre() . " " . $curso->getCiclo()),
+                                              'id' => $curso->getId())
+                               );
+                }
+                
+                return json_encode($return);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /**
          * Search one bitacoraSI by one similar name
          * 
          * @author Jonathan Sandoval <jonathan.sandoval@jalisco.gob.mx>
@@ -305,79 +346,79 @@
             }
         }
 
-      /**
-       * Recover from database one Curso object by id
-       * 
-       * @author Jonathan Sandoval <jonathan.sandoval@jalisco.gob.mx>
-       * @param  string   $key          Key to search
-       * @param  string   $value        Value of the key
-       * @return Curso  $curso_simple  Curso result or null
-       */
-      static function filter($keysValues = array(), $order = 'id', $begin = 0, $cantidad = 10)
-      {
-          if (!is_array($keysValues) || empty($keysValues))
-          {
+        /**
+        * Recover from database one Curso object by id
+        * 
+        * @author Jonathan Sandoval <jonathan.sandoval@jalisco.gob.mx>
+        * @param  string   $key          Key to search
+        * @param  string   $value        Value of the key
+        * @return Curso  $curso_simple  Curso result or null
+        */
+        static function filter($keysValues = array(), $order = 'id', $begin = 0, $cantidad = 10)
+        {
+            if (!is_array($keysValues) || empty($keysValues))
+            {
               return null;
-          }
+            }
 
-          $tableCurso  = DatabaseManager::getNameTable('TABLE_CURSO');
+            $tableCurso  = DatabaseManager::getNameTable('TABLE_CURSO');
 
-          $query     = "SELECT $tableCurso.* 
+            $query   = "SELECT $tableCurso.* 
                         FROM $tableCurso
-                        WHERE ";
+                        WHERE $tableCurso.activo = 'S' AND ";
 
-          foreach ($keysValues as $key => $value) 
-          {
-              $query .= "$tableCurso.$key LIKE '%$value%' AND ";
-          }
+            foreach ($keysValues as $key => $value) 
+            {
+                $query .= "$tableCurso.$key LIKE '%$value%' AND ";
+            }
 
-          $query = substr($query, 0, strlen($query)-4);
-          $query .= " ORDER BY ";
+            $query = substr($query, 0, strlen($query)-4);
+            $query .= " ORDER BY ";
 
-          if ($order == 'nombre')
-          {
-              $query = $query . " $tableCurso.nombre";
-          }
-          else if ($order == 'ciclo')
-          {
-              $query = $query . " $tableCurso.ciclo";
-          }
-          else
-          {
-              $query = $query . " $tableCurso.id DESC";
-          }
+            if ($order == 'nombre')
+            {
+                $query = $query . " $tableCurso.nombre";
+            }
+            else if ($order == 'ciclo')
+            {
+                $query = $query . " $tableCurso.ciclo";
+            }
+            else
+            {
+                $query = $query . " $tableCurso.id DESC";
+            }
 
-          if ($begin >= 0)
-          {
-              $query = $query. " LIMIT " . strval($begin * $cantidad) . ", " . strval($cantidad+1);    
-          }
+            if ($begin >= 0)
+            {
+                $query = $query. " LIMIT " . strval($begin * $cantidad) . ", " . strval($cantidad+1);    
+            }
 
-          $arrayCursos   = DatabaseManager::multiFetchAssoc($query);
-          $curso_simples = array();
+            $arrayCursos   = DatabaseManager::multiFetchAssoc($query);
+            $curso_simples = array();
 
-          if ($arrayCursos !== NULL)
-          {
-              $i = 0;
-              foreach ($arrayCursos as $curso_simple) 
-              {
-                  if ($i == $cantidad && $begin >= 0)
-                  {
+            if ($arrayCursos !== NULL)
+            {
+                $i = 0;
+                foreach ($arrayCursos as $curso_simple) 
+                {
+                    if ($i == $cantidad && $begin >= 0)
+                    {
                       continue;
-                  }
+                    }
 
-                  $cursoA = new Curso();
-                  $cursoA->fromArray($curso_simple);
-                  $curso_simples[] = $cursoA;
-                  $i++;
-              }
+                    $cursoA = new Curso();
+                    $cursoA->fromArray($curso_simple);
+                    $curso_simples[] = $cursoA;
+                    $i++;
+                }
 
-              return $curso_simples;
-          }
-          else
-          {
+                return $curso_simples;
+            }
+            else
+            {
               return null;
-          }
-      }
-  }
+            }
+        }
+    }
 
  ?>

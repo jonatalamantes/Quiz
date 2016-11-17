@@ -56,7 +56,7 @@
         $opciones = array();
 
         $opciones["ciclo"]           = $_GET["kciclo"];
-        $opciones["nombre"]          = $_GET["kinputName"];
+        $opciones["nombre"]          = $_GET["knombre"];
 
         if (array_key_exists('klimite', $_GET))
         {

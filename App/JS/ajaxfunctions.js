@@ -1,3 +1,7 @@
+$( document ).ready(function() {
+    getAutocompletados();
+});
+
 function login()
 {
     codigo = $("#txtUser").val();
@@ -44,6 +48,45 @@ function login()
         {
             alert("Hubo problemas con el servidor");
         });
+    }
+}
+
+function getAutocompletados()
+{
+    page = String(window.location);
+
+    if (page.indexOf("agregar_alumno_curso.php") >= 0)
+    {
+        $('#txtAlumno').autocomplete({
+            minLength: 2,
+            source: 'JS/scriptsAjax/getAutocompletadoAlumno.php',
+            focus: function( event, ui ) {
+                $( '#idAlumno' ).html('0');    
+                return false;
+            },
+            select: function( event, ui ) {
+                $( '#txtAlumno' ).val( ui.item.label );
+                $( '#idAlumno' ).html( ui.item.id );                     
+                $( '#labelAlumno' ).css('color','black');                     
+                return false;
+            }
+        });
+
+        $('#txtCurso').autocomplete({
+            minLength: 2,
+            source: 'JS/scriptsAjax/getAutocompletadoCurso.php',
+            focus: function( event, ui ) {
+                $( '#idCurso' ).html('0');    
+                return false;
+            },
+            select: function( event, ui ) {
+                $( '#txtCurso' ).val( ui.item.label );
+                $( '#idCurso' ).html( ui.item.id );  
+                $( '#labelCurso' ).css('color','black');
+                return false;
+            }
+        });
+
     }
 }
 
@@ -136,7 +179,7 @@ function validateData(page, status)
             });
         }
     }
-    if (page === 'curso_insertar.php')
+    else if (page === 'curso_insertar.php')
     {
         correct = true;
 
@@ -188,6 +231,55 @@ function validateData(page, status)
             });
         }
     }
+    else if (page == "agregar_alumno_curso.php")
+    {
+        correct = true;
+
+        idAlumno = $("#idAlumno").html();
+        idCurso  = $("#idCurso").html();
+
+        if (idAlumno === undefined || idAlumno === "" || idAlumno == "0")
+        {
+            $('#labelAlumno').css('color', 'blue');
+            correct = false;
+        }
+
+        if (idCurso === undefined || idCurso === "" || idCurso == "0")
+        {
+            $('#labelCurso').css('color', 'blue');
+            correct = false;
+        }
+
+        if (correct)
+        {
+            $.ajax
+            ({
+                data: {
+                        'idCurso'   : idCurso   ,
+                        'idAlumno'  : idAlumno
+                      },
+
+                type: "POST",
+                url: 'JS/scriptsAjax/insertRelacionAlumnoCurso.php',
+            })
+            .done(function( data, textStatus, jqXHR ) 
+            {
+                if (data.indexOf("OK") !== -1)
+                {
+                    alert("Guardado Exitoso");
+                    window.location.href = status;
+                }
+                else //OK
+                {
+                    alert("Error en los datos proporcionados");   
+                }
+            })
+            .fail(function( jqXHR, textStatus, errorThrown ) 
+            {
+                alert("Error al procesar los datos");
+            });
+        }
+    }        
 }
 
 function deleteObject(objectName, id)
@@ -231,6 +323,49 @@ function deleteObject(objectName, id)
         {
             //Get the data for insert in the database
             var datosEnv  = 'JS/scriptsAjax/deleteCurso.php?id=' + id;
+
+            var ajax = new XMLHttpRequest();
+
+            //Revision del objeto funcionando
+            ajax.onreadystatechange = function() 
+            {
+                if (ajax.readyState == 4 && ajax.status == 200) 
+                {
+                    if (ajax.responseText.indexOf("OK") !== -1)
+                    {
+                        alert("Guardado Exitoso");
+                        window.location.reload();
+                    }
+                    else //OK
+                    {
+                        alert("Error Eliminando los datos");
+                    }
+                }
+            }
+
+            //Envio de datos al servidor
+            ajax.open("GET",datosEnv,true);
+            ajax.send();
+        }
+    }
+}
+
+
+function deleteRelacionAlumnoCurso(idAlumno, idCurso)
+{
+    if (idAlumno == undefined || idAlumno == "" || idAlumno == "0" ||
+        idCurso  == undefined || idCurso  == "" || idCurso  == "0")
+    {
+        alert("No hay nada para eliminar");
+    }
+    else
+    {
+        correct = confirm("¿Esta seguro que desea eliminar esta relacion entre el alumno y el curso?");
+
+        if (correct)
+        {
+            //Get the data for insert in the database
+            var datosEnv  = 'JS/scriptsAjax/deleteRelacionAlumnoCurso.php?idAlumno=' + idAlumno + "&idCurso=" + idCurso;
 
             var ajax = new XMLHttpRequest();
 

@@ -14,6 +14,15 @@
             $this->idCurso  = $r;
         }
         
+        function fromArray($array = null)
+        {
+            if ($array !== NULL && !empty($array))
+            {
+                $this->idAlumno = $array["idAlumno"];
+                $this->idCurso  = $array["idCurso"];
+            }
+        }
+
         /**
          * Gets the value of idAlumno.
          *
