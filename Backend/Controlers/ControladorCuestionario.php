@@ -66,13 +66,9 @@
                           WHERE $tableCuestionario.activo = 'S'
                           ORDER BY ";
 
-            if ($order == 'numero')
+            if ($order == 'nombre')
             {
-                $query = $query . " $tableCuestionario.numero";
-            }
-            else if ($order == 'idRelacionOpcionPregunta')
-            {
-                $query = $query . " $tableCuestionario.idRelacionOpcionPregunta";
+                $query = $query . " $tableCuestionario.nombre";
             }
             else
             {
@@ -125,22 +121,21 @@
                 return false;
             }
 
-            $opciones = array('numero'                   => $cuestionario->getNumero(), 
-                              'idRelacionOpcionPregunta' => $cuestionario->getIdRelacionOpcionPregunta());
+            $opciones = array('nombre' => $cuestionario->getNombre());
 
             $singleCuestionario = self::getSingle($opciones);
 
             if ($singleCuestionario->disimilitud($cuestionario) == 1)
             {
-                $numero = $cuestionario->getNumero();
+                $nombre = $cuestionario->getNombre();
                 $idRelacionOpcionPregunta  = $cuestionario->getIdRelacionOpcionPregunta();
 
                 $tableCuestionario = DatabaseManager::getNameTable('TABLE_CUESTIONARIO');
 
                 $query     = "INSERT INTO $tableCuestionario 
-                             (numero, idRelacionOpcionPregunta) 
+                             (nombre, idRelacionOpcionPregunta) 
                              VALUES 
-                             ($numero, $idRelacionOpcionPregunta)";
+                             ($nombre, $idRelacionOpcionPregunta)";
 
                 if (DatabaseManager::singleAffectedRow($query) === true)
                 {                    
@@ -177,21 +172,20 @@
 
             if ($singleCuestionario->disimilitud($cuestionario) > 0)
             {
-                $opciones = array('numero'                   => $cuestionario->getNumero(), 
-                                  'idRelacionOpcionPregunta' => $cuestionario->getIdRelacionOpcionPregunta());
+                $opciones = array('nombre' => $cuestionario->getNombre());
 
                 $singleCuestionario = self::getSingle($opciones);
 
                 if ($singleCuestionario->disimilitud($cuestionario) == 1)
                 {
                     $id                        = $singleCuestionario->getId();
-                    $numero                    = $cuestionario->getNumero();
+                    $nombre                    = $cuestionario->getNombre();
                     $idRelacionOpcionPregunta  = $cuestionario->getIdRelacionOpcionPregunta();
 
                     $tableCuestionario = DatabaseManager::getNameTable('TABLE_CUESTIONARIO');
 
                     $query     = "UPDATE $tableCuestionario 
-                                  SET numero                    = '$numero', 
+                                  SET nombre                    = '$nombre', 
                                       idRelacionOpcionPregunta  = '$idRelacionOpcionPregunta' 
                                  WHERE $tableCuestionario.id = '$id'";
 
@@ -255,8 +249,7 @@
 
             $query     = "SELECT $tableCuestionario.*
                           FROM $tableCuestionario
-                          WHERE ($tableCuestionario.numero LIKE '%$string%'   OR 
-                                 $tableCuestionario.idRelacionOpcionPregunta  LIKE '%$string%' ) AND
+                          WHERE ($tableCuestionario.nombre LIKE '%$string%') AND
                                  $tableCuestionario.activo = 'S'
                           ORDER BY ";
 
@@ -271,7 +264,7 @@
                     $cuestionarioA = new Cuestionario();
                     $cuestionarioA->fromArray($cuestionario_simple);
 
-                    array_push($return, array('label' => $cuestionarioA->getNumero(),
+                    array_push($return, array('label' => $cuestionarioA->getNombre(),
                           'id' => $cuestionarioA->getId())
                          );
                 }
@@ -299,18 +292,13 @@
 
             $query     = "SELECT $tableCuestionario.*
                           FROM $tableCuestionario
-                          WHERE ($tableCuestionario.numero LIKE '%$string%'   OR 
-                                 $tableCuestionario.idRelacionOpcionPregunta  LIKE '%$string%' ) AND
+                          WHERE ($tableCuestionario.nombre LIKE '%$string%') AND
                                  $tableCuestionario.activo = 'S'
                           ORDER BY ";
 
-            if ($order == 'numero')
+            if ($order == 'nombre')
             {
-                $query = $query . " $tableCuestionario.numero";
-            }
-            else if ($order == 'idRelacionOpcionPregunta')
-            {
-                $query = $query . " $tableCuestionario.idRelacionOpcionPregunta";
+                $query = $query . " $tableCuestionario.nombre";
             }
             else
             {
@@ -378,13 +366,9 @@
           $query = substr($query, 0, strlen($query)-4);
           $query .= " ORDER BY ";
 
-          if ($order == 'numero')
+          if ($order == 'nombre')
           {
-              $query = $query . " $tableCuestionario.numero";
-          }
-          else if ($order == 'idRelacionOpcionPregunta')
-          {
-              $query = $query . " $tableCuestionario.idRelacionOpcionPregunta";
+              $query = $query . " $tableCuestionario.nombre";
           }
           else
           {

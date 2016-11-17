@@ -51,7 +51,7 @@
                 </script>";
 
     //Obtenemos los datos de la relacion
-    $cursosR = ControladorRelacionAlumnoCurso::filter(array('idAlumno' => $_GET["id"]));
+    $cursosR = ControladorRelacionAlumnoCurso::filter(array('idAlumno' => $_GET["id"]), -1,-1);
     $cursos_string = "";
 
     if ($cursosR !== NULL)

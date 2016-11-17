@@ -140,7 +140,7 @@
         * @param  string   $value        Value of the key
         * @return Curso  $curso_simple  Curso result or null
         */
-        static function filter($keysValues = array(), $order = 'id', $begin = 0, $cantidad = 10)
+        static function filter($keysValues = array(), $begin = 0, $cantidad = 10)
         {
             if (!is_array($keysValues) || empty($keysValues))
             {

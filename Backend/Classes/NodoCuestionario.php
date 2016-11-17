@@ -3,29 +3,29 @@
 	/**
 	* 	Clase para un Pregunta
 	*/
-	class RelacionOpcionPregunta
+	class NodoCuestionario
 	{
 		private $id;
         private $idOpcion;
         private $idPregunta;
-		private $liberada;
+		private $idCuestionario;
 
 		function __construct($i = 0, $o = "", $p = "", $l = false)
 		{
-			$this->id         = $i;
-            $this->idOpcion   = $o;
-            $this->idPregunta = $p;
-			$this->liberada   = $l;
+			$this->id             = $i;
+            $this->idOpcion       = $o;
+            $this->idPregunta     = $p;
+			$this->idCuestionario = $l;
 		}
 
         function fromArray($array = null)
         {
             if ($array !== NULL && !empty($array))
             {
-                $this->id         = $array["id"];
-                $this->idOpcion   = $array["idOpcion"];
-                $this->idPregunta = $array["idPregunta"];
-                $this->liberada   = $array["liberada"];  
+                $this->id             = $array["id"];
+                $this->idOpcion       = $array["idOpcion"];
+                $this->idPregunta     = $array["idPregunta"];
+                $this->idCuestionario = $array["idCuestionario"];  
             }
         }
                  
@@ -102,27 +102,27 @@
         }
      
         /**
-        * Gets the value of liberada.
+        * Gets the value of idCuestionario.
         *
         * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
         * @return mixed
         */
-        public function getLiberada()
+        public function getIdCuestionario()
         {
-            return $this->liberada;
+            return $this->idCuestionario;
         }
          
         /**
-        * Sets the value of liberada.
+        * Sets the value of idCuestionario.
         *
         * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @param mixed $liberada the liberada
+        * @param mixed $idCuestionario the idCuestionario
         *
         * @return self
         */
-        public function setLiberada($liberada)
+        public function setIdCuestionario($idCuestionario)
         {
-            $this->liberada = $liberada;
+            $this->idCuestionario = $idCuestionario;
         }
     }
 

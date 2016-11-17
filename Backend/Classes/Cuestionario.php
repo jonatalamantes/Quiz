@@ -6,16 +6,14 @@
 	class Cuestionario
 	{
 		private $id;
-        private $numero;
-		private $idRelacionOpcionPregunta;
+        private $nombre;
         private $activo;
         private $fechaRegistro;        
 
 		function __construct($i = 0, $n = "", $r = 0, $a = "S", $f = "")
 		{
 			$this->id                       = $i;
-            $this->numero                   = $n;
-            $this->idRelacionOpcionPregunta = $r;
+            $this->nombre                   = $n;
             $this->activo                   = $a;
             $this->fechaRegistro            = $f;
 		}
@@ -31,11 +29,10 @@
 
             if ($this !== null)
             {
-                $array["id"]                        = $this->getId();
-                $array["numero"]                    = $this->getNumero();
-                $array["idRelacionOpcionPregunta"]  = $this->getIdRelacionOpcionPregunta();
-                $array["activo"]                    = $this->getActivo();
-                $array["fechaRegistro"]             = $this->getFechaRegistro();                
+                $array["id"]            = $this->getId();
+                $array["nombre"]        = $this->getNombre();
+                $array["activo"]        = $this->getActivo();
+                $array["fechaRegistro"] = $this->getFechaRegistro();                
             }
 
             return $array;
@@ -51,10 +48,9 @@
             if (!empty($array))
             {
                 $this->setId($array["id"]);
-                $this->setNumero($array["numero"]);
+                $this->setNombre($array["nombre"]);
                 $this->setActivo($array["activo"]);
                 $this->setFechaRegistro($array["fechaRegistro"]);                                                
-                $this->setIdRelacionOpcionPregunta($array["idRelacionOpcionPregunta"]);
             }
         }
 
@@ -75,20 +71,13 @@
             $numerador   = 0;
             $denominador = 0;
 
-            if ($obj->getNumero() != $this->getNumero())
+            if ($obj->getNombre() != $this->getNombre())
             {
                 $numerador += 1;
             }
             
             $denominador += 1;
             
-            if ($obj->getIdRelacionOpcionPregunta() != $this->getIdRelacionOpcionPregunta())
-            {
-                $numerador += 1;
-            }
-
-            $denominador += 1;
-
             $disimilitud = (float)($numerador/$denominador);
             return $disimilitud;
         }
@@ -118,53 +107,29 @@
         }
      
         /**
-        * Gets the value of numero.
+        * Gets the value of nombre.
         *
         * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
         * @return mixed
         */
-        public function getNumero()
+        public function getNombre()
         {
-            return $this->numero;
+            return $this->nombre;
         }
          
         /**
-        * Sets the value of numero.
+        * Sets the value of nombre.
         *
         * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @param mixed $numero the numero
+        * @param mixed $nombre the nombre
         *
         * @return self
         */
-        public function setNumero($numero)
+        public function setNombre($nombre)
         {
-            $this->numero = $numero;
+            $this->nombre = $nombre;
         }
-     
-        /**
-        * Gets the value of idRelacionOpcionPregunta.
-        *
-        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @return mixed
-        */
-        public function getIdRelacionOpcionPregunta()
-        {
-            return $this->idRelacionOpcionPregunta;
-        }
-         
-        /**
-        * Sets the value of idRelacionOpcionPregunta.
-        *
-        * @author Jonathan Sandoval <jonathan_s_pisis@yahoo.com.mx>
-        * @param mixed $idRelacionOpcionPregunta the id relacion opcion pregunta
-        *
-        * @return self
-        */
-        public function setIdRelacionOpcionPregunta($idRelacionOpcionPregunta)
-        {
-            $this->idRelacionOpcionPregunta = $idRelacionOpcionPregunta;
-        }
-     
+          
         /**
         * Gets the value of activo.
         *

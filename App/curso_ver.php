@@ -43,7 +43,7 @@
     $pagina = LanguageSupport::HTMLEvalLanguage($pagina);
 
     //Obtenemos los datos de la relacion
-    $alumnoR = ControladorRelacionAlumnoCurso::filter(array('idCurso' => $_GET["id"]));
+    $alumnoR = ControladorRelacionAlumnoCurso::filter(array('idCurso' => $_GET["id"]),-1,-1);
     $alumnos_string = "";
 
     if ($alumnoR !== NULL)
