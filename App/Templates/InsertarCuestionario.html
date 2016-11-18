@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Quiz">
+        <meta name="author" content="Jesxtra">
+
+        <script type="text/javascript" src="../Libs/JQueryUI/JQuery.js"></script>
+        <script type="text/javascript" src="../Libs/JQueryUI/jquery-ui.js"></script>
+        <script type="text/javascript" src="../Libs/Bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="JS/functions.js"></script>
+        <script type="text/javascript" src="JS/inputFunctions.js"></script>
+        <script type="text/javascript" src="JS/ajaxfunctions.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/dist/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../Libs/JQueryUI/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="CSS/general.css">
+
+        <title>|title|</title>
+    </head>
+    <body>
+        <div id="container">
+        |NavBar|
+            <div id="Fecha_Reloj" style="text-align: right;"></div><br>
+                <div class="container theme-showcase" role="main">
+                    <div class="jumbotron">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Agregar Cuestionario</h3>
+                            </div>
+                            <div class="panel-body" id='panel-body'>
+                                <div class="container">
+                                    <div id="no-more-tables2">
+                                        <table class="table table-condensed cf" id="table1">
+                                            <tbody style="margin-left: 20px; background-color: transparent; text-align: center;">
+                                                <tr style="display:none;">
+                                                    <td id="idCuestionario" disabled>0</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center;">
+                                                        <div class="ui-widget">
+                                                            <label class="inside-form" id="labelNombre">Nombre de Cuestionario</label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center;">
+                                                        <input type="text" class="form-control" placeholder="Nombre del nuevo cuestionario" id="txtNombre" disabled style="margin:auto;" onkeyup="inputUpper('txtNombre')" onclick="normalData('cuestionario_insertar.php')">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center;">
+                                                        <div class="ui-widget">
+                                                            <label class="inside-form" id="labelNombre">Contenido de Cuestionario</label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center;">
+                                                        <div class="input-group">
+                                                            <input type="text" id="txtAgregarPregunta" class="form-control" placeholder="Agregar Nueva Pregunta" onkeyup="inputUpper('txtAgregarPregunta')">
+                                                            <div class="input-group-btn">
+                                                                <button class="btn btn-default btn-warning" style="margin-top: 0px; margin-left: 3px" onclick="agregarPregunta()">
+                                                                    <img src="icons/plusLight.png" height="15px">
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div id="pregunta0"></div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        |Alumnos|
+                                    </div>
+                                </div>
+                                <p style="text-align:center">
+                                    |SaveButton|
+                                    |CancelButton|
+                                    |ReturnButton|
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted">
+                    Quiz, Plataforma para crear Cuestionarios de manera simple
+                </p>
+            </div>
+        </footer> 
+    </body>
+</html>

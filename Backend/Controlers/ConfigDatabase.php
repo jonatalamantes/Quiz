@@ -7,7 +7,7 @@
 
     define('TABLE_ALUMNO',                 'Alumno');
     define('TABLE_CURSO',                  'Curso');
-    define('TABLE_CUSTIONARIO',            'Custionario');    
+    define('TABLE_CUESTIONARIO',           'Cuestionario');    
     define('TABLE_PREGUNTA',               'Pregunta');
     define('TABLE_NODO_CUESTIONARIO',      'NodoCuestionario');
     define('TABLE_REL_ALUMNO_CURSO',       'relacionAlumnoCurso');
