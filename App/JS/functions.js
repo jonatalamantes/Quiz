@@ -268,19 +268,105 @@ function advancedSearch(page)
     }
 }
 
+function eliminarPregunta(numeroPregunta)
+{
+    if (numeroPregunta !== undefined)
+    {
+        $("#pregunta" + numeroPregunta).css("display", "none");  
+        pregunta[numeroPregunta]["activo"] = false;
+    }
+}
+
+function eliminarOpcion(numeroPregunta, numeroOpcion)
+{
+    $("#filaOpcion"+numeroPregunta+"-"+numeroOpcion).css("display","none");
+    pregunta[numeroPregunta]["opciones"][numeroOpcion]["activo"] = false;
+
+    if (pregunta[numeroPregunta]["respuesta"] == numeroOpcion)
+    {
+        pregunta[numeroPregunta]["respuesta"] = -1;
+    }
+}
+
+function actualizarOpcion(numeroPregunta, numeroOpcion)
+{
+    texto = $('#opcion'+numeroPregunta+"-"+numeroOpcion).val();
+    pregunta[numeroPregunta]["opciones"][numeroOpcion]["descripcion"] = texto;   
+}
+
+function agregarOpcion(numeroPregunta)
+{
+    if (numeroPregunta !== undefined)
+    {
+        contenidoAntiguo = $("#tablaOpcionesPregunta" + numeroPregunta).html();
+
+        numeroOpcion = pregunta[numeroPregunta]["opciones"].length;
+
+        contenidoNuevo = "<tr id='filaOpcion"+numeroPregunta+"-"+numeroOpcion+"'><td>";
+        contenidoNuevo += "<div class='input-group'>";
+        contenidoNuevo += "<div class='input-group-btn'>";
+        contenidoNuevo += "<button class='btn btn-default' style='margin-top: 0px; margin-left: 3px' onclick='marcarRespuesta("+numeroPregunta+","+numeroOpcion+")'>";
+        contenidoNuevo += "<img src='' id='marca"+numeroPregunta+"-"+numeroOpcion+"' height='15px'>";
+        contenidoNuevo += "</button>";   
+        contenidoNuevo += "</div>";
+        contenidoNuevo += "<input type='text' id='opcion"+numeroPregunta+"-"+numeroOpcion+"' class='form-control' onkeyup='inputUpper(\"opcion"+numeroPregunta+"-"+numeroOpcion+"\"); actualizarOpcion("+numeroPregunta+","+numeroOpcion+")'>";
+        contenidoNuevo += "<div class='input-group-btn'>";        
+        contenidoNuevo += "<button class='btn btn-default btn-warning' style='margin-top: 0px; margin-left: 3px' onclick='eliminarOpcion("+numeroPregunta+","+numeroOpcion+")'>";
+        contenidoNuevo += "<img src='icons/deleteLight.png' height='15px'>";
+        contenidoNuevo += "</button>";
+        contenidoNuevo += "</div>";
+        contenidoNuevo += "</div>";
+        contenidoNuevo += "</td></tr>";
+
+        posLast = contenidoAntiguo.indexOf("lastRow");
+
+        if (posLast !== -1)
+        {
+            posLast = posLast - 11;
+            contenido = contenidoAntiguo.substring(0,posLast) + contenidoNuevo + contenidoAntiguo.substring(posLast);
+
+            $("#tablaOpcionesPregunta" + numeroPregunta).html(contenido);
+
+            pregunta[numeroPregunta]["opciones"].push({numero: numeroOpcion, descripcion:"", activo:true});
+
+            for (i = 0; i < pregunta[numeroPregunta]["opciones"].length; i++)
+            {
+                texto = pregunta[numeroPregunta]["opciones"][i]["descripcion"];   
+                $('#opcion'+numeroPregunta+"-"+i).val(texto);
+            }
+        }
+    }
+
+    desmarcarRespuestas(numeroPregunta);
+}
+
+function marcarRespuesta(numeroPregunta, numeroOpcion)
+{
+    desmarcarRespuestas(numeroPregunta);
+    $("#marca"+numeroPregunta+"-"+numeroOpcion).attr("src", "icons/check.png");
+    pregunta[numeroPregunta]["respuesta"] = numeroOpcion;
+}
+
+function desmarcarRespuestas(numeroPregunta)
+{
+    for (i = 0; i < pregunta[numeroPregunta]["opciones"].length; i++)
+    {
+        $("#marca"+numeroPregunta+"-"+i).attr("src", "icons/delete.png");
+    }
+
+    pregunta[numeroPregunta]["respuesta"] = -1;
+}
+
 function agregarPregunta()
 {
-    //console.log($("#txtAgregarPregunta").val());
-    //console.log("hola");
-
     if ($("#txtAgregarPregunta").val() != undefined && $("#txtAgregarPregunta").val() !== "")
     {
         pos = pregunta.length;
         //console.log("hola");
         //console.log(pos);
-        arrayOpciones = {opcion1:{descripcion:"", activo:true}, opcion2:{descripcion:"", activo:true}};
+        arrayOpciones = [];
         //console.log(arrayOpciones);
-        objPregunta = {pos:pos, nombrePregunta:$("#txtAgregarPregunta").val(), opciones:arrayOpciones};
+        objPregunta = {pos:pos, nombrePregunta:$("#txtAgregarPregunta").val(), activo:true, opciones:arrayOpciones, respuesta:-1};
         //console.log(objPregunta);
         pregunta.push(objPregunta);
         //console.log(pregunta);
@@ -290,52 +376,21 @@ function agregarPregunta()
         cad = "#pregunta"+elem["pos"];
         //console.log(cad);
 
-        contenidoNuevo  = "<div class='well'>";
+        contenidoNuevo = "<div id='pregunta"+(elem["pos"])+"'>";
+        contenidoNuevo += "<div class='well'>";
         contenidoNuevo += "<label>"+elem["nombrePregunta"]+"</label>";
 
-        contenidoNuevo += "<table class='table table-condensed cf' style='background-color: transparent'><tbody>";
+        contenidoNuevo += "<table id='tablaOpcionesPregunta"+elem["pos"]+"' class='table table-condensed cf' style='background-color: transparent'><tbody>";
 
         contenidoNuevo += "<tr><td>";
-        contenidoNuevo += "<button class='form-control btn btn-warning' style='padding-button: 15px'>";
+        contenidoNuevo += "<button class='form-control btn btn-warning' style='padding-button: 15px' onclick='eliminarPregunta("+elem["pos"]+")'>";
         contenidoNuevo += "<img src='icons/deleteLight.png' height='15px' style='margin-top:-5px; margin-right:5px'>Eliminar Pregunta";
         contenidoNuevo += "<img src='icons/deleteLight.png' height='15px' style='margin-top:-5px; margin-left:5px'>";
         contenidoNuevo += "</button>";
         contenidoNuevo += "</td></tr>";
 
-        contenidoNuevo += "<tr><td>";
-        contenidoNuevo += "<div class='input-group'>";
-        contenidoNuevo += "<div class='input-group-btn'>";
-        contenidoNuevo += "<button class='btn btn-default' style='margin-top: 0px; margin-left: 3px' onclick='marcarRespuesta("+elem["pos"]+",0)'>";
-        contenidoNuevo += "<img src='' id='img"+elem["pos"]+"-0' height='15px'>";
-        contenidoNuevo += "</button>";
-        contenidoNuevo += "</div>";
-        contenidoNuevo += "<input type='text' id='"+elem["pos"]+"' class='form-control' onkeyup='inputUpper('"+elem["pos"]+"')'>";
-        contenidoNuevo += "<div class='input-group-btn'>";
-        contenidoNuevo += "<button class='btn btn-default btn-warning' style='margin-top: 0px; margin-left: 3px' onclick='eliminarOpcion("+elem["pos"]+",0)'>";
-        contenidoNuevo += "<img src='icons/deleteLight.png' id='img"+elem["pos"]+"-0' height='15px'>";
-        contenidoNuevo += "</button>";
-        contenidoNuevo += "</div>";
-        contenidoNuevo += "</div>";
-        contenidoNuevo += "</td></tr>";
-
-        contenidoNuevo += "<tr><td>";
-        contenidoNuevo += "<div class='input-group'>";
-        contenidoNuevo += "<div class='input-group-btn'>";
-        contenidoNuevo += "<button class='btn btn-default' style='margin-top: 0px; margin-left: 3px' onclick='marcarRespuesta("+elem["pos"]+",0)'>";
-        contenidoNuevo += "<img src='' id='img"+elem["pos"]+"-0' height='15px'>";
-        contenidoNuevo += "</button>";   
-        contenidoNuevo += "</div>";
-        contenidoNuevo += "<input type='text' id='"+elem["pos"]+"' class='form-control' onkeyup='inputUpper('"+elem["pos"]+"')'>";
-        contenidoNuevo += "<div class='input-group-btn'>";        
-        contenidoNuevo += "<button class='btn btn-default btn-warning' style='margin-top: 0px; margin-left: 3px' onclick='eliminarOpcion("+elem["pos"]+",1)'>";
-        contenidoNuevo += "<img src='icons/deleteLight.png' id='img"+elem["pos"]+"-1' height='15px'>";
-        contenidoNuevo += "</button>";
-        contenidoNuevo += "</div>";
-        contenidoNuevo += "</div>";
-        contenidoNuevo += "</td></tr>";
-
-        contenidoNuevo += "<tr><td>";
-        contenidoNuevo += "<button class='form-control btn btn-warning' style='padding-button: 15px'>";
+        contenidoNuevo += "<tr class='lastRow'><td>";
+        contenidoNuevo += "<button class='form-control btn btn-warning' style='padding-button: 15px' onclick='agregarOpcion("+elem["pos"]+")'>";
         contenidoNuevo += "<img src='icons/plusLight.png' height='20px' style='margin-top:-5px; margin-right:5px'>Agregar Opcion";
         contenidoNuevo += "<img src='icons/plusLight.png' height='20px' style='margin-top:-5px; margin-left:5px'>";
         contenidoNuevo += "</button>";
@@ -344,11 +399,24 @@ function agregarPregunta()
         contenidoNuevo += "</tbody></table>";
         contenidoNuevo += "</div>";
 
-        contenidoNuevo += "</div>";
-        contenidoNuevo += "<div id='pregunta"+(elem["pos"]+1)+"'>";
+        contenidoNuevo += "</div></div>";
+        contenidoNuevo = $("#preguntas").html() + contenidoNuevo;
 
-        $(cad).html(contenidoNuevo);
+        $("#preguntas").html(contenidoNuevo);
         $("#txtAgregarPregunta").val("");
+
+        agregarOpcion(elem["pos"]);
+        agregarOpcion(elem["pos"]);
+
+        for (i = 0; i < pregunta.length; i++)
+        {
+            for (j = 0; j < pregunta[i]["opciones"].length; j++)
+            {
+                texto = pregunta[i]["opciones"][j]["descripcion"];   
+                $('#opcion'+i+"-"+j).val(texto);
+            }
+        }
+
     }
 }
 
