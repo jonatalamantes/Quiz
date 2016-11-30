@@ -10,7 +10,7 @@
         private $activo;
         private $fechaRegistro;        
 
-		function __construct($i = 0, $n = "", $r = 0, $a = "S", $f = "")
+		function __construct($i = 0, $n = "", $a = "S", $f = "")
 		{
 			$this->id                       = $i;
             $this->nombre                   = $n;
@@ -45,9 +45,6 @@
          */
         public function fromArray($array = array())
         {
-            echo "hola";
-            var_dump($array);
-
             if (!empty($array))
             {
                 $this->setId($array["id"]);

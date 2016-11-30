@@ -321,9 +321,15 @@ function validateData(page, status)
                         {
                             arregloDistintos = [];
 
+                            tieneRespuesta = false;
+
                             for (j = 0; j < estructuraLimpia[i]["opciones"].length; j++)
                             {
                                 descripcion = estructuraLimpia[i]["opciones"][j]["descripcion"];
+                                if (estructuraLimpia[i]["opciones"][j]["respuesta"])
+                                {
+                                    tieneRespuesta = true;
+                                }
 
                                 if (arregloDistintos.indexOf(descripcion) == -1)
                                 {
@@ -333,6 +339,11 @@ function validateData(page, status)
                                 {
                                     arregloPreguntasFallidas.push({pregunta:i, razon:descripcion});
                                 }
+                            }
+
+                            if (!tieneRespuesta)
+                            {
+                                arregloPreguntasFallidas.push({pregunta:i, razon:"no respuesta"});
                             }
                         }
                     }

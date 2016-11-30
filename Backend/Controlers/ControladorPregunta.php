@@ -20,7 +20,7 @@
          */
         static function getSingle($keysValues = array())
         {
-            if (!is_array($keysValues) || !empty($keysValues))
+            if (!is_array($keysValues) || empty($keysValues))
             {
                 return null;
             }
@@ -38,12 +38,12 @@
 
             $query = substr($query, 0, strlen($query)-4);
 
-            $pregunta_simple = DatabaseManager::singleFetchAssoc($query);
+            $pregunta_s = DatabaseManager::singleFetchAssoc($query);
             
-            if ($pregunta_simple !== NULL)
+            if ($pregunta_s !== NULL)
             {
                 $preguntaA = new Pregunta();
-                $preguntaA->fromArray($pregunta_simple);
+                $preguntaA->fromArray($pregunta_s);
             }
 
             return $preguntaA;
@@ -148,31 +148,20 @@
                 return false;
             }
 
-            $opciones = array('descripcion' => $pregunta->getDescripcion());
+            $descripcion   = $pregunta->getDescripcion();
 
-            $singlePregunta = self::getSingle($opciones);
+            $tablePregunta = DatabaseManager::getNameTable('TABLE_PREGUNTA');
 
-            if ($singlePregunta === null || $singlePregunta->disimilitud($pregunta) == 1)
-            {
-                $descripcion     = $pregunta->getDescripcion();
+            $query     = "INSERT INTO $tablePregunta 
+                         (descripcion) 
+                         VALUES 
+                         ('$descripcion')";
 
-                $tablePregunta = DatabaseManager::getNameTable('TABLE_PREGUNTA');
-
-                $query     = "INSERT INTO $tablePregunta 
-                             (descripcion) 
-                             VALUES 
-                             ('$descripcion')";
-
-                if (DatabaseManager::singleAffectedRow($query) === true)
-                {                    
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+            if (DatabaseManager::singleAffectedRow($query) === true)
+            {                    
+                return true;
             }
-            else //Pregunta Exist
+            else
             {
                 return false;
             }

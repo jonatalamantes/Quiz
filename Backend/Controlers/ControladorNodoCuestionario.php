@@ -166,8 +166,8 @@
                           INNER JOIN $tablePregunta
                           ON $tablePregunta.id = $tableNodoCuestionario.idPregunta
                           WHERE $tableCuestionario.activo = 'S' 
-                          AND $tableAlumno.activo = 'S' 
                           AND $tableOpcion.activo = 'S' 
+                          AND $tablePregunta.activo = 'S' 
                           AND ";
 
             foreach ($keysValues as $key => $value) 
@@ -195,7 +195,7 @@
                         continue;
                     }
 
-                    $relacionA = new RelacionAlumnoCurso();
+                    $relacionA = new NodoCuestionario();
                     $relacionA->fromArray($relacion_simple);
                     $relaciones_simple[] = $relacionA;
                     $i++;

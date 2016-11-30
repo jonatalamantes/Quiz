@@ -20,7 +20,7 @@
          */
         static function getSingle($keysValues = array())
         {
-            if (!is_array($keysValues) || !empty($keysValues))
+            if (!is_array($keysValues) || empty($keysValues))
             {
                 return null;
             }
@@ -38,12 +38,12 @@
 
             $query = substr($query, 0, strlen($query)-4);
 
-            $opcion_simple = DatabaseManager::singleFetchAssoc($query);
+            $opcion_s = DatabaseManager::singleFetchAssoc($query);
             
-            if ($opcion_simple !== NULL)
+            if ($opcion_s !== NULL)
             {
                 $opcionA = new Opcion();
-                $opcionA->fromArray($opcion_simple);
+                $opcionA->fromArray($opcion_s);
             }
 
             return $opcionA;
@@ -152,33 +152,21 @@
                 return false;
             }
 
-            $opciones = array('descripcion' => $opcion->getDescripcion(), 
-                              'correcta'    => $opcion->getCorrecta());
+            $descripcion     = $opcion->getDescripcion();
+            $correcta        = $opcion->getCorrecta();
 
-            $singleOpcion = self::getSingle($opciones);
+            $tableOpcion = DatabaseManager::getNameTable('TABLE_OPCION');
 
-            if ($singleOpcion === null || $singleOpcion->disimilitud($opcion) == 1)
-            {
-                $descripcion     = $opcion->getDescripcion();
-                $correcta        = $opcion->getCorrecta();
+            $query     = "INSERT INTO $tableOpcion 
+                         (descripcion, correcta) 
+                         VALUES 
+                         ('$descripcion', '$correcta')";
 
-                $tableOpcion = DatabaseManager::getNameTable('TABLE_OPCION');
-
-                $query     = "INSERT INTO $tableOpcion 
-                             (descripcion, correcta) 
-                             VALUES 
-                             ('$descripcion', '$correcta')";
-
-                if (DatabaseManager::singleAffectedRow($query) === true)
-                {                    
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+            if (DatabaseManager::singleAffectedRow($query) === true)
+            {                    
+                return true;
             }
-            else //Opcion Exist
+            else
             {
                 return false;
             }

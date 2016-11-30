@@ -452,3 +452,9 @@ input
     border-color: black;
     border-width: 2px;
 }
+
+.wellEspecial
+{
+    background-image: linear-gradient(to bottom,#d2f2ff 0,#d2f2ff 100%);
+    color: black;
+}

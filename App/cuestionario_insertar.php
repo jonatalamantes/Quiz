@@ -9,7 +9,7 @@
     $pagina = str_replace("|title|", "Insertar Cuestionario", $pagina);
 
     //Create the button
-    $saveButton = '<button type="button" class="btn btn-warning" onclick=\'validateData("cuestionario_insertar.php", "insert")\'>
+    $saveButton = '<button type="button" class="btn btn-warning" onclick=\'validateData("cuestionario_insertar.php", "cuestionario_menu.php")\'>
                       <img src="icons/saveLight.png" height="50px"><br>
                       <strong>Guardar</strong>
                    </button>';

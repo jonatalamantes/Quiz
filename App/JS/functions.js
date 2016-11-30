@@ -439,7 +439,7 @@ function agregarPregunta()
         //console.log(cad);
 
         contenidoNuevo = "<div id='pregunta"+(elem["pos"])+"'>";
-        contenidoNuevo += "<div class='well'>";
+        contenidoNuevo += "<div class='well wellEspecial'>";
         contenidoNuevo += "<label>"+elem["nombrePregunta"]+"</label>";
 
         contenidoNuevo += "<table id='tablaOpcionesPregunta"+elem["pos"]+"' class='table table-condensed cf' style='background-color: transparent'><tbody>";

@@ -6,8 +6,6 @@
     require_once(__DIR__."/../../../Backend/Controlers/ControladorOpcion.php");
     require_once(__DIR__."/../../../Backend/Controlers/ControladorNodoCuestionario.php");
 
-    die;
-
     if (!array_key_exists("data", $_POST))
     {
         echo "KO";
@@ -30,7 +28,7 @@
 
                     foreach ($pregunta["opciones"] as $key => $opcion) 
                     {
-                        if ($opcion["respuesta"] == true)
+                        if ($opcion["respuesta"] == "true")
                         {
                             $opcionN = new Opcion(0, $opcion["descripcion"], 'S');
                         }

@@ -38,12 +38,12 @@
 
             $query = substr($query, 0, strlen($query)-4);
 
-            $cuestionario_simple = DatabaseManager::singleFetchAssoc($query);
+            $cuestionario_s = DatabaseManager::singleFetchAssoc($query);
 
-            if ($custionario_simple !== NULL)
+            if ($cuestionario_s !== null)
             {
                 $cuestionarioA = new Cuestionario();
-                $cuestionarioA->fromArray($cuestionario_simple);
+                $cuestionarioA->fromArray($cuestionario_s);
             }
 
             return $cuestionarioA;

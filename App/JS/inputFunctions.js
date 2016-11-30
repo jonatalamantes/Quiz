@@ -193,7 +193,7 @@ function inputCharacter(id)
 
     cad = obj.value;
 
-    var letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÑÁÉÍÓÚŮ abcdefghijklmnopqrstuvwxyzñáéíóúů01234567890#$%&/.,!?';
+    var letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÑÁÉÍÓÚŮ abcdefghijklmnopqrstuvwxyzñáéíóúů01234567890#$%&/.,!?¿*+';
 
     if (letras.indexOf(cad[cad.length - 1]) == -1)
     {
