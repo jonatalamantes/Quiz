@@ -50,6 +50,33 @@
         }
 
         /**
+         * Recover all Cuestionario from the database begin in one part of the cuestionario_simple table
+         * 
+         * @author Jonathan Sandoval <jonathan.sandoval@jalisco.gob.mx>
+         * @param  string            $order       The type of sort of the Cuestionario
+         * @param  integer           $begin       The number of page to display the registry
+         * @return Array[Cuestionario]    $cuestionario_simples    Array of Cuestionario Object
+         */
+        static function getLast()
+        {
+            $tableOpcion  = DatabaseManager::getNameTable('TABLE_OPCION');
+
+            $query     = "SELECT $tableOpcion.* 
+                          FROM $tableOpcion
+                          ORDER BY id DESC";
+
+            $opcion_simple = DatabaseManager::singleFetchAssoc($query);
+            
+            if ($opcion_simple !== NULL)
+            {
+                $opcionA = new Opcion();
+                $opcionA->fromArray($opcion_simple);
+            }
+
+            return $opcionA;
+        }
+
+        /**
          * Recover all Opcion from the database begin in one part of the opcion_simple table
          * 
          * @author Jonathan Sandoval <jonathan.sandoval@jalisco.gob.mx>
@@ -130,7 +157,7 @@
 
             $singleOpcion = self::getSingle($opciones);
 
-            if ($singleOpcion->disimilitud($opcion) == 1)
+            if ($singleOpcion === null || $singleOpcion->disimilitud($opcion) == 1)
             {
                 $descripcion     = $opcion->getDescripcion();
                 $correcta        = $opcion->getCorrecta();

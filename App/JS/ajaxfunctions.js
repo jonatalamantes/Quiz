@@ -105,6 +105,10 @@ function normalData(page)
         $('#labelNombre').css('color', 'black');
         $('#labelCiclo').css('color', 'black');
     }
+    else if (page === 'cuestionario_insertar.php')
+    {
+        $('#labelNombre').css('color', 'black');
+    }
 }
 
 function validateData(page, status)
@@ -279,7 +283,120 @@ function validateData(page, status)
                 alert("Error al procesar los datos");
             });
         }
-    }        
+    }     
+    else if (page == "cuestionario_insertar.php")
+    {
+        nombreQuiz = $("#txtNombre").val();
+        correct = true;
+
+        if (nombreQuiz == undefined || nombreQuiz == "")
+        {
+            $("#labelNombre").css("color", "blue");
+            correct = false;
+        }
+
+        if (correct)
+        {
+            estructuraLimpia = generarEstructuraLimpia();
+
+            if (estructuraLimpia.length == 0)
+            {
+                alerta("Favor de Agregar Preguntas");
+                correct = false;
+            }
+
+            if (correct)
+            {
+                arregloPreguntasFallidas = [];
+                
+                for (i = 0; i < estructuraLimpia.length; i++)
+                {
+                    if (estructuraLimpia[i]["respuesta"] != -1)
+                    {
+                        if (estructuraLimpia[i]["opciones"].length <= 1)
+                        {
+                            arregloPreguntasFallidas.push({pregunta:i, razon:"faltan opciones"});
+                        }
+                        else
+                        {
+                            arregloDistintos = [];
+
+                            for (j = 0; j < estructuraLimpia[i]["opciones"].length; j++)
+                            {
+                                descripcion = estructuraLimpia[i]["opciones"][j]["descripcion"];
+
+                                if (arregloDistintos.indexOf(descripcion) == -1)
+                                {
+                                    arregloDistintos.push(descripcion);
+                                }
+                                else
+                                {
+                                    arregloPreguntasFallidas.push({pregunta:i, razon:descripcion});
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        arregloPreguntasFallidas.push({pregunta:i, razon:"no respuesta"});
+                    }
+                }
+
+                //console.log(arregloPreguntasFallidas);
+
+                if (arregloPreguntasFallidas.length == 0)
+                {
+                    //Script de Ajax
+                    $.ajax
+                    ({
+                        data: {data:estructuraLimpia, nombreCuestionario:nombreQuiz},
+                        type: "POST",
+                        url: 'JS/scriptsAjax/insertarCuestionario.php',
+                    })
+                    .done(function( data, textStatus, jqXHR ) 
+                    {
+                        if (data.indexOf("OK") !== -1)
+                        {
+                            alert("Guardado Exitoso");
+                            window.location.href = status;
+                        }
+                        else //OK
+                        {
+                            alert("Error en los datos proporcionados");   
+                        }
+                    })
+                    .fail(function( jqXHR, textStatus, errorThrown ) 
+                    {
+                        alert("Error al procesar los datos");
+                    });
+                }
+                else
+                {
+                    alertaVar = "Ha habido preguntas Incorrectas<br>";
+
+                    for (i = 0; i < arregloPreguntasFallidas.length; i++)
+                    {
+                        if (arregloPreguntasFallidas[i]["razon"] == "no respuesta")
+                        {
+                            alertaVar += "La pregunta " + (i+1) + ": no tiene respuesta";
+                        }
+                        else if (arregloPreguntasFallidas[i]["razon"] == "faltan opciones")
+                        {
+                            alertaVar += "La pregunta " + (i+1) + ": debe de tener por lo menos dos opciones";
+                        }
+                        else 
+                        {
+                            alertaVar += "La pregunta " + (i+1) + ": Se repite la opcion '" + arregloPreguntasFallidas[i]["razon"] + "'";
+                        }
+
+                        alertaVar += "<br>";
+                    }
+
+                    alerta(alertaVar);
+                }
+            }
+        }
+    }   
 }
 
 function deleteObject(objectName, id)

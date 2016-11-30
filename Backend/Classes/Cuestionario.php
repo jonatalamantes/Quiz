@@ -45,6 +45,9 @@
          */
         public function fromArray($array = array())
         {
+            echo "hola";
+            var_dump($array);
+
             if (!empty($array))
             {
                 $this->setId($array["id"]);

@@ -9,12 +9,12 @@
     $pagina = str_replace("|title|", "Insertar Cuestionario", $pagina);
 
     //Create the button
-    $saveButton = '<button type="button" class="btn btn-warning" onclick=\'validateData("curso_insertar.php", "insert")\'>
+    $saveButton = '<button type="button" class="btn btn-warning" onclick=\'validateData("cuestionario_insertar.php", "insert")\'>
                       <img src="icons/saveLight.png" height="50px"><br>
                       <strong>Guardar</strong>
                    </button>';
 
-    $cancelButton = '<button type="button" class="btn btn-warning" onclick=\'href("curso_menu.php")\'>
+    $cancelButton = '<button type="button" class="btn btn-warning" onclick=\'href("cuestionario_menu.php")\'>
                         <img src="icons/deleteLight.png" height="50px"><br>
                         <strong>Cancelar</strong>
                     </button>';

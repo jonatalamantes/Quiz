@@ -342,9 +342,18 @@ function agregarOpcion(numeroPregunta)
 
 function marcarRespuesta(numeroPregunta, numeroOpcion)
 {
-    desmarcarRespuestas(numeroPregunta);
-    $("#marca"+numeroPregunta+"-"+numeroOpcion).attr("src", "icons/check.png");
-    pregunta[numeroPregunta]["respuesta"] = numeroOpcion;
+    if (pregunta[numeroPregunta] !== undefined &&
+        pregunta[numeroPregunta]["opciones"][numeroOpcion] !== undefined &&
+        pregunta[numeroPregunta]["opciones"][numeroOpcion]["descripcion"] != "")
+    {
+        desmarcarRespuestas(numeroPregunta);
+        $("#marca"+numeroPregunta+"-"+numeroOpcion).attr("src", "icons/check.png");
+        pregunta[numeroPregunta]["opciones"][numeroOpcion]["respuesta"] = true;
+    }
+    else
+    {
+        alerta("Opcion Invalida, trate de agregar texto a la opcion");
+    }
 }
 
 function desmarcarRespuestas(numeroPregunta)
@@ -352,9 +361,62 @@ function desmarcarRespuestas(numeroPregunta)
     for (i = 0; i < pregunta[numeroPregunta]["opciones"].length; i++)
     {
         $("#marca"+numeroPregunta+"-"+i).attr("src", "icons/delete.png");
+        pregunta[numeroPregunta]["opciones"][i]["respuesta"] = false;
+    }
+}
+
+function alerta(msg)
+{
+    $("#dialogoError").html(msg);
+    $("#dialogoError").dialog({modal: true});
+}
+
+function generarEstructuraLimpia()
+{
+    estructuraLimpia = [];
+
+    contadorFilas = 0;
+    for (i = 0; i < pregunta.length; i++)
+    {
+        if (pregunta[i]["activo"])
+        {
+            objPregunta = {pos: contadorFilas, 
+                           nombrePregunta: pregunta[i]["nombrePregunta"], 
+                           activo:true, opciones:[]};
+
+            estructuraLimpia.push(objPregunta);
+
+            contadorColumna = 0;
+            posRespuesta = 0;
+            for (j = 0; j < pregunta[i]["opciones"].length; j++)
+            {
+                if (pregunta[i]["opciones"][j]["activo"] && pregunta[i]["opciones"][j]["descripcion"] != "")
+                {
+                    objOpcion = {numero: contadorColumna, 
+                                 descripcion:pregunta[i]["opciones"][j]["descripcion"], 
+                                 activo:true,
+                                 respuesta:pregunta[i]["opciones"][j]["respuesta"]};
+
+                    estructuraLimpia[contadorFilas]["opciones"].push(objOpcion);
+
+                    contadorColumna++;
+
+                    if (pregunta[i]["respuesta"] <= j)
+                    {
+                        posRespuesta++;
+                    }
+                }
+            }
+
+            estructuraLimpia[contadorFilas]["respuesta"] = posRespuesta;
+ 
+            contadorFilas++;
+        }
     }
 
-    pregunta[numeroPregunta]["respuesta"] = -1;
+    //console.log(estructuraLimpia);
+
+    return estructuraLimpia;
 }
 
 function agregarPregunta()

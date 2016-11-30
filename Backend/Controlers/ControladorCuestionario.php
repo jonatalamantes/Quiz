@@ -57,6 +57,30 @@
          * @param  integer           $begin       The number of page to display the registry
          * @return Array[Cuestionario]    $cuestionario_simples    Array of Cuestionario Object
          */
+        static function getLast()
+        {
+            $tableCuestionario  = DatabaseManager::getNameTable('TABLE_CUESTIONARIO');
+
+            $query     = "SELECT $tableCuestionario.* 
+                          FROM $tableCuestionario
+                          ORDER BY id DESC";
+
+            $cuestionario_simple = DatabaseManager::singleFetchAssoc($query);
+
+            $cuestionarioA = new Cuestionario();
+            $cuestionarioA->fromArray($cuestionario_simple);
+
+            return $cuestionarioA;
+        }
+
+        /**
+         * Recover all Cuestionario from the database begin in one part of the cuestionario_simple table
+         * 
+         * @author Jonathan Sandoval <jonathan.sandoval@jalisco.gob.mx>
+         * @param  string            $order       The type of sort of the Cuestionario
+         * @param  integer           $begin       The number of page to display the registry
+         * @return Array[Cuestionario]    $cuestionario_simples    Array of Cuestionario Object
+         */
         static function getAll($order = 'id', $begin = 0, $cantidad = 10)
         {
             $tableCuestionario  = DatabaseManager::getNameTable('TABLE_CUESTIONARIO');
@@ -125,17 +149,16 @@
 
             $singleCuestionario = self::getSingle($opciones);
 
-            if ($singleCuestionario->disimilitud($cuestionario) == 1)
+            if ($singleCuestionario === null || $singleCuestionario->disimilitud($cuestionario) == 1)
             {
                 $nombre = $cuestionario->getNombre();
-                $idRelacionOpcionPregunta  = $cuestionario->getIdRelacionOpcionPregunta();
 
                 $tableCuestionario = DatabaseManager::getNameTable('TABLE_CUESTIONARIO');
 
                 $query     = "INSERT INTO $tableCuestionario 
-                             (nombre, idRelacionOpcionPregunta) 
+                             (nombre) 
                              VALUES 
-                             ($nombre, $idRelacionOpcionPregunta)";
+                             ('$nombre')";
 
                 if (DatabaseManager::singleAffectedRow($query) === true)
                 {                    
@@ -180,14 +203,12 @@
                 {
                     $id                        = $singleCuestionario->getId();
                     $nombre                    = $cuestionario->getNombre();
-                    $idRelacionOpcionPregunta  = $cuestionario->getIdRelacionOpcionPregunta();
 
                     $tableCuestionario = DatabaseManager::getNameTable('TABLE_CUESTIONARIO');
 
                     $query     = "UPDATE $tableCuestionario 
-                                  SET nombre                    = '$nombre', 
-                                      idRelacionOpcionPregunta  = '$idRelacionOpcionPregunta' 
-                                 WHERE $tableCuestionario.id = '$id'";
+                                  SET nombre                 = '$nombre'
+                                  WHERE $tableCuestionario.id = '$id'";
 
                     if (DatabaseManager::singleAffectedRow($query) === true)
                     {                    
