@@ -25,9 +25,8 @@
     $pagina = str_replace("|SaveButton|"  , $saveButton  , $pagina);
     $pagina = str_replace("|CancelButton|", $cancelButton, $pagina);
     $pagina = str_replace("|ReturnButton|", $returnButton, $pagina);
-    $pagina = str_replace("|Alumnos|", "", $pagina);
+    $pagina = str_replace("|Cursos|", "", $pagina);
     $pagina = str_replace("disabled", '', $pagina);
-
 
     $pagina = LanguageSupport::HTMLEvalLanguage($pagina);
 
