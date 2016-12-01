@@ -11,7 +11,7 @@
     define('TABLE_PREGUNTA',               'Pregunta');
     define('TABLE_NODO_CUESTIONARIO',      'NodoCuestionario');
     define('TABLE_REL_ALUMNO_CURSO',       'relacionAlumnoCurso');
-    define('TABLE_REL_CUESTIONARIO_CURSO', 'relacionCustionarioCurso');
+    define('TABLE_REL_CUESTIONARIO_CURSO', 'relacionCuestionarioCurso');
     define('TABLE_RESPUESTA_ALUMNO',       'RespuetaAlumno');
     define('TABLE_OPCION',                 'Opcion');
     

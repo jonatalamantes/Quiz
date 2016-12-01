@@ -4,6 +4,8 @@
     require_once(__DIR__."/../Backend/Controlers/ControladorNodoCuestionario.php");
     require_once(__DIR__."/../Backend/Controlers/ControladorOpcion.php");
     require_once(__DIR__."/../Backend/Controlers/ControladorPregunta.php");
+    require_once(__DIR__."/../Backend/Controlers/ControladorRelacionCuestionarioCurso.php");
+    require_once(__DIR__."/../Backend/Controlers/ControladorCurso.php");
 
     SessionManager::validateUserInPage("menu_admin.php");
 
@@ -33,14 +35,15 @@
                         <strong>Cancelar</strong>
                     </button>';
 
-    $returnButton = '';
+    $returnButton = '<button type="button" class="btn btn-warning" onclick=\'href("agregar_cuestionario_curso.php?idCuestionario='.$id.'")\'>
+                        <img src="icons/cursoLight.png" height="50px"><br>
+                        <strong>Agregar Curso</strong>
+                    </button>';
 
     //Create a action for button cancel
     $pagina = str_replace("|SaveButton|"  , $saveButton  , $pagina);
     $pagina = str_replace("|CancelButton|", $cancelButton, $pagina);
     $pagina = str_replace("|ReturnButton|", $returnButton, $pagina);
-    $pagina = str_replace("|Alumnos|", "", $pagina);
-    $pagina = str_replace("disabled", '', $pagina);
 
     //Cargamos los datos del cuestionario
     $cuestionario = ControladorCuestionario::getSingle(array('id' => $id, 'activo' => "S"));
@@ -137,6 +140,45 @@
 
     }
 
+    //Determinar si existen cursos que han tomado dicho cuestionario
+    $cursosR = ControladorRelacionCuestionarioCurso::filter(array('idCuestionario' => $_GET["id"]), -1,-1);
+    $cursos_string = "";
+
+    if ($cursosR !== NULL)
+    {
+        $cursos_string .= "<table class='table table-condensed cf'>
+                           <tbody style='margin-left: 20px; background-color: transparent; text-align: center;'>
+                           <tr><td><label>CURSOS QUE PUEDEN CONTESTAR EL CUESTIONARIO</label></td></tr>";
+
+        foreach ($cursosR as $key => $curso) 
+        {
+            $miCurso = ControladorCurso::getSingle(array('id' => $curso->getIdCurso()));
+
+            $cursos_string .= "<tr><td>";
+            $cursos_string .= "<div class='input-group'>";
+            $cursos_string .= "    <div class='input-group-btn'>
+                                        <button class='btn btn-default btn-info' style='margin-top: 0px;' 
+                                        onclick='deleteRelacionCuestionarioCurso(\"".$curso->getIdCuestionario()."\", \"".$curso->getIdCurso()."\")'>
+                                            <img src='icons/deleteLight.png' height='10px'>
+                                        </button>
+                                    </div>
+                                    <input class='form-control agrupacion' type='text' value='". $miCurso->getNombre() ."' disabled>";
+            $cursos_string .= "    <div class='input-group-btn'>
+                                        <button class='btn btn-default btn-info' style='margin-top: 0px; margin-left: 3px' 
+                                        onclick='href(\"curso_ver.php?id=".$miCurso->getId()."\")'>
+                                            <img src='icons/searchLight.png' height='10px'>
+                                        </button>
+                                    </div>
+                                </div></td></tr>";
+
+        }
+
+        $cursos_string .= "</tbody></table>";
+    }
+
+    $pagina = str_replace("|Cursos|", $cursos_string, $pagina);
+
+    $pagina = str_replace("|Cuestionarios|", "", $pagina);
     $pagina = LanguageSupport::HTMLEvalLanguage($pagina);
 
     echo $pagina;

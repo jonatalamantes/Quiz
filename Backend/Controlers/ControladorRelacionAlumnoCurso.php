@@ -24,8 +24,6 @@
                 return false;
             }
 
-            var_dump($respuestaAlumno);
-
             $opciones = array('idCurso'  => $respuestaAlumno->getIdCurso(), 
                               'idAlumno' => $respuestaAlumno->getIdAlumno());
 

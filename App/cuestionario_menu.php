@@ -146,8 +146,8 @@
         foreach ($CuestionarioRegistries as $cuestionario) 
         {
             $options = '<td data-title="Opciones" class="center-btn" style="text-align: center">
-                <button type="button" class="btn btn-warning" onclick="href(\'cuestionario_ver.php?id=' . $cuestionario->getID() . '\')">
-                    <img src="icons/ojo.png" class="img-inside" height="30px">
+                <button type="button" class="btn btn-warning" onclick="href(\'cuestionario_editar.php?id=' . $cuestionario->getID() . '\')">
+                    <img src="icons/updateLight.png" class="img-inside" height="30px">
                 </button>
                 <button type="button" class="btn btn-warning" onclick="deleteObject(\'cuestionario\', \'' . $cuestionario->getID() . '\')">
                     <img src="icons/deleteLight.png" class="img-inside" height="30px">

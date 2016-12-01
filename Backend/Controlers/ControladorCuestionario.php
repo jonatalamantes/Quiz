@@ -271,8 +271,7 @@
             $query     = "SELECT $tableCuestionario.*
                           FROM $tableCuestionario
                           WHERE ($tableCuestionario.nombre LIKE '%$string%') AND
-                                 $tableCuestionario.activo = 'S'
-                          ORDER BY ";
+                                 $tableCuestionario.activo = 'S'";
 
             $arrayCuestionarios   = DatabaseManager::multiFetchAssoc($query);
             $cuestionario_simples = array();
