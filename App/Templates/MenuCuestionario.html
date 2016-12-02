@@ -45,32 +45,6 @@
                             <button type="button" class="btn btn-warning btn-no-inside" onclick="href('cuestionario_insertar.php');">
                                 <img src="icons/plusLight.png" height="30px"> Agregar
                             </button>
-                            <button type="button" class="btn btn-warning btn-no-inside" onclick="hiddenElement('simpleSearch', 'true'); hiddenElement('advancedSearch', 'false');">
-                                Búsqueda Avanzada
-                            </button>
-                        </div>
-                    </form>
-                    <form class="navbar-form" id="advancedSearch" hidden onsubmit="return false;">
-                        <div class="well">
-                            <p>
-                                <button type="button" class="btn btn-warning btn-no-inside"  onclick="href('cuestionario_menu.php');">
-                                    <img src="icons/cuestionarioLight.png" height="30px">Mostrar Todos
-                                </button>
-                                <button type="button" class="btn btn-warning btn-no-inside" onclick="href('cuestionario_insertar.php');">
-                                    <img src="icons/plusLight.png" height="30px"> Agregar
-                                </button>
-                                <button type="button" class="btn btn-warning btn-no-inside" onclick="hiddenElement('simpleSearch', 'false'); hiddenElement('advancedSearch', 'true');">Búsqueda Simple</button>
-                            </p>
-                            <p>
-                                <input type="text" class="form-control" placeholder="ID" id="inputId" onkeyup="inputNumeric('inputId');" style="display:none">
-                            </p><p>
-                                <input type="text" class="form-control" placeholder="Número" id="inputNombre" onkeyup="inputNumeric('inputNombre')">
-                            </p><p>
-                                <button type="button" class="btn btn-warning btn-no-inside" onclick="advancedSearch('cuestionario_menu.php')">
-                                    <strong>Buscar</strong>
-                                    <img src="icons/searchLight.png" height="30px">
-                                </button>
-                            </p>
                         </div>
                     </form>
                     <div class="container">

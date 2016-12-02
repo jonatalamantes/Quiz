@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `Quiz`.`Alumno` (
   `password` VARCHAR(45) NOT NULL,
   `activo` ENUM('S', 'N') NOT NULL DEFAULT 'S',
   `fechaRegistro` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `tipoAlumno` ENUM('Admin', 'Normal') NOT NULL DEFAULT 'Admin',
+  `tipo` ENUM('Admin', 'Normal') NOT NULL DEFAULT 'Admin',
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `Quiz`.`NodoCuestionario` (
   `idCuestionario` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_relacionPreguntaRespuesta_Pregunta1_idx` (`idPregunta` ASC),
-  INDEX `fk_NodoCuestionario_Custionario1_idx` (`idCuestionario` ASC),
+  INDEX `fk_NodoCuestionario_Cuestionario1_idx` (`idCuestionario` ASC),
   CONSTRAINT `fk_relacionPreguntaRespuesta_Respueta1`
     FOREIGN KEY (`idOpcion`)
     REFERENCES `Quiz`.`Opcion` (`id`)
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `Quiz`.`NodoCuestionario` (
     REFERENCES `Quiz`.`Pregunta` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_NodoCuestionario_Custionario1`
+  CONSTRAINT `fk_NodoCuestionario_Cuestionario1`
     FOREIGN KEY (`idCuestionario`)
     REFERENCES `Quiz`.`Cuestionario` (`id`)
     ON DELETE NO ACTION
@@ -140,14 +140,14 @@ CREATE TABLE IF NOT EXISTS `Quiz`.`relacionCuestionarioCurso` (
   `idCuestionario` INT NOT NULL,
   `idCurso` INT NOT NULL,
   PRIMARY KEY (`idCuestionario`, `idCurso`),
-  INDEX `fk_Custionario_has_Curso_Curso1_idx` (`idCurso` ASC),
-  INDEX `fk_Custionario_has_Curso_Custionario1_idx` (`idCuestionario` ASC),
-  CONSTRAINT `fk_Custionario_has_Curso_Custionario1`
+  INDEX `fk_Cuestionario_has_Curso_Curso1_idx` (`idCurso` ASC),
+  INDEX `fk_Cuestionario_has_Curso_Cuestionario1_idx` (`idCuestionario` ASC),
+  CONSTRAINT `fk_Cuestionario_has_Curso_Cuestionario1`
     FOREIGN KEY (`idCuestionario`)
     REFERENCES `Quiz`.`Cuestionario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Custionario_has_Curso_Curso1`
+  CONSTRAINT `fk_Cuestionario_has_Curso_Curso1`
     FOREIGN KEY (`idCurso`)
     REFERENCES `Quiz`.`Curso` (`id`)
     ON DELETE NO ACTION

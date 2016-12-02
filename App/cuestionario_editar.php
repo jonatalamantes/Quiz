@@ -25,14 +25,11 @@
     }
 
     //Create the button
-    $saveButton = '<button type="button" class="btn btn-warning" onclick=\'validateData("cuestionario_insertar.php", "cuestionario_menu.php")\'>
-                      <img src="icons/saveLight.png" height="50px"><br>
-                      <strong>Guardar</strong>
-                   </button>';
+    $saveButton = '';
 
     $cancelButton = '<button type="button" class="btn btn-warning" onclick=\'href("cuestionario_menu.php")\'>
-                        <img src="icons/deleteLight.png" height="50px"><br>
-                        <strong>Cancelar</strong>
+                        <img src="icons/returnLight.png" height="50px"><br>
+                        <strong>Regresar</strong>
                     </button>';
 
     $returnButton = '<button type="button" class="btn btn-warning" onclick=\'href("agregar_cuestionario_curso.php?idCuestionario='.$id.'")\'>
@@ -157,14 +154,14 @@
             $cursos_string .= "<tr><td>";
             $cursos_string .= "<div class='input-group'>";
             $cursos_string .= "    <div class='input-group-btn'>
-                                        <button class='btn btn-default btn-info' style='margin-top: 0px;' 
+                                        <button class='btn btn-default btn-warning' style='margin-top: 0px;' 
                                         onclick='deleteRelacionCuestionarioCurso(\"".$curso->getIdCuestionario()."\", \"".$curso->getIdCurso()."\")'>
                                             <img src='icons/deleteLight.png' height='10px'>
                                         </button>
                                     </div>
                                     <input class='form-control agrupacion' type='text' value='". $miCurso->getNombre() ."' disabled>";
             $cursos_string .= "    <div class='input-group-btn'>
-                                        <button class='btn btn-default btn-info' style='margin-top: 0px; margin-left: 3px' 
+                                        <button class='btn btn-default btn-warning' style='margin-top: 0px; margin-left: 3px' 
                                         onclick='href(\"alumno_curso_cuestionario.php?idCurso=".$miCurso->getId()."&idCuestionario=".$id."\")'>
                                             <img src='icons/searchLight.png' height='10px'>
                                         </button>

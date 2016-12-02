@@ -3,23 +3,23 @@
 	/**
 	* 	Clase para un Relacion de Respuesta del alumno
 	*/
-	class RespuetaAlumno
+	class RespuestaAlumno
 	{
         private $idAlumno;
-        private $idRelacionOpcionPregunta;
+        private $idNodoCuestionario;
 
-		function __construct($i = 0, $a = "", $r = "")
+		function __construct($a = "", $r = "")
 		{
-            $this->idAlumno                 = $a;
-            $this->idRelacionOpcionPregunta = $r;
+            $this->idAlumno           = $a;
+            $this->idNodoCuestionario = $r;
 		}
 
         function fromArray($array = null)
         {
             if ($array !== NULL && !empty($array))
             {
-                $this->idAlumno                 = $array["idAlumno"];
-                $this->idRelacionOpcionPregunta = $array["idRelacionOpcionPregunta"];
+                $this->idAlumno           = $array["idAlumno"];
+                $this->idNodoCuestionario = $array["idNodoCuestionario"];
             }
         }
                 
@@ -48,25 +48,25 @@
         }
 
         /**
-         * Gets the value of idRelacionOpcionPregunta.
+         * Gets the value of idNodoCuestionario.
          *
          * @return mixed
          */
-        public function getidRelacionOpcionPregunta()
+        public function getidNodoCuestionario()
         {
-            return $this->idRelacionOpcionPregunta;
+            return $this->idNodoCuestionario;
         }
 
         /**
-         * Sets the value of idRelacionOpcionPregunta.
+         * Sets the value of idNodoCuestionario.
          *
-         * @param mixed $idRelacionOpcionPregunta the id respuesta
+         * @param mixed $idNodoCuestionario the id respuesta
          *
          * @return self
          */
-        public function setidRelacionOpcionPregunta($idRelacionOpcionPregunta)
+        public function setidNodoCuestionario($idNodoCuestionario)
         {
-            $this->idRelacionOpcionPregunta = $idRelacionOpcionPregunta;
+            $this->idNodoCuestionario = $idNodoCuestionario;
 
             return $this;
         }

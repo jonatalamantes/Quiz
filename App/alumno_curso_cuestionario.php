@@ -20,7 +20,7 @@
     //Create the button
     $saveButton = '';
 
-    $cancelButton = '<button type="button" class="btn btn-success" onclick=\'href("'.SessionManager::getLastPage().'")\'>
+    $cancelButton = '<button type="button" class="btn btn-warning" onclick=\'href("'.SessionManager::getLastPage().'")\'>
                       <img src="icons/returnLight.png" height="50px"><br>
                       <strong>Regresar</strong>
                    </button>';
@@ -38,7 +38,21 @@
     //Buscamos el conjunto de estudiantes que estarán en la tabla
     $curso        = ControladorCurso::getSingle(array('id' => $_GET["idCurso"], 'activo' => 'S'));
     $cuestionario = ControladorCuestionario::getSingle(array('id' => $_GET["idCuestionario"], 'activo' => 'S'));
-    $tablaContenido = "<table><tbody>";
+    $tablaContenido = '<table class="col-md-12 table-condensed table-bordered cf" id="table1">';
+
+    $tablaContenido = $tablaContenido . '<tbody style="text-align:center">';
+
+    $header = '<tr>
+                    <th data-title="" colspan="3" class="center"><strong>Alumnos Inscritos en la Materia y su resultado en el Quiz</strong></th>
+                </tr>
+                <tr style="text-align: center;">
+                    <th style="text-align: center;" class="hideOnMinus">Código</th>
+                    <th style="text-align: center;" class="hideOnMinus">Nombre Completo</th>
+                    <th style="text-align: center;" class="hideOnMinus">Estado del Cuestionario</th>
+                </tr>
+                ';
+
+    $tablaContenido .= $header;
 
     $relacionAlumnos = ControladorRelacionAlumnoCurso::filter(array('idCurso' => $curso->getId()), -1,-1);
 
@@ -48,7 +62,7 @@
         {
             $alumno = ControladorAlumno::getSingle(array('id' => $relacion->getIdAlumno(), "activo" => "S"));
 
-            $tablaContenido .= "<tr><td>".$alumno->getPassword()."</td><td>".$alumno->getNombreCompleto()."</td>"; 
+            $tablaContenido .= "<tr><td td data-title='Código'>".$alumno->getPassword()."</td><td data-title='Nombre'>".$alumno->getNombreCompleto()."</td>"; 
 
             //Revisamos si este usuarios ya ha contestado el cuestionario
             $respuestas = ControladorRespuestaAlumno::filter(array('idAlumno' => $alumno->getId(), 'idCuestionario' => $cuestionario->getId()));
@@ -56,18 +70,21 @@
 
             if ($respuestas == NULL)
             {
-                $tablaContenido .= "<td> Sin Responder </td>";
+                $tablaContenido .= "<td td data-title='Estado'> Sin Responder </td>";
             }
             else
             {
-                $tablaContenido .= "<td> Con Respuesta </td>";
+                $tablaContenido .= "<td td data-title='Estado'> 
+                                    <button class='btn btn-warning' onclick='href(\"ver_cuestionario_alumno.php?idAlumno=".$alumno->getId()."&idCuestionario=".$cuestionario->getId()."\")'>
+                                        <img src='icons/cuestionarioLight.png' class='img-inside' height='30px'>Quiz
+                                    </button>
+                                    </td>";
             }
 
             $tablaContenido .= "</tr>";
+            $tablaContenido .= "</tbody></table>";
         }
     }
-
-    $tablaContenido .= "</tbody></table>";
 
     $pagina = str_replace("|tableContest|", $tablaContenido, $pagina);
     $pagina = LanguageSupport::HTMLEvalLanguage($pagina);
