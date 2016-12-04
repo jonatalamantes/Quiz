@@ -7,7 +7,7 @@
     require_once(__DIR__."/../Backend/Controlers/ControladorNodoCuestionario.php");
     require_once(__DIR__."/../Backend/Controlers/ControladorCuestionario.php");
 
-    SessionManager::validateUserInPage("menu_admin.php");
+    SessionManager::validateUserInPage("menu_normal.php");
 
     if (!array_key_exists("id", $_GET))
     {
@@ -16,12 +16,12 @@
 
     $pagina = file_get_contents("Templates/InsertarAlumno.html");
     $pagina = str_replace("|NavBar|", SessionManager::getNavBar(), $pagina);
-    $pagina = str_replace("|title|", "Ver Alumno", $pagina);
+    $pagina = str_replace("|title|", "Ver Alumno", $pagina); 
 
     //Create the button
     $saveButton = '';
 
-    $cancelButton = '<button type="button" class="btn btn-info" onclick=\'href("alumno_menu.php")\'>
+    $cancelButton = '<button type="button" class="btn btn-info" onclick=\'href("'.SessionManager::getLastPage().'")\'>
                         <img src="icons/returnLight.png" height="50px"><br>
                         <strong>Regresar</strong>
                     </button>';
@@ -129,7 +129,6 @@
     }
 
     $pagina = str_replace("|Cursos|", $cursos_string, $pagina);
-
 
     $pagina = LanguageSupport::HTMLEvalLanguage($pagina);
 

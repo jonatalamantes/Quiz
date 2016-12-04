@@ -98,7 +98,7 @@
          */
         static function validateUserInPage($page = "")
         {
-            if (array_key_exists("idAlumno", $_SESSION) === FALSE)
+            if (array_key_exists("idAlumno", $_SESSION) === FALSE || $_SESSION["idAlumno"] === NULL)
             {
                 echo "<script src='JS/functions.js'></script><script>window.location.href = 'index.php'</script>";
             }
@@ -153,7 +153,7 @@
          */
         static function getNavBar()
         {
-            if (array_key_exists("tipoAlumno", $_SESSION) === FALSE)
+            if (array_key_exists("idAlumno", $_SESSION) === FALSE || $_SESSION["idAlumno"] === NULL)
             {
                 echo "<script src='JS/functions.js'></script><script>window.location.href = 'index.php'</script>";
             }
@@ -199,6 +199,8 @@
                 }
                 else //is Normal
                 {
+                    $idAlumno = SessionManager::getIdAlumno();
+
                     $nav = '<nav class="navbar navbar-inverse navbar-fixed-top">
                         <div class="container">
                             <div class="navbar-header">
@@ -213,22 +215,7 @@
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav navbar-right">
                                     <li><a href="menu_normal.php">Home</a></li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Ir al Menú<span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="alumno_menu.php">Alumno</a></li>
-                                            <li><a href="curso_menu.php">Curso</a></li>
-                                            <li><a href="cuestionario_menu.php">Cuestionario</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Insertar Nuevo<span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="alumno_insertar.php">Alumno</a></li>
-                                            <li><a href="curso_insertar.php">Curso</a></li>
-                                            <li><a href="cuestionario_insertar.php">Cuestionario</a></li>
-                                        </ul>
-                                    </li>
+                                    <li><a href="alumno_ver.php?id='.$idAlumno.'">Mi Perfil</a></li>
                                     <li><a href="#" onclick="window.location.href=\'index.php\';">Salir</a></li>
                                 </ul>
                             </div>
