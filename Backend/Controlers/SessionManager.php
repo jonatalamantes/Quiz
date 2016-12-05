@@ -170,7 +170,7 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a class="navbar-brand" href="main.php" id="headerLanguage">Quiz</a>
+                                <a class="navbar-brand" href="menu_admin.php" id="headerLanguage">Quiz</a>
                             </div>
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav navbar-right">
@@ -210,7 +210,7 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a class="navbar-brand" href="main.php" id="headerLanguage">Quiz</a>
+                                <a class="navbar-brand" href="menu_normal.php" id="headerLanguage">Quiz</a>
                             </div>
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav navbar-right">
