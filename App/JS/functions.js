@@ -1,4 +1,5 @@
 var pregunta = [];
+var respuesta = [];
 
 function normalInputs(page)
 {
@@ -430,6 +431,33 @@ function marcarRespuesta(numeroPregunta, numeroOpcion)
     }
 }
 
+function contestar(numeroPregunta, numeroOpcion)
+{
+    respuestaGuardada = false;
+
+    for (i = 0; i < respuesta.length; i++)
+    {
+        if (respuesta[i]["numeroPregunta"] == numeroPregunta)
+        {
+            cad = "#marca" + respuesta[i]["numeroPregunta"] + "-" + respuesta[i]["numeroOpcion"];
+            $(cad).attr("src", 'icons/idea.png');
+
+            respuesta[i]["numeroOpcion"] = numeroOpcion;
+            respuestaGuardada = true;
+
+            cad = "#marca" + respuesta[i]["numeroPregunta"] + "-" + respuesta[i]["numeroOpcion"];
+            $(cad).attr("src", 'icons/check.png');
+        }
+    }
+
+    if (!respuestaGuardada)
+    {
+        respuesta.push({numeroPregunta:numeroPregunta, numeroOpcion:numeroOpcion});
+        cad = "#marca" + numeroPregunta + "-" + numeroOpcion;
+        $(cad).attr("src", 'icons/check.png');
+    }
+}
+
 function desmarcarRespuestas(numeroPregunta)
 {
     for (i = 0; i < pregunta[numeroPregunta]["opciones"].length; i++)
@@ -442,7 +470,14 @@ function desmarcarRespuestas(numeroPregunta)
 function alerta(msg)
 {
     $("#dialogoError").html(msg);
-    $("#dialogoError").dialog({modal: true});
+    $("#dialogoError").dialog({
+        modal: true,
+        buttons: {
+            "Cerrar": function() {
+                $("#dialogoError").dialog( "close" );
+            }
+        }
+    });
 }
 
 function generarEstructuraLimpia()
@@ -552,7 +587,6 @@ function agregarPregunta()
                 $('#opcion'+i+"-"+j).val(texto);
             }
         }
-
     }
 }
 

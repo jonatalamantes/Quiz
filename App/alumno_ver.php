@@ -60,17 +60,26 @@
         {
             $miCurso = ControladorCurso::getSingle(array('id' => $curso->getIdCurso()));
 
-            $cursos_string .= "<tr><td>";
-            $cursos_string .= "<div class='input-group'>";
-            $cursos_string .= "    <input class='form-control agrupacion' type='text' value='". $miCurso->getNombre() ."' disabled>";
-            $cursos_string .= "    <div class='input-group-btn'>
+            if (SessionManager::getTipoAlumno() !== "Normal")
+            {
+                $cursos_string .= "<tr><td>";
+                $cursos_string .= "<div class='input-group'>";
+                $cursos_string .= "    <input class='form-control agrupacion' type='text' value='". $miCurso->getNombre() ."' disabled>";
+
+                $cursos_string .= " <div class='input-group-btn'>
                                         <button class='btn btn-default btn-info' style='margin-top: 0px; margin-left: 3px' 
                                         onclick='href(\"curso_ver.php?id=".$miCurso->getId()."\")'>
                                             <img src='icons/searchLight.png' height='10px'>
                                         </button>
                                     </div>
                                 </div></td></tr>";
-
+            }
+            else
+            {
+                $cursos_string .= "<tr><td>";
+                $cursos_string .= "    <input class='form-control agrupacion' type='text' value='". $miCurso->getNombre() ."' disabled>";                
+                $cursos_string .= "</td></tr>";                
+            }
         }
 
         $cursos_string .= "</tbody></table>";

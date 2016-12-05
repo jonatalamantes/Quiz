@@ -93,7 +93,8 @@
 		    	$tablaContenido .= "<tr>";
 		        $tablaContenido .= "<td td data-title='Cuestionario'>".$cuestionario->getNombre()."</td>";
 		        $tablaContenido .= "<td td data-title='Opciones'> 
-		        						<button class='btn btn-success'> Contestar </button> 
+		        						<button class='btn btn-success' 
+		        						onclick='href(\"contestar.php?idAlumno=".$idAlumno."&idCuestionario=".$cuestionario->getId()."\")'> Contestar </button> 
 		        					</td>";
 		       	$tablaContenido .= "</tr>";
 		    }

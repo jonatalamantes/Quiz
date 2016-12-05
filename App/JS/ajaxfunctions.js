@@ -488,7 +488,63 @@ function validateData(page, status)
                 }
             }
         }
-    }   
+    }  
+    else if (page == "contestar.php")
+    {
+        if (respuesta.length == 0)
+        {
+            alerta("Favor de Insertar por lo menos una respuesta");
+        }
+        else
+        {
+            msg = ("Una vez apretado este botón se habrá terminado el Quiz. ¿Desea continuar?");
+
+            $("#dialogoError").html(msg);
+
+            $("#dialogoError").dialog({
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                buttons: {
+                    "Continuar": function() {
+                        $("#dialogoError").dialog( "close" );
+                        $("#btn-guardar").attr("disabled", true);
+                        nombreQuiz = $("#txtNombre").val();
+
+                        $.ajax
+                        ({
+                            data: {data:respuesta, nombreCuestionario:nombreQuiz},
+                            type: "POST",
+                            url: 'JS/scriptsAjax/insertarRespuestas.php',
+                        })
+                        .done(function( data, textStatus, jqXHR ) 
+                        {
+                            if (data.indexOf("OK") !== -1)
+                            {
+                                $("#btn-guardar").attr("disabled", false);
+                                alerta("Guardado Exitoso");
+                                window.location.href = status;
+                            }
+                            else //OK
+                            {
+                                $("#btn-guardar").attr("disabled", false);
+                                alerta("Error en los datos proporcionados");   
+                            }
+                        })
+                        .fail(function( jqXHR, textStatus, errorThrown ) 
+                        {
+                            $("#btn-guardar").attr("disabled", false);
+                            alerta("Error al procesar los datos");
+                        });
+                    },
+                    "Regresar al Cuestionario": function() {
+                        $("#dialogoError").dialog( "close" );
+                    }
+                }
+            });
+        }
+    } 
 }
 
 function deleteObject(objectName, id)

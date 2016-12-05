@@ -22,8 +22,8 @@ USE `Quiz` ;
 CREATE TABLE IF NOT EXISTS `Quiz`.`Alumno` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nombres` VARCHAR(45) NULL,
-  `apellidoMaterno` VARCHAR(45) NULL,
   `apellidoPaterno` VARCHAR(45) NULL,
+  `apellidoMaterno` VARCHAR(45) NULL,
   `password` VARCHAR(45) NOT NULL,
   `activo` ENUM('S', 'N') NOT NULL DEFAULT 'S',
   `fechaRegistro` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
