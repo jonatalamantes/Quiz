@@ -82,8 +82,9 @@
             }
 
             $tablaContenido .= "</tr>";
-            $tablaContenido .= "</tbody></table>";
         }
+
+        $tablaContenido .= "</tbody></table>";
     }
 
     $pagina = str_replace("|tableContest|", $tablaContenido, $pagina);

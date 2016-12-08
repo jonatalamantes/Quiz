@@ -31,6 +31,8 @@ CREATE TABLE IF NOT EXISTS `Quiz`.`Alumno` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
+INSERT INTO Alumno (nombres, apellidoPaterno, apellidoMaterno, password) VALUES ("Admin", "Del", "Sistema", "12345");
+
 
 -- -----------------------------------------------------
 -- Table `Quiz`.`Curso`
