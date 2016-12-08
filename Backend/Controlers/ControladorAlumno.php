@@ -194,6 +194,7 @@
                                   'apellidoPaterno'  => $alumno->getApellidoPaterno(),
                                   'apellidoMaterno'  => $alumno->getApellidoMaterno(),
                                   'password'         => $alumno->getPassword(),
+                                  'tipo'             => $alumno->getTipo(),
                                   'activo'           => 'S');
 
                 $singleAlumno = self::getSingle($opciones);

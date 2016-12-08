@@ -79,14 +79,14 @@
         }
 
         /**
-         * Calculo para saber que tan diferente es un objeto de otro
+         * Calculo para saber que tan diferente es un objetoeto de otro
          * 
-         * @param  Alumno $obj [Objeto con el que se comparara]
-         * @return [float]     [Disimilitud entre los dos objetos]
+         * @param  Alumno $objeto [Objeto con el que se comparara]
+         * @return [float]     [Disimilitud entre los dos objetoetos]
          */
-        public function disimilitud($obj = null)
+        public function disimilitud($objeto = null)
         {
-            if ($obj === null)
+            if ($objeto === null)
             {
                 return -1;
             }
@@ -95,35 +95,35 @@
             $numerador   = 0;
             $denominador = 0;
 
-            if ($obj->getNombres() != $this->getNombres())
+            if ($objeto->getNombres() != $this->getNombres())
             {
                 $numerador += 1;
             }
             
             $denominador += 1;
             
-            if ($obj->getApellidoMaterno() != $this->getApellidoMaterno())
+            if ($objeto->getApellidoMaterno() != $this->getApellidoMaterno())
             {
                 $numerador += 1;
             }
 
             $denominador += 1;
 
-            if ($obj->getApellidoPaterno() != $this->getApellidoPaterno())
+            if ($objeto->getApellidoPaterno() != $this->getApellidoPaterno())
             {
                 $numerador += 1;
             }
 
             $denominador += 1;
 
-            if ($obj->getPassword() != $this->getPassword())
+            if ($objeto->getPassword() != $this->getPassword())
             {
                 $numerador += 1;
             }
 
             $denominador += 1;
 
-            if ($obj->getTipo() != $this->getTipo())
+            if ($objeto->getTipo() != $this->getTipo())
             {
                 $numerador += 1;
             }
@@ -131,6 +131,7 @@
             $denominador += 1;
 
             $disimilitud = (float)($numerador/$denominador);
+
             return $disimilitud;
         }
     
